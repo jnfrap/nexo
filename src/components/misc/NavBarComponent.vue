@@ -1,3 +1,3 @@
 <template>
-  <h1>Board view</h1>
+  <h1>NavBar</h1>
 </template>
