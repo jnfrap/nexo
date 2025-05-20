@@ -11,6 +11,7 @@ export default {
     methods: {
         register() {
             //Lógica para registrar usuario
+            this.$router.push("/auth");
         }
     }
 }
