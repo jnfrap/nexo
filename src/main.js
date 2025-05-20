@@ -31,8 +31,12 @@ const customPrimePreset = definePreset(Aura, {
 
 app.use(PrimeVue, {
   theme: {
-    preset: customPrimePreset
+    preset: customPrimePreset,
+    options: {
+      darkModeSelector: false,
+    }
   }
+
 });
 
 app.mount('#app')
