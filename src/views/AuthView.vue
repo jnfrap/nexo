@@ -1,3 +1,15 @@
+<script>
+import LoginComponent from '../components/auth/LoginComponent.vue';
+
+
+export default {
+  name: 'AuthView',
+  components: {
+    LoginComponent
+  }
+}
+</script>
+
 <template>
-  <h1>Auth view</h1>
+  <LoginComponent />
 </template>
