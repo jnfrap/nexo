@@ -1,4 +1,6 @@
 <script>
+import { apiKey } from '@/shared/constants';
+import { InputText } from 'primevue';
 import FloatLabel from 'primevue/floatlabel';
 
 
@@ -11,11 +13,12 @@ export default {
     }
   },
   components: {
-    FloatLabel
+    FloatLabel,
+    InputText
   },
   methods: {
     login() {
-      //Lógica para iniciar sesión
+      localStorage.setItem('token', apiKey);
     }
   }
 }
@@ -27,12 +30,12 @@ export default {
 
   <div class="bg-white text-black p-6 rounded-xl flex flex-col items-start space-y-2">
     <FloatLabel variant="in" class="w-full">
-      <input id="email" v-model="email" class="w-full border border-slate-300 rounded-lg p-4 text-md" type="email"
+      <InputText id="email" v-model="email" class="w-full border border-slate-300 rounded-lg p-4 text-md"
         autocomplete="off" />
       <label for="email">Email</label>
     </FloatLabel>
     <FloatLabel variant="in" class="w-full">
-      <input id="password" v-model="password" class="w-full border border-slate-300 rounded-lg p-4 text-md"
+      <InputText id="password" v-model="password" class="w-full border border-slate-300 rounded-lg p-4 text-md"
         type="password" autocomplete="off" />
       <label for="password">Contraseña</label>
     </FloatLabel>
