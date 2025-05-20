@@ -6,12 +6,12 @@
     <div
       class="h-full w-[70%] flex justify-between select-none"
     >
-      <a href="/index.html">
+      <RouterLink to="/">
         <div class="h-full flex justify-center items-end w-fit">
           <img src="/branding/Nx.png" alt="Logo de Nexo" class="h-full" />
           <p class="mb-[5px] text-white text-[35px] font-(family-name: Raleway)">Nexo</p>
         </div>
-      </a>
+      </RouterLink>
       <div class="flex items-center gap-[10px] w-fit">
         <div
           class="h-1/2 w-[150px] bg-[#dc7fcc] rounded-full flex justify-center items-center cursor-pointer text-[17px] hover:bg-[#ffcbfa]"
