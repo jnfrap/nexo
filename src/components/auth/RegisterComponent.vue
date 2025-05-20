@@ -1,3 +1,22 @@
+<script>
+
+export default {
+    name: 'RegisterComponent',
+    data() {
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods: {
+        register() {
+            //Lógica para registrar usuario
+        }
+    }
+}
+
+</script>
+
 <template>
     <div class="flex justify-center items-center h-screen bg-fuchsia-200">
         <div class="bg-fuchsia-950 text-white p-4 rounded-xl w-xl">
