@@ -1,5 +1,19 @@
 <script>
 
+export default {
+    name: 'LoginComponent',
+    data() {
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods: {
+        login() {
+            //Lógica para iniciar sesión
+        }
+    }
+}
 
 </script>
 
