@@ -65,6 +65,12 @@ export default {
         title: 'Board 8',
         backgroundImage: '/images/no-image.jpg',
         isFavorite: true
+      },
+      {
+        id: 9,
+        title: 'Board 9',
+        backgroundImage: '/images/no-image.jpg',
+        isFavorite: false
       }
     ];
   }
@@ -72,8 +78,8 @@ export default {
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold text-center text-blue-600 my-8">Main view</h1>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 place-items-center">
+  <div class="w-4/5 mx-auto flex flex-col items-center py-10">
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-items-center">
     <div v-for="board in boards" :key="board.id">
       <BoardPreviewComponent
         :id="board.id"
@@ -82,5 +88,6 @@ export default {
         :isFavorite="board.isFavorite"
       />
     </div>
+  </div>
   </div>
 </template>
