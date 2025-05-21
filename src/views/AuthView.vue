@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex justify-center items-center h-screen bg-fuchsia-50">
+  <div class="flex justify-center items-center min-h-screen bg-fuchsia-50">
     <FormComponent/>
   </div>
 </template>
