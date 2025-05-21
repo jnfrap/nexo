@@ -1,17 +1,17 @@
 <script>
-import FormComponent from '../components/auth/FormComponent.vue';
+import AuthFormComponent from '../components/auth/AuthFormComponent.vue';
 
 
 export default {
   name: 'AuthView',
   components: {
-    FormComponent
+    AuthFormComponent
   }
 }
 </script>
 
 <template>
   <div class="flex justify-center items-center min-h-screen bg-fuchsia-50">
-    <FormComponent/>
+    <AuthFormComponent/>
   </div>
 </template>
