@@ -1,5 +1,5 @@
 <script>
-import { Button, InputText } from 'primevue';
+import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
 
 export default {
   data() {
@@ -8,9 +8,7 @@ export default {
     }
   },
   components: {
-    // eslint-disable-next-line vue/no-reserved-component-names
-    Button,
-    InputText
+    BoardPreviewComponent
   },
   methods: {
     resetName() {
@@ -22,6 +20,5 @@ export default {
 
 <template>
   <h1 class="text-3xl font-bold text-center text-blue-600 my-8">Main view</h1>
-  <InputText type="text" v-model="value" />
-  <Button label="Submit" @click="resetName()" icon="pi pi-search">Reset</Button>
+  <BoardPreviewComponent id="1"/>
 </template>
