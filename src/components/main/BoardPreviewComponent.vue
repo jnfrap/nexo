@@ -49,7 +49,7 @@ export default {
     :style="{ backgroundImage: `url(${localBackgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
 
     <div class="absolute inset-0 backdrop-blur-sm transition-opacity duration-300"
-      :class="{ 'opacity-0': isHovered, 'opacity-100': !isHovered }"></div>
+      :class="isHovered ? 'opacity-0' : 'opacity-100'"></div>
 
     <button class="absolute top-2 right-2 text-yellow-400 text-4xl focus:outline-none cursor-pointer"
       @click.stop="toggleFavorite()">
