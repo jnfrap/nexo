@@ -3,7 +3,7 @@
 import { Button } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
-
+import { storage } from '@/components/misc/storage.js'
 
 export default {
   name: 'BoardPreviewComponent',
@@ -13,7 +13,8 @@ export default {
       localBackgroundImage: '',
       localIsFavorite: false,
       isHovered: false,
-      items: [
+      boards: [],
+      menuItems: [
         {
           label: 'Edit',
           icon: 'pi pi-fw pi-pencil',
@@ -61,7 +62,12 @@ export default {
   },
   methods: {
     toggleFavorite() {
-      this.localIsFavorite = !this.localIsFavorite;
+      const board = this.boards.find(b => b.id === this.id);
+      if (board) {
+        board.isFavorite = !board.isFavorite;
+        this.localIsFavorite = board.isFavorite;
+        storage.boards = this.boards;
+      }
     },
     goToBoard() {
       // Here use Vue Router to navigate to the board page
@@ -69,7 +75,10 @@ export default {
     toggleMenu(event) {
       this.$refs.menu.toggle(event);
     }
-  }
+  },
+  mounted() {
+    this.boards = storage.boards;
+  },
 }
 </script>
 
@@ -91,10 +100,10 @@ export default {
         class="cursor-pointer text-white">
         <i class="pi pi-ellipsis-v" style="font-size: 1rem"></i>
       </Button>
-      <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
+      <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
     </div>
 
-    <ContextMenu ref="menu" :model="items" />
+    <ContextMenu ref="menu" :model="menuItems" />
 
     <div class="absolute bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t from-black to-transparent">
       <h2 class="font-bold transition-all duration-300" :class="isHovered ? 'text-2xl' : 'text-lg'">
