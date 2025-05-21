@@ -1,3 +1,14 @@
+<script>
+import CreateBoardButtonComponent from './CreateBoardButtonComponent.vue';
+
+export default {
+  name: 'NavBarComponent',
+  components: {
+    CreateBoardButtonComponent
+  }
+}
+</script>
+
 <template>
   <div class="h-[70px]"></div>
   <div class="w-full h-[70px] bg-[#4b164c] p-[5px] flex justify-center box-border fixed top-0 z-[1000]">
@@ -10,7 +21,7 @@
           </div>
         </RouterLink>
         <div class="w-6"></div>
-        <!-- Create bord button -->
+        <CreateBoardButtonComponent />
         <!-- Recent boards button -->
       </div>
 
