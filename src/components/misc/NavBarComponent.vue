@@ -6,7 +6,7 @@
         <RouterLink to="/">
           <div class="h-full flex justify-center items-end w-fit">
             <img src="/branding/Nx.png" alt="Logo de Nexo" class="h-full" />
-            <p class="mb-[5px] text-white text-[35px] font-(family-name: Raleway)">Nexo</p>
+            <p class="mb-[5px] text-white text-[35px] font-[Raleway]">Nexo</p>
           </div>
         </RouterLink>
         <div class="w-6"></div>

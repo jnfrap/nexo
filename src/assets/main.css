@@ -6,3 +6,10 @@
 body {
   font-family: 'Lato', Arial, Helvetica, sans-serif;
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
