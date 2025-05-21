@@ -37,7 +37,6 @@ export default {
       this.localIsFavorite = !this.localIsFavorite;
     },
     goToBoard() {
-      console.log(this.id);
       // Here use Vue Router to navigate to the board page
     }
   }
