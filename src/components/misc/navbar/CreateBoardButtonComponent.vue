@@ -51,6 +51,8 @@ export default {
         backgroundImage: '/images/no-image.jpg',
         isFavorite: false
       }
+
+      localStorage.setItem('boards', JSON.stringify(storage.boards));
     }
   }
 }

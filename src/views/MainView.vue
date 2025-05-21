@@ -18,6 +18,7 @@ export default {
     }
   },
   mounted() {
+    storage.boards = localStorage.getItem('boards') ? JSON.parse(localStorage.getItem('boards')) : [];
     this.boards = storage.boards;
   }
 }
