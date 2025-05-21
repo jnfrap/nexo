@@ -12,7 +12,14 @@ export default {
   name: 'CreateBoardButtonComponent',
   data() {
     return {
-      isDialogVisible: false
+      isDialogVisible: false,
+      boardToCreate: {
+        id: 0,
+        title: '',
+        description: '',
+        backgroundImage: '/images/no-image.jpg',
+        isFavorite: false
+      },
     }
   },
 
@@ -27,15 +34,23 @@ export default {
   methods: {
     createBoard() {
       // Logic to create a new board
-      // console.log('Creating a new board with title:', this.value1);
       storage.boards.push({
-        id: 10,
-        title: 'Board 10',
-        backgroundImage: '/images/no-image.jpg',
+        id: storage.boards.length + 1,
+        title: this.boardToCreate.title,
+        description: this.boardToCreate.description,
+        backgroundImage: this.boardToCreate.backgroundImage,
         isFavorite: false
       })
       this.isDialogVisible = false;
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
+
+      this.boardToCreate = {
+        id: 0,
+        title: '',
+        description: '',
+        backgroundImage: '/images/no-image.jpg',
+        isFavorite: false
+      }
     }
   }
 }
@@ -49,12 +64,12 @@ export default {
     position="center" :draggable="false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
-        <InputText id="in_label" v-model="value1" autocomplete="off" class="resize-none w-full" />
+        <InputText id="in_label" v-model="boardToCreate.title" autocomplete="off" class="resize-none w-full" :maxlength=20 />
         <label for="in_label">Title</label>
       </FloatLabel>
 
       <FloatLabel variant="on">
-        <Textarea id="desc" v-model="value1" autocomplete="off" :maxlength="5000" :minlength="10"
+        <Textarea id="desc" v-model="boardToCreate.description" autocomplete="off" :maxlength=5000 :minlength=10
           class="h-28 resize-none overflow-y-auto w-full overflow-hidden" />
         <label for="desc">Description</label>
       </FloatLabel>
