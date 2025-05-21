@@ -6,6 +6,7 @@ import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
 import Toast from 'primevue/toast';
+import { storage } from '@/components/misc/storage.js'
 
 export default {
   name: 'CreateBoardButtonComponent',
@@ -26,7 +27,13 @@ export default {
   methods: {
     createBoard() {
       // Logic to create a new board
-      console.log('Creating a new board with title:', this.value1);
+      // console.log('Creating a new board with title:', this.value1);
+      storage.boards.push({
+        id: 10,
+        title: 'Board 10',
+        backgroundImage: '/images/no-image.jpg',
+        isFavorite: false
+      })
       this.isDialogVisible = false;
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
     }
