@@ -1,10 +1,25 @@
 <script>
+import { useRoute } from 'vue-router';
 import CreateBoardButtonComponent from './CreateBoardButtonComponent.vue';
+import { computed, watch } from 'vue';
 
 export default {
   name: 'NavBarComponent',
   components: {
     CreateBoardButtonComponent
+  },
+  setup() {
+    const route = useRoute()
+    const currentPath = computed(() => route.fullPath)
+
+    watch(
+      () => route.fullPath,
+      (newPath, oldPath) => {
+        console.log('La ruta cambió de', oldPath, 'a', newPath)
+      }
+    )
+
+    return { currentPath }
   }
 }
 </script>
