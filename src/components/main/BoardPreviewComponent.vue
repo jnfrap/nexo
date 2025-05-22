@@ -4,6 +4,7 @@ import { Button } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '@/shared/storage.js'
+import { reorderBoarsdArray } from '@/shared/utils';
 
 export default {
   name: 'BoardPreviewComponent',
@@ -66,7 +67,7 @@ export default {
       if (board) {
         board.isFavorite = !board.isFavorite;
         this.localIsFavorite = board.isFavorite;
-        this.boards.sort((a, b) => (b.isFavorite === true) - (a.isFavorite === true));
+        this.boards = reorderBoarsdArray(this.boards);
         storage.boards = this.boards;
         localStorage.setItem('boards', JSON.stringify(this.boards));
       }

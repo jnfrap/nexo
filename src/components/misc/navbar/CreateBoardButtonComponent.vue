@@ -33,13 +33,13 @@ export default {
   },
   methods: {
     createBoard() {
-      // Logic to create a new board
-      storage.boards.push({
+      storage.boards.unshift({
         id: storage.boards.length + 1,
         title: this.boardToCreate.title,
         description: this.boardToCreate.description,
         backgroundImage: this.boardToCreate.backgroundImage,
-        isFavorite: false
+        isFavorite: false,
+        createdAt: new Date().toISOString(),
       })
       this.isDialogVisible = false;
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
@@ -62,11 +62,13 @@ export default {
   <Button label="Create Board" icon="pi pi-plus" class="p-button-raised p-button-primary"
     @click="isDialogVisible = true" />
 
-  <Dialog v-model:visible="isDialogVisible" modal header="Creating new board" :style="{ width: '25rem' }" :closable=false
-    position="center" :draggable="false">
+  <Dialog v-model:visible="isDialogVisible" modal header="Creating new board" :style="{ width: '25rem' }"
+    :closable=false position="center" :draggable="false" @keydown.enter.prevent="createBoard()"
+    @keydown.esc.prevent="isDialogVisible = false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
-        <InputText id="in_label" v-model="boardToCreate.title" autocomplete="off" class="resize-none w-full" :maxlength=20 />
+        <InputText id="in_label" v-model="boardToCreate.title" autocomplete="off" class="resize-none w-full"
+          :maxlength=20 />
         <label for="in_label">Title</label>
       </FloatLabel>
 

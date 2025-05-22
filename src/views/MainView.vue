@@ -1,6 +1,7 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
 import { storage } from '@/shared/storage.js'
+import { reorderBoarsdArray } from '@/shared/utils';
 
 export default {
   data() {
@@ -15,7 +16,7 @@ export default {
   },
   mounted() {
     storage.boards = localStorage.getItem('boards') ? JSON.parse(localStorage.getItem('boards')) : [];
-    storage.boards.sort((a, b) => (b.isFavorite === true) - (a.isFavorite === true));
+    storage.boards = reorderBoarsdArray(storage.boards);
     this.boards = storage.boards;
   }
 }
