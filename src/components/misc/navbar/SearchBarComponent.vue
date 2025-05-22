@@ -34,8 +34,6 @@ export default {
           });
         }
         storage.filteredBoards = this.filteredBoards;
-        console.log('Filtered boards:', storage.filteredBoards);
-        console.log('All boards:', storage.boards);
       }, 250);
     }
   },
