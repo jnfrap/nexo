@@ -101,7 +101,7 @@ export default {
 
       <Button type="button" @click.stop="toggleMenu($event)" aria-haspopup="true" aria-controls="overlay_menu" unstyled
         class="cursor-pointer text-white">
-        <i class="pi pi-ellipsis-v" style="font-size: 1rem"></i>
+        <i class="pi pi-ellipsis-h" style="font-size: 1rem"></i>
       </Button>
       <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
     </div>
