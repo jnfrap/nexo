@@ -35,6 +35,9 @@ export default {
         }
         storage.filteredBoards = this.filteredBoards;
       }, 250);
+    },
+    onOptionSelected(event) {
+      this.search({ query: event.value.title });
     }
   },
   mounted() {
@@ -48,6 +51,7 @@ export default {
   <IconField>
     <InputIcon class="pi pi-search" />
     <AutoComplete v-model="selectecBoard" optionLabel="title" :suggestions="filteredBoards" @complete="search($event)"
-      placeholder="Search..." />
+      @input="search({ query: $event.target.value })" placeholder="Search..."
+      @option-select="onOptionSelected($event)" />
   </IconField>
 </template>
