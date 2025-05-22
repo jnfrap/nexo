@@ -6,7 +6,7 @@ import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
 import Toast from 'primevue/toast';
-import { storage } from '@/components/misc/storage.js'
+import { storage } from '@/shared/storage.js'
 
 export default {
   name: 'CreateBoardButtonComponent',

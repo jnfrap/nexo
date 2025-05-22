@@ -1,6 +1,6 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
-import { storage } from '@/components/misc/storage.js'
+import { storage } from '@/shared/storage.js'
 
 export default {
   data() {

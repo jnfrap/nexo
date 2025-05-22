@@ -3,7 +3,7 @@
 import { Button } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
-import { storage } from '@/components/misc/storage.js'
+import { storage } from '@/shared/storage.js'
 
 export default {
   name: 'BoardPreviewComponent',
