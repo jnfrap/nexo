@@ -40,7 +40,7 @@ export default {
   },
   props: {
     id: {
-      type: String,
+      type: Number,
       required: true
     },
     title: {
@@ -73,7 +73,7 @@ export default {
       }
     },
     goToBoard() {
-      // Here use Vue Router to navigate to the board page
+      this.$router.push({ name: 'board', params: { boardId: this.id } });
     },
     toggleMenu(event) {
       this.$refs.menu.toggle(event);
