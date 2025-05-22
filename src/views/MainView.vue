@@ -15,6 +15,7 @@ export default {
   },
   mounted() {
     storage.boards = localStorage.getItem('boards') ? JSON.parse(localStorage.getItem('boards')) : [];
+    storage.boards.sort((a, b) => (b.isFavorite === true) - (a.isFavorite === true));
     this.boards = storage.boards;
   }
 }

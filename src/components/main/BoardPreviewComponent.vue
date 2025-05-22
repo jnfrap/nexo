@@ -66,10 +66,10 @@ export default {
       if (board) {
         board.isFavorite = !board.isFavorite;
         this.localIsFavorite = board.isFavorite;
+        this.boards.sort((a, b) => (b.isFavorite === true) - (a.isFavorite === true));
         storage.boards = this.boards;
+        localStorage.setItem('boards', JSON.stringify(this.boards));
       }
-
-      localStorage.setItem('boards', JSON.stringify(this.boards));
     },
     goToBoard() {
       // Here use Vue Router to navigate to the board page
