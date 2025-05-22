@@ -1,11 +1,11 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
-import { storage } from '@/components/misc/storage.js'
+import { storage } from '@/shared/storage.js'
+import { reorderBoarsdArray } from '@/shared/utils';
 
 export default {
   data() {
     return {
-      value: "testing",
       boards: []
     }
   },
@@ -13,12 +13,10 @@ export default {
     BoardPreviewComponent
   },
   methods: {
-    resetName() {
-      this.value = "testing";
-    }
   },
   mounted() {
     storage.boards = localStorage.getItem('boards') ? JSON.parse(localStorage.getItem('boards')) : [];
+    storage.boards = reorderBoarsdArray(storage.boards);
     this.boards = storage.boards;
   }
 }
