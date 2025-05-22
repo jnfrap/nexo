@@ -1,23 +1,21 @@
 <script>
 import { useRoute } from 'vue-router';
 import CreateBoardButtonComponent from './CreateBoardButtonComponent.vue';
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 
 export default {
   name: 'NavBarComponent',
   components: {
     CreateBoardButtonComponent
   },
+  data() {
+    return {
+      isRouteInMain: false,
+    }
+  },
   setup() {
     const route = useRoute()
     const currentPath = computed(() => route.fullPath)
-
-    watch(
-      () => route.fullPath,
-      (newPath, oldPath) => {
-        console.log('La ruta cambió de', oldPath, 'a', newPath)
-      }
-    )
 
     return { currentPath }
   }
@@ -36,7 +34,7 @@ export default {
           </div>
         </RouterLink>
         <div class="w-6"></div>
-        <CreateBoardButtonComponent />
+        <CreateBoardButtonComponent v-if="currentPath === '/'" />
         <!-- Recent boards button -->
       </div>
 
