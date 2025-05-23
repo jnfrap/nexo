@@ -47,7 +47,15 @@ export default {
         tasks: []
       }
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
-    }
+    },
+    updateTaskGroup(taskGroup) {
+      const index = this.taskGroups.findIndex(tg => tg.id === taskGroup.id);
+      if (index !== -1) {
+        this.taskGroups[index] = taskGroup;
+        this.board.taskGroups = this.taskGroups;
+        updateBoardInLocalStorage(this.board);
+      }
+    },
   },
   mounted() {
     try {
@@ -73,7 +81,7 @@ export default {
 
   <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4">
     <div v-for="tg in taskGroups" :key="tg.id">
-      <TaskGroupComponent :taskGroup="tg" />
+      <TaskGroupComponent :taskGroup="tg" @update-task-group="updateTaskGroup" />
     </div>
     <div class="flex-shrink-0">
       <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true" class="w-40 h-12" />
