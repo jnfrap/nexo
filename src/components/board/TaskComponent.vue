@@ -9,6 +9,7 @@ export default {
     Menu,
     ContextMenu
   },
+  emits: ['delete-task'],
   props: {
     task: {
       type: Object,
@@ -54,7 +55,7 @@ export default {
           severity: 'danger',
         },
         accept: () => {
-          this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+          this.$emit('delete-task', this.task.id);
         }
       });
     },

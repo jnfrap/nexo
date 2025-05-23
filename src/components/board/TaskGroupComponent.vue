@@ -74,6 +74,11 @@ export default {
     updateReorderedTaskGroup() {
       this.$emit('update-task-group', this.localTaskGroup);
     },
+    deleteTask(taskId) {
+      this.localTaskGroup.tasks = this.localTaskGroup.tasks.filter(task => task.id !== taskId);
+      this.$emit('update-task-group', this.localTaskGroup);
+      this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Task deleted', life: 3000 });
+    }
   },
   created() {
     this.localTaskGroup = this.taskGroup;
@@ -95,7 +100,7 @@ export default {
 
     <draggable :list="localTaskGroup.tasks" class="flex flex-col gap-2" @end="updateReorderedTaskGroup">
       <div v-for="t in localTaskGroup.tasks" :key="t.id">
-        <TaskComponent :task="t" />
+        <TaskComponent :task="t" @delete-task="deleteTask" />
       </div>
       <Button type="button" icon="pi pi-plus" label="Add Task" class="w-full" size="small" @click="isDialogVisible = true" />
     </draggable>
