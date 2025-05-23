@@ -20,7 +20,7 @@ export default {
         backgroundImage: '/images/no-image.jpg',
         isFavorite: false,
         createdAt: '',
-        tasks: []
+        taskGroups: []
       },
     }
   },
@@ -42,7 +42,7 @@ export default {
         backgroundImage: this.boardToCreate.backgroundImage,
         isFavorite: false,
         createdAt: new Date().toISOString(),
-        tasks: []
+        taskGroups: []
       })
       this.isDialogVisible = false;
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
@@ -54,7 +54,7 @@ export default {
         backgroundImage: '/images/no-image.jpg',
         isFavorite: false,
         createdAt: '',
-        tasks: []
+        taskGroups: []
       }
 
       localStorage.setItem('boards', JSON.stringify(storage.boards));

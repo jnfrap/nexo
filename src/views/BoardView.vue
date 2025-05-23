@@ -14,11 +14,11 @@ export default {
   data() {
     return {
       board: {},
-      tasks: [],
+      taskGroups: [],
     }
   },
   methods: {
-    addTask() {
+    addTaskGroup() {
 
     }
   },
@@ -29,7 +29,7 @@ export default {
       const board = boards.find(b => b.id === boardId);
       if (board) {
         this.board = board;
-        this.tasks = board.tasks;
+        this.taskGroups = board.taskGroups;
       } else {
         throw new Error(`Board ${boardId} not found`);
       }
@@ -44,10 +44,10 @@ export default {
 <template>
   <h1>{{ board.title }}</h1> <!-- This must be in the future second navbar -->
 
-  <draggable :list="tasks" class="flex flex-row space-x-4 mx-4">
-    <div v-for="t in list" :key="t.title">
-      <TaskContainerComponent :task="t" />
+  <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4">
+    <div v-for="tg in list" :key="tg.title">
+      <TaskContainerComponent :taskGroup="tg" />
     </div>
-    <Button type="button" label="Add task" icon="pi pi-plus" @click="addTask()" />
+    <Button type="button" label="Add task" icon="pi pi-plus" @click="addTaskGroup()" />
   </draggable>
 </template>
