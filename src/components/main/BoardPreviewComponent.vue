@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     toggleFavorite() {
-      const board = this.boards.find(b => b.id === this.id);
+      const board = this.boards.find(b => b.id === this.localBoard.id);
       if (board) {
         board.isFavorite = !board.isFavorite;
         this.localBoard.isFavorite = board.isFavorite;
