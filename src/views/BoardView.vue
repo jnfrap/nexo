@@ -52,7 +52,7 @@ export default {
   <h1>{{ board.title }}</h1> <!-- This must be in the future second navbar -->
 
   <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4">
-    <div v-for="tg in taskGroups" :key="tg.title">
+    <div v-for="tg in taskGroups" :key="tg.id">
       <TaskGroupComponent :taskGroup="tg" />
     </div>
     <div class="flex-shrink-0">
