@@ -71,7 +71,10 @@ export default {
         title: '',
       }
       this.$toast.add({ severity: 'success', summary: 'Created successfully', detail: 'Task created successfully', life: 3000 });
-    }
+    },
+    updateReorderedTaskGroup() {
+      this.$emit('update-task-group', this.localTaskGroup);
+    },
   },
   created() {
     this.localTaskGroup = this.taskGroup;
@@ -91,7 +94,7 @@ export default {
       <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
     </div>
 
-    <draggable :list="localTaskGroup.task" class="flex flex-col gap-2">
+    <draggable :list="localTaskGroup.tasks" class="flex flex-col gap-2" @end="updateReorderedTaskGroup">
       <div v-for="t in localTaskGroup.tasks" :key="t.id">
         <TaskComponent :task="t" />
       </div>

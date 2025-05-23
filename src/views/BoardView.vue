@@ -48,13 +48,17 @@ export default {
       }
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
     },
-    updateTaskGroup(taskGroup) {
+    updateReorderedTasks(taskGroup) {
       const index = this.taskGroups.findIndex(tg => tg.id === taskGroup.id);
       if (index !== -1) {
         this.taskGroups[index] = taskGroup;
         this.board.taskGroups = this.taskGroups;
         updateBoardInLocalStorage(this.board);
       }
+    },
+    updateReorderedTaskGroups() {
+      this.board.taskGroups = this.taskGroups;
+      updateBoardInLocalStorage(this.board);
     },
   },
   mounted() {
@@ -79,9 +83,9 @@ export default {
 <template>
   <h1>{{ board.title }}</h1> <!-- This must be in the future second navbar -->
 
-  <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4">
+  <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @end="updateReorderedTaskGroups">
     <div v-for="tg in taskGroups" :key="tg.id">
-      <TaskGroupComponent :taskGroup="tg" @update-task-group="updateTaskGroup" />
+      <TaskGroupComponent :taskGroup="tg" @update-task-group="updateReorderedTasks" />
     </div>
     <div class="flex-shrink-0">
       <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true" class="w-40 h-12" />
