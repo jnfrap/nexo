@@ -5,7 +5,6 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
-import Toast from 'primevue/toast';
 import { storage } from '@/shared/storage.js'
 
 export default {
@@ -30,8 +29,7 @@ export default {
     Dialog,
     InputText,
     FloatLabel,
-    Textarea,
-    Toast
+    Textarea
   },
   methods: {
     createBoard() {
@@ -92,6 +90,4 @@ export default {
       </div>
     </div>
   </Dialog>
-
-  <Toast />
 </template>

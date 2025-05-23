@@ -4,7 +4,7 @@ import { VueDraggableNext } from 'vue-draggable-next'
 import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
-import { FloatLabel, InputText, Toast } from 'primevue';
+import { FloatLabel, InputText } from 'primevue';
 import { updateBoardInLocalStorage } from '@/shared/utils';
 
 export default {
@@ -15,8 +15,7 @@ export default {
     Button,
     Dialog,
     FloatLabel,
-    InputText,
-    Toast
+    InputText
   },
   data() {
     return {
@@ -108,6 +107,4 @@ export default {
       </div>
     </div>
   </Dialog>
-
-  <Toast ref="toast" position="top-right" />
 </template>

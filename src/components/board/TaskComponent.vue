@@ -29,7 +29,7 @@ export default {
           label: 'Delete',
           icon: 'pi pi-fw pi-trash',
           command: () => {
-            // Add logic to delete the task
+            this.confirmDeletion();
           }
         }
       ]
@@ -38,7 +38,26 @@ export default {
   methods: {
     toggleMenu(event) {
       this.$refs.menu.toggle(event);
-    }
+    },
+    confirmDeletion() {
+      this.$confirm.require({
+        message: `Are you sure you want to delete the task ${this.task.title}?`,
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        rejectProps: {
+          label: 'Cancel',
+          severity: 'secondary',
+          outlined: true
+        },
+        acceptProps: {
+          label: 'Delete',
+          severity: 'danger',
+        },
+        accept: () => {
+          this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+        }
+      });
+    },
   }
 }
 </script>

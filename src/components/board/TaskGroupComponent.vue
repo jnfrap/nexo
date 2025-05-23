@@ -2,7 +2,7 @@
 <script>
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
-import { Button, Dialog, FloatLabel, InputText, Toast } from 'primevue';
+import { Button, Dialog, FloatLabel, InputText } from 'primevue';
 import TaskComponent from './TaskComponent.vue';
 import { VueDraggableNext } from 'vue-draggable-next';
 
@@ -16,8 +16,7 @@ export default {
     draggable: VueDraggableNext,
     Dialog,
     InputText,
-    FloatLabel,
-    Toast
+    FloatLabel
   },
   data() {
     return {
@@ -120,5 +119,4 @@ export default {
   </Dialog>
 
   <ContextMenu ref="menu" :model="menuItems" />
-  <Toast ref="toast" />
 </template>
