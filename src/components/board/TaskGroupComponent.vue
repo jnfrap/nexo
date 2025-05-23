@@ -77,7 +77,7 @@ export default {
     </div>
 
     <draggable :list="localTaskGroup.task" class="flex flex-col gap-2">
-      <div v-for="t in localTaskGroup.tasks" :key="t.title">
+      <div v-for="t in localTaskGroup.tasks" :key="t.id">
         <TaskComponent :task="t" />
       </div>
       <Button type="button" icon="pi pi-plus" label="Add Task" class="w-full" size="small" @click="addTask()" />
