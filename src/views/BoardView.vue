@@ -55,6 +55,8 @@ export default {
     <div v-for="tg in taskGroups" :key="tg.title">
       <TaskContainerComponent :taskGroup="tg" />
     </div>
-    <Button type="button" label="Add task" icon="pi pi-plus" @click="addTaskGroup()" />
+    <div class="flex-shrink-0">
+      <Button type="button" label="Add task" icon="pi pi-plus" @click="addTaskGroup()" class="w-40 h-12" />
+    </div>
   </draggable>
 </template>
