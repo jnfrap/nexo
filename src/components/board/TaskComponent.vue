@@ -1,19 +1,19 @@
 <!-- eslint-disable vue/no-reserved-component-names -->
 <script>
-import Menu from 'primevue/menu';
-import ContextMenu from 'primevue/contextmenu';
-import { Button } from 'primevue';
-import TaskComponent from './TaskComponent.vue';
-import { VueDraggableNext } from 'vue-draggable-next';
+import { Button, ContextMenu, Menu } from 'primevue';
 
 export default {
-  name: 'TaskGroupComponent',
+  name: 'TaskComponent',
   components: {
-    Menu,
-    ContextMenu,
     Button,
-    TaskComponent,
-    draggable: VueDraggableNext,
+    Menu,
+    ContextMenu
+  },
+  props: {
+    task: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
@@ -22,24 +22,18 @@ export default {
           label: 'Edit',
           icon: 'pi pi-fw pi-pencil',
           command: () => {
-            // Add logic to edit the board
+            // Add logic to edit the task
           }
         },
         {
           label: 'Delete',
           icon: 'pi pi-fw pi-trash',
           command: () => {
-            // Add logic to delete the board
+            // Add logic to delete the task
           }
         }
       ]
     }
-  },
-  props: {
-    taskGroup: {
-      type: Object,
-      required: true,
-    },
   },
   methods: {
     toggleMenu(event) {
@@ -50,9 +44,9 @@ export default {
 </script>
 
 <template>
-  <div class="w-80 rounded-xl p-4 bg-[#f1f2f4] shadow-lg" @contextmenu="toggleMenu($event)">
+  <div class="w-full rounded-xl p-4 bg-[#f1f2f4] shadow-lg" @contextmenu="toggleMenu($event)">
     <div class="flex flex-row justify-between items-center">
-      <h2 class="text-lg">{{ taskGroup.title }}</h2>
+      <h2 class="text-lg">{{ task.title }}</h2>
 
       <Button type="button" @click.stop="toggleMenu($event)" aria-haspopup="true" aria-controls="overlay_menu" unstyled
         class="cursor-pointer">
@@ -60,13 +54,6 @@ export default {
       </Button>
       <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
     </div>
-
-    <draggable :list="taskGroup.task" class="flex flex-col gap-2">
-      <div v-for="t in taskGroup.tasks" :key="t.title">
-        <TaskComponent :task="t" />
-      </div>
-      <Button type="button" icon="pi pi-plus" label="Add Task" class="w-full" size="small" />
-    </draggable>
   </div>
 
   <ContextMenu ref="menu" :model="menuItems" />
