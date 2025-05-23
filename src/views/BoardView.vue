@@ -1,13 +1,13 @@
 <!-- eslint-disable vue/no-reserved-component-names -->
 <script>
-import TaskContainerComponent from '@/components/board/TaskContainerComponent.vue';
 import { VueDraggableNext } from 'vue-draggable-next'
 import Button from 'primevue/button';
+import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 
 export default {
   name: 'BoardView',
   components: {
-    TaskContainerComponent,
+    TaskGroupComponent,
     draggable: VueDraggableNext,
     Button
   },
@@ -53,7 +53,7 @@ export default {
 
   <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4">
     <div v-for="tg in taskGroups" :key="tg.title">
-      <TaskContainerComponent :taskGroup="tg" />
+      <TaskGroupComponent :taskGroup="tg" />
     </div>
     <div class="flex-shrink-0">
       <Button type="button" label="Add task" icon="pi pi-plus" @click="addTaskGroup()" class="w-40 h-12" />

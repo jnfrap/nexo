@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'BoardView',
+  name: 'TaskGroupComponent',
   props: {
     taskGroup: {
       type: Object,
