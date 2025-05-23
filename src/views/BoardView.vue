@@ -3,30 +3,50 @@
 import { VueDraggableNext } from 'vue-draggable-next'
 import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
+import Dialog from 'primevue/dialog';
+import { FloatLabel, InputText, Toast } from 'primevue';
+import { updateBoardInLocalStorage } from '@/shared/utils';
 
 export default {
   name: 'BoardView',
   components: {
     TaskGroupComponent,
     draggable: VueDraggableNext,
-    Button
+    Button,
+    Dialog,
+    FloatLabel,
+    InputText,
+    Toast
   },
   data() {
     return {
       board: {},
       taskGroups: [],
+      isDialogVisible: false,
+      taskGroupToCreate: {
+        id: 0,
+        title: '',
+        tasks: []
+      },
     }
   },
   methods: {
     addTaskGroup() {
-      const newTaskGroup = {
-        id: this.taskGroups.length + 1,
-        title: 'New Task Group',
-        tasks: []
-      };
-      this.taskGroups.push(newTaskGroup);
+      if (this.taskGroupToCreate.title.trim() === '') {
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task group title cannot be empty', life: 3000 });
+        return;
+      }
+      this.taskGroupToCreate.id = this.taskGroups.length + 1;
+      this.taskGroups.push(this.taskGroupToCreate);
       this.board.taskGroups = this.taskGroups;
-      // localStorage.setItem('boards', JSON.stringify(this.board)); // Uncomment this line to save the new task group to localStorage
+      updateBoardInLocalStorage(this.board);
+      this.isDialogVisible = false;
+      this.taskGroupToCreate = {
+        id: 0,
+        title: '',
+        tasks: []
+      }
+      this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
     }
   },
   mounted() {
@@ -56,7 +76,26 @@ export default {
       <TaskGroupComponent :taskGroup="tg" />
     </div>
     <div class="flex-shrink-0">
-      <Button type="button" label="Add task group" icon="pi pi-plus" @click="addTaskGroup()" class="w-40 h-12" />
+      <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true" class="w-40 h-12" />
     </div>
   </draggable>
+
+  <Dialog v-model:visible="isDialogVisible" modal header="Creating new Task Group" :style="{ width: '25rem' }"
+    :closable=false position="center" :draggable="false" @keydown.enter.prevent="addTaskGroup()"
+    @keydown.esc.prevent="isDialogVisible = false">
+    <div class="flex flex-col gap-2 my-2">
+      <FloatLabel variant="on">
+        <InputText id="in_label" v-model="taskGroupToCreate.title" autocomplete="off" class="resize-none w-full"
+          :maxlength=20 />
+        <label for="in_label">Title</label>
+      </FloatLabel>
+
+      <div class="flex justify-end gap-2">
+        <Button label="Cancel" class="p-button-text" @click="isDialogVisible = false" />
+        <Button label="Create" icon="pi pi-check" class="p-button-primary" @click="addTaskGroup()" />
+      </div>
+    </div>
+  </Dialog>
+
+  <Toast ref="toast" position="top-right" />
 </template>
