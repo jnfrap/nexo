@@ -56,7 +56,7 @@ export default {
       <TaskGroupComponent :taskGroup="tg" />
     </div>
     <div class="flex-shrink-0">
-      <Button type="button" label="Add task" icon="pi pi-plus" @click="addTaskGroup()" class="w-40 h-12" />
+      <Button type="button" label="Add task group" icon="pi pi-plus" @click="addTaskGroup()" class="w-40 h-12" />
     </div>
   </draggable>
 </template>

@@ -56,6 +56,8 @@ export default {
       </Button>
       <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
     </div>
+
+    <Button type="button" icon="pi pi-plus" label="Add Task" class="w-full" size="small" />
   </div>
 
   <ContextMenu ref="menu" :model="menuItems" />
