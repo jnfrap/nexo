@@ -45,6 +45,7 @@ export default {
       },
     }
   },
+  emits: ['update-task-group'],
   props: {
     taskGroup: {
       type: Object,
