@@ -19,7 +19,14 @@ export default {
   },
   methods: {
     addTaskGroup() {
-
+      const newTaskGroup = {
+        id: this.taskGroups.length + 1,
+        title: 'New Task Group',
+        tasks: []
+      };
+      this.taskGroups.push(newTaskGroup);
+      this.board.taskGroups = this.taskGroups;
+      // localStorage.setItem('boards', JSON.stringify(this.board)); // Uncomment this line to save the new task group to localStorage
     }
   },
   mounted() {
@@ -45,7 +52,7 @@ export default {
   <h1>{{ board.title }}</h1> <!-- This must be in the future second navbar -->
 
   <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4">
-    <div v-for="tg in list" :key="tg.title">
+    <div v-for="tg in taskGroups" :key="tg.title">
       <TaskContainerComponent :taskGroup="tg" />
     </div>
     <Button type="button" label="Add task" icon="pi pi-plus" @click="addTaskGroup()" />
