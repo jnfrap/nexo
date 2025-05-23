@@ -41,16 +41,10 @@ export default {
 
 <template>
   <h1>{{ board.title }}</h1> <!-- This must be in the future second navbar -->
-  <div class="flex flex-row space-x-4 mx-4">
-    <TaskContainerComponent />
-    <TaskContainerComponent />
-    <TaskContainerComponent />
-    <TaskContainerComponent />
-  </div>
 
   <draggable :list="list" class="flex flex-row space-x-4 mx-4">
-    <div class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center" v-for="e in list" :key="e.name">
-      {{ e.name }}
+    <div v-for="e in list" :key="e.name">
+      <TaskContainerComponent :task="{ title: e.name }"/>
     </div>
   </draggable>
 </template>
