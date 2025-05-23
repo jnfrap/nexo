@@ -26,12 +26,13 @@ export default {
           label: 'Delete',
           icon: 'pi pi-fw pi-trash',
           command: () => {
-            // Add logic to delete the board
+            this.confirmDeletion();
           }
         }
       ]
     }
   },
+  emits: ['delete-board'],
   components: {
     Menu,
     Button,
@@ -55,11 +56,30 @@ export default {
       }
     },
     goToBoard() {
-      this.$router.push({ name: 'board', params: { boardId: this.board.id } });
+      this.$router.push({ name: 'board', params: { boardId: this.localBoard.id } });
     },
     toggleMenu(event) {
       this.$refs.menu.toggle(event);
-    }
+    },
+    confirmDeletion() {
+      this.$confirm.require({
+        message: `Are you sure you want to delete the board ${this.localBoard.title}?`,
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        rejectProps: {
+          label: 'Cancel',
+          severity: 'secondary',
+          outlined: true
+        },
+        acceptProps: {
+          label: 'Delete',
+          severity: 'danger',
+        },
+        accept: () => {
+          this.$emit('delete-board', this.localBoard.id);
+        }
+      });
+    },
   },
   created() {
     this.boards = storage.boards;

@@ -13,6 +13,14 @@ export default {
     BoardPreviewComponent
   },
   methods: {
+    deleteBoard(boardId) {
+      const boardIndex = this.boards.findIndex(board => board.id === boardId);
+      if (boardIndex !== -1) {
+        this.boards.splice(boardIndex, 1);
+        storage.boards = this.boards;
+        localStorage.setItem('boards', JSON.stringify(this.boards));
+      }
+    }
   },
   mounted() {
     storage.boards = localStorage.getItem('boards') ? JSON.parse(localStorage.getItem('boards')) : [];
@@ -26,7 +34,7 @@ export default {
   <div class="w-4/5 mx-auto flex flex-col items-center py-10">
     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-items-center">
       <div v-for="board in boards" :key="board.id">
-        <BoardPreviewComponent :board="board" />
+        <BoardPreviewComponent :board="board" @delete-board="deleteBoard" />
       </div>
     </div>
   </div>
