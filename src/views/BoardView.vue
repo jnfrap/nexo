@@ -35,7 +35,7 @@ export default {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task group title cannot be empty', life: 3000 });
         return;
       }
-      this.taskGroupToCreate.id = this.taskGroups.length + 1;
+      this.taskGroupToCreate.id = this.taskGroups.map(tg => tg.id).length > 0 ? Math.max(...this.taskGroups.map(tg => tg.id)) + 1 : 1;
       this.taskGroups.push(this.taskGroupToCreate);
       this.board.taskGroups = this.taskGroups;
       updateBoardInLocalStorage(this.board);

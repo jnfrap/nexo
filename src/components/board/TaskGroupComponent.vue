@@ -63,9 +63,8 @@ export default {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task title cannot be empty', life: 3000 });
         return;
       }
-      this.taskToCreate.id = this.localTaskGroup.tasks.length + 1;
+      this.taskToCreate.id = this.localTaskGroup.tasks.map(task => task.id).length > 0 ? Math.max(...this.localTaskGroup.tasks.map(task => task.id)) + 1 : 1;
       this.localTaskGroup.tasks.push(this.taskToCreate);
-      // TODO: Update the task group in local storage or state management, emit an event to notify parent component
       this.$emit('update-task-group', this.localTaskGroup);
       this.isDialogVisible = false;
       this.taskToCreate = {

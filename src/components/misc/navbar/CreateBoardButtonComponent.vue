@@ -38,7 +38,7 @@ export default {
         return;
       }
       storage.boards.unshift({
-        id: storage.boards.length + 1,
+        id: storage.boards.map(board => board.id).length > 0 ? Math.max(...storage.boards.map(board => board.id)) + 1 : 1,
         title: this.boardToCreate.title,
         description: this.boardToCreate.description,
         backgroundImage: this.boardToCreate.backgroundImage,
