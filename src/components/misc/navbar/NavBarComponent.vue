@@ -1,10 +1,12 @@
 <script>
 import CreateBoardButtonComponent from './CreateBoardButtonComponent.vue';
+import UserProfileComponent from './UserProfileComponent.vue';
 
 export default {
   name: 'NavBarComponent',
   components: {
-    CreateBoardButtonComponent
+    CreateBoardButtonComponent,
+    UserProfileComponent
   }
 }
 </script>
@@ -28,7 +30,7 @@ export default {
       <div class="flex items-center gap-[10px] w-fit">
         <!-- Search engine -->
         <!-- Notification button -->
-        <!-- User component -->
+        <UserProfileComponent />
       </div>
     </div>
   </div>
