@@ -33,7 +33,7 @@ export default {
           label: 'Delete',
           icon: 'pi pi-fw pi-trash',
           command: () => {
-            // Add logic to delete the board
+            this.confirmDeletion();
           }
         }
       ],
@@ -44,7 +44,10 @@ export default {
       },
     }
   },
-  emits: ['update-task-group'],
+  emits: [
+    'update-task-group',
+    'delete-task-group',
+  ],
   props: {
     taskGroup: {
       type: Object,
@@ -78,7 +81,29 @@ export default {
       this.localTaskGroup.tasks = this.localTaskGroup.tasks.filter(task => task.id !== taskId);
       this.$emit('update-task-group', this.localTaskGroup);
       this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Task deleted', life: 3000 });
-    }
+    },
+    deleteTaskGroup() {
+      this.$emit('delete-task-group', this.taskGroup.id);
+    },
+    confirmDeletion() {
+      this.$confirm.require({
+        message: `Are you sure you want to delete the task group ${this.taskGroup.title}?`,
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        rejectProps: {
+          label: 'Cancel',
+          severity: 'secondary',
+          outlined: true
+        },
+        acceptProps: {
+          label: 'Delete',
+          severity: 'danger',
+        },
+        accept: () => {
+          this.deleteTaskGroup();
+        }
+      });
+    },
   },
   created() {
     this.localTaskGroup = this.taskGroup;

@@ -59,6 +59,12 @@ export default {
       this.board.taskGroups = this.taskGroups;
       updateBoardInLocalStorage(this.board);
     },
+    deleteTaskGroup(taskGroupId) {
+      this.taskGroups = this.taskGroups.filter(tg => tg.id !== taskGroupId);
+      this.board.taskGroups = this.taskGroups;
+      updateBoardInLocalStorage(this.board);
+      this.$toast.add({ severity: 'success', summary: 'Deleted succesfully', detail: 'Task group deleted succesfully', life: 3000 });
+    },
   },
   mounted() {
     try {
@@ -84,7 +90,7 @@ export default {
 
   <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @end="updateReorderedTaskGroups">
     <div v-for="tg in taskGroups" :key="tg.id">
-      <TaskGroupComponent :taskGroup="tg" @update-task-group="updateReorderedTasks" />
+      <TaskGroupComponent :taskGroup="tg" @update-task-group="updateReorderedTasks" @delete-task-group="deleteTaskGroup" />
     </div>
     <div class="flex-shrink-0">
       <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true" class="w-40 h-12" />
