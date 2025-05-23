@@ -1,14 +1,22 @@
 <script>
 import TaskContainerComponent from '@/components/board/TaskContainerComponent.vue';
+import { VueDraggableNext } from 'vue-draggable-next'
 
 export default {
   name: 'BoardView',
   components: {
-    TaskContainerComponent
+    TaskContainerComponent,
+    draggable: VueDraggableNext,
   },
   data() {
     return {
-      board: {}
+      board: {},
+      list: [
+        { name: 'Task 1' },
+        { name: 'Task 2' },
+        { name: 'Task 3' },
+        { name: 'Task 4' },
+      ],
     }
   },
   methods: {
@@ -39,4 +47,10 @@ export default {
     <TaskContainerComponent />
     <TaskContainerComponent />
   </div>
+
+  <draggable :list="list" class="flex flex-row space-x-4 mx-4">
+    <div class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center" v-for="e in list" :key="e.name">
+      {{ e.name }}
+    </div>
+  </draggable>
 </template>
