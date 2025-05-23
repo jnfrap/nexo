@@ -35,6 +35,10 @@ export default {
   },
   methods: {
     createBoard() {
+      if (this.boardToCreate.title.trim() === '') {
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board title cannot be empty', life: 3000 });
+        return;
+      }
       storage.boards.unshift({
         id: storage.boards.length + 1,
         title: this.boardToCreate.title,
