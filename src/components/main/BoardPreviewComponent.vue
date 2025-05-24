@@ -10,7 +10,6 @@ export default {
   name: 'BoardPreviewComponent',
   data() {
     return {
-      localIsFavorite: false,
       isHovered: false,
       localBoard: {},
       boards: [],
