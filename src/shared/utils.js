@@ -81,7 +81,7 @@ export function saveToRecents(board) {
   // Añade al inicio
   recents.unshift({
     id: board.id,
-    name: board.name, // o cualquier info básica que necesites
+    name: board.name || board.title, // o cualquier info básica que necesites
     timestamp: Date.now()
   });
 

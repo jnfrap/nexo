@@ -56,6 +56,7 @@ export default {
       }
     },
     goToBoard() {
+      saveToRecents(this.localBoard);
       this.$router.push({ name: 'board', params: { boardId: this.localBoard.id } });
     },
     toggleMenu(event) {
@@ -84,7 +85,6 @@ export default {
   created() {
     this.boards = storage.boards;
     this.localBoard = this.board;
-    saveToRecents(this.localBoardboard);
   },
 }
 </script>

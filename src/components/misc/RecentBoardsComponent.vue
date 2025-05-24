@@ -1,15 +1,13 @@
 <script>
 import Popover from 'primevue/popover';
+import { ref } from 'vue';
+import { getRecents } from '@/shared/utils';
 
 export default {
   data() {
     return {
       selectedBoard: null,
-      recentBoards: [
-        { name: 'Marketing', icon: 'pi pi-briefcase', id: 1 },
-        { name: 'Desarrollo', icon: 'pi pi-code', id: 2 },
-        { name: 'Diseño', icon: 'pi pi-palette', id: 3 }
-      ]
+      recentBoards: ref([]),
     }
   },
   methods: {
@@ -20,6 +18,9 @@ export default {
       this.selectedBoard = board;
       this.$refs.op.hide();
     }
+  },
+  mounted(){
+    this.recentBoards.value = getRecents();
   },
   components: {
     Popover
