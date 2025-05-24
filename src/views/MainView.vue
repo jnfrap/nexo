@@ -25,7 +25,6 @@ export default {
   mounted() {
     storage.boards = localStorage.getItem('boards') ? JSON.parse(localStorage.getItem('boards')) : [];
     storage.boards = reorderBoarsdArray(storage.boards);
-    this.boards = storage.boards;
   }
 }
 </script>
