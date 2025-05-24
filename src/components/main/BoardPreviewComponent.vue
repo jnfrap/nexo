@@ -4,7 +4,7 @@ import { Button } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '@/shared/storage.js'
-import { reorderBoarsdArray } from '@/shared/utils';
+import { reorderBoarsdArray, saveToRecents } from '@/shared/utils';
 
 export default {
   name: 'BoardPreviewComponent',
@@ -84,6 +84,7 @@ export default {
   created() {
     this.boards = storage.boards;
     this.localBoard = this.board;
+    saveToRecents(this.localBoardboard);
   },
 }
 </script>
