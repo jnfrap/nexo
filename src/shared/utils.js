@@ -82,6 +82,7 @@ export function saveToRecents(board) {
   recents.unshift({
     id: board.id,
     name: board.name || board.title, // o cualquier info básica que necesites
+    icon: board.icon || 'pi pi-table', // o un icono por defecto
     timestamp: Date.now()
   });
 

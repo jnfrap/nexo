@@ -45,7 +45,7 @@ export default {
             <li v-for="board in recentBoards" :key="board.id"
               class="flex items-center gap-2 px-2 py-3 hover:bg-fuchsia-100 cursor-pointer rounded"
               @click="selectBoard(board)">
-              <i :class="`${board.icon} text-fuchsia-500`"></i>
+              <i :class="`${board.icon || 'pi pi-table'} text-fuchsia-500`"></i>
               <span class="font-medium">{{ board.name }}</span>
             </li>
           </ul>

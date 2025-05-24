@@ -56,7 +56,11 @@ export default {
       }
     },
     goToBoard() {
-      saveToRecents(this.localBoard);
+      saveToRecents({
+        id: this.localBoard.id,
+        name: this.localBoard.title, // o .name si existe
+        icon: this.localBoard.icon // si tienes icono
+      });
       this.$router.push({ name: 'board', params: { boardId: this.localBoard.id } });
     },
     toggleMenu(event) {
@@ -85,6 +89,14 @@ export default {
   created() {
     this.boards = storage.boards;
     this.localBoard = this.board;
+  },
+  watch: {
+    board: {
+      immediate: true,
+      handler(newVal) {
+        this.localBoard = { ...newVal };
+      }
+    }
   },
 }
 </script>
