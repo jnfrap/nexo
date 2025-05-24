@@ -1,5 +1,7 @@
 <script>
+import { useRoute } from 'vue-router';
 import CreateBoardButtonComponent from './CreateBoardButtonComponent.vue';
+import { computed } from 'vue';
 import SearchBarComponent from './SearchBarComponent.vue';
 
 export default {
@@ -7,6 +9,17 @@ export default {
   components: {
     CreateBoardButtonComponent,
     SearchBarComponent
+  },
+  data() {
+    return {
+      isRouteInMain: false,
+    }
+  },
+  setup() {
+    const route = useRoute()
+    const currentPath = computed(() => route.fullPath)
+
+    return { currentPath }
   }
 }
 </script>
@@ -23,7 +36,7 @@ export default {
           </div>
         </RouterLink>
         <div class="w-6"></div>
-        <CreateBoardButtonComponent />
+        <CreateBoardButtonComponent v-if="currentPath === '/'" />
         <!-- Recent boards button -->
       </div>
 

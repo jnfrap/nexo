@@ -1,6 +1,7 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
 import { storage } from '@/shared/storage.js'
+import { reorderBoarsdArray } from '@/shared/utils.js';
 
 export default {
   computed: {
@@ -10,6 +11,20 @@ export default {
   },
   components: {
     BoardPreviewComponent
+  },
+  methods: {
+    deleteBoard(boardId) {
+      const boardIndex = this.boards.findIndex(board => board.id === boardId);
+      if (boardIndex !== -1) {
+        this.boards.splice(boardIndex, 1);
+        storage.boards = this.boards;
+        localStorage.setItem('boards', JSON.stringify(this.boards));
+      }
+    }
+  },
+  mounted() {
+    storage.boards = localStorage.getItem('boards') ? JSON.parse(localStorage.getItem('boards')) : [];
+    storage.boards = reorderBoarsdArray(storage.boards);
   }
 }
 </script>
@@ -18,8 +33,7 @@ export default {
   <div class="w-4/5 mx-auto flex flex-col items-center py-10">
     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-items-center">
       <div v-for="board in boards" :key="board.id">
-        <BoardPreviewComponent :id="board.id" :title="board.title" :backgroundImage="board.backgroundImage"
-          :isFavorite="board.isFavorite" />
+        <BoardPreviewComponent :board="board" @delete-board="deleteBoard" />
       </div>
     </div>
   </div>

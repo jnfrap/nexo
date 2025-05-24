@@ -27,3 +27,41 @@ export function reorderBoarsdArray(boards) {
   });
   return boards;
 }
+
+/**
+ * Updates a single board in local storage.
+ * @param {Object} board - The board object to update.
+ *
+ * @throws Will throw an error if the board is not found in local storage.
+ * @throws Will throw an error if the board is not an object.
+ * @throws Will throw an error if the board does not have an id.
+ * @throws Will throw an error if the boards in local storage is not an array.
+ * @throws Will throw an error if the boards in local storage is empty.
+ *
+ * @example
+ * const board = {
+ *   id: '123',
+ *   title: 'Updated Board',
+ *   isFavorite: true,
+ *   createdAt: '2023-01-01',
+ *   tasks: []
+ * };
+ * updateBoardToLocalStorage(board);
+ * // This will update the board with id '123' in local storage.
+ */
+export function updateBoardInLocalStorage(board) {
+  if (!board) throw new Error('Board is required');
+  if (!board.id) throw new Error('Board id is required');
+
+  const boards = JSON.parse(localStorage.getItem('boards')) || [];
+
+  if (!Array.isArray(boards)) throw new Error('Boards is not an array');
+  if (boards.length === 0) throw new Error('Boards is empty');
+
+  const boardIndex = boards.findIndex((b) => b.id === board.id);
+
+  if (boardIndex === -1) throw new Error('Board not found');
+
+  const updatedBoards = boards.map((b) => (b.id === board.id ? board : b));
+  localStorage.setItem('boards', JSON.stringify(updatedBoards));
+}

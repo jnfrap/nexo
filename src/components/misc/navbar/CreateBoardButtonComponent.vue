@@ -5,7 +5,6 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
-import Toast from 'primevue/toast';
 import { storage } from '@/shared/storage.js'
 
 export default {
@@ -18,7 +17,9 @@ export default {
         title: '',
         description: '',
         backgroundImage: '/images/no-image.jpg',
-        isFavorite: false
+        isFavorite: false,
+        createdAt: '',
+        taskGroups: []
       },
     }
   },
@@ -28,18 +29,22 @@ export default {
     Dialog,
     InputText,
     FloatLabel,
-    Textarea,
-    Toast
+    Textarea
   },
   methods: {
     createBoard() {
+      if (this.boardToCreate.title.trim() === '') {
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board title cannot be empty', life: 3000 });
+        return;
+      }
       storage.boards.unshift({
-        id: storage.boards.length + 1,
+        id: storage.boards.map(board => board.id).length > 0 ? Math.max(...storage.boards.map(board => board.id)) + 1 : 1,
         title: this.boardToCreate.title,
         description: this.boardToCreate.description,
         backgroundImage: this.boardToCreate.backgroundImage,
         isFavorite: false,
         createdAt: new Date().toISOString(),
+        taskGroups: []
       })
       this.isDialogVisible = false;
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
@@ -49,7 +54,9 @@ export default {
         title: '',
         description: '',
         backgroundImage: '/images/no-image.jpg',
-        isFavorite: false
+        isFavorite: false,
+        createdAt: '',
+        taskGroups: []
       }
 
       localStorage.setItem('boards', JSON.stringify(storage.boards));
@@ -83,6 +90,4 @@ export default {
       </div>
     </div>
   </Dialog>
-
-  <Toast />
 </template>
