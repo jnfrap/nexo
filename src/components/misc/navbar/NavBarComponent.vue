@@ -1,12 +1,27 @@
 <script>
+import { useRoute } from 'vue-router';
 import CreateBoardButtonComponent from './CreateBoardButtonComponent.vue';
+import { computed } from 'vue';
+import SearchBarComponent from './SearchBarComponent.vue';
 import UserProfileComponent from './UserProfileComponent.vue';
 
 export default {
   name: 'NavBarComponent',
   components: {
     CreateBoardButtonComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    SearchBarComponent
+  },
+  data() {
+    return {
+      isRouteInMain: false,
+    }
+  },
+  setup() {
+    const route = useRoute()
+    const currentPath = computed(() => route.fullPath)
+
+    return { currentPath }
   }
 }
 </script>
@@ -23,12 +38,12 @@ export default {
           </div>
         </RouterLink>
         <div class="w-6"></div>
-        <CreateBoardButtonComponent />
+        <CreateBoardButtonComponent v-if="currentPath === '/'" />
         <!-- Recent boards button -->
       </div>
 
       <div class="flex items-center gap-[10px] w-fit">
-        <!-- Search engine -->
+        <SearchBarComponent />
         <!-- Notification button -->
         <UserProfileComponent />
       </div>

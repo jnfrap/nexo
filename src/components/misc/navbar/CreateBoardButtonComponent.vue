@@ -5,8 +5,7 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
-import Toast from 'primevue/toast';
-import { storage } from '@/components/misc/storage.js'
+import { storage } from '@/shared/storage.js'
 
 export default {
   name: 'CreateBoardButtonComponent',
@@ -18,7 +17,9 @@ export default {
         title: '',
         description: '',
         backgroundImage: '/images/no-image.jpg',
-        isFavorite: false
+        isFavorite: false,
+        createdAt: '',
+        taskGroups: []
       },
     }
   },
@@ -28,18 +29,22 @@ export default {
     Dialog,
     InputText,
     FloatLabel,
-    Textarea,
-    Toast
+    Textarea
   },
   methods: {
     createBoard() {
-      // Logic to create a new board
-      storage.boards.push({
-        id: storage.boards.length + 1,
+      if (this.boardToCreate.title.trim() === '') {
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board title cannot be empty', life: 3000 });
+        return;
+      }
+      storage.boards.unshift({
+        id: storage.boards.map(board => board.id).length > 0 ? Math.max(...storage.boards.map(board => board.id)) + 1 : 1,
         title: this.boardToCreate.title,
         description: this.boardToCreate.description,
         backgroundImage: this.boardToCreate.backgroundImage,
-        isFavorite: false
+        isFavorite: false,
+        createdAt: new Date().toISOString(),
+        taskGroups: []
       })
       this.isDialogVisible = false;
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
@@ -49,7 +54,9 @@ export default {
         title: '',
         description: '',
         backgroundImage: '/images/no-image.jpg',
-        isFavorite: false
+        isFavorite: false,
+        createdAt: '',
+        taskGroups: []
       }
 
       localStorage.setItem('boards', JSON.stringify(storage.boards));
@@ -62,11 +69,13 @@ export default {
   <Button label="Create Board" icon="pi pi-plus" class="p-button-raised p-button-primary"
     @click="isDialogVisible = true" />
 
-  <Dialog v-model:visible="isDialogVisible" modal header="Creating new board" :style="{ width: '25rem' }" :closable=false
-    position="center" :draggable="false">
+  <Dialog v-model:visible="isDialogVisible" modal header="Creating new board" :style="{ width: '25rem' }"
+    :closable=false position="center" :draggable="false" @keydown.enter.prevent="createBoard()"
+    @keydown.esc.prevent="isDialogVisible = false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
-        <InputText id="in_label" v-model="boardToCreate.title" autocomplete="off" class="resize-none w-full" :maxlength=20 />
+        <InputText id="in_label" v-model="boardToCreate.title" autocomplete="off" class="resize-none w-full"
+          :maxlength=20 />
         <label for="in_label">Title</label>
       </FloatLabel>
 
@@ -81,6 +90,4 @@ export default {
       </div>
     </div>
   </Dialog>
-
-  <Toast />
 </template>

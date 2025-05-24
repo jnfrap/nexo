@@ -9,23 +9,27 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'Main',
+      name: 'main',
       component: MainView
     },
     {
       path: '/auth',
-      name: 'Auth',
+      name: 'auth',
       component: AuthView
     },
     {
-      path: '/board',
-      name: 'Board',
+      path: '/board/:boardId',
+      name: 'board',
       component: BoardView
     },
     {
       path: '/register',
-      name: 'Register',
+      name: 'register',
       component: RegisterComponent
+    },
+    {
+      path: '/:catchAll(.*)',
+      redirect: '/'
     }
   ],
 })
