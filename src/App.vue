@@ -7,7 +7,9 @@ import { reorderBoarsdArray } from './shared/utils';
 export default {
   name: 'App',
   components: {
-    NavBarComponent
+    NavBarComponent,
+    ConfirmDialog,
+    Toast
   },
   created() {
     storage.boards = localStorage.getItem('boards') ? JSON.parse(localStorage.getItem('boards')) : [];
