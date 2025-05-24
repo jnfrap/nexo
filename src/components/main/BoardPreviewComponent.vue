@@ -51,6 +51,7 @@ export default {
         board.isFavorite = !board.isFavorite;
         this.localBoard.isFavorite = board.isFavorite;
         this.boards = reorderBoarsdArray(this.boards);
+        storage.filteredBoards = reorderBoarsdArray(storage.filteredBoards);
         storage.boards = this.boards;
         localStorage.setItem('boards', JSON.stringify(this.boards));
       }
