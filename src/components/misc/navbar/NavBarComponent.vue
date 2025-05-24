@@ -3,12 +3,14 @@ import { useRoute } from 'vue-router';
 import CreateBoardButtonComponent from './CreateBoardButtonComponent.vue';
 import { computed } from 'vue';
 import SearchBarComponent from './SearchBarComponent.vue';
+import RecentBoardsComponent from '../RecentBoardsComponent.vue';
 
 export default {
   name: 'NavBarComponent',
   components: {
     CreateBoardButtonComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    RecentBoardsComponent
   },
   data() {
     return {
@@ -37,7 +39,7 @@ export default {
         </RouterLink>
         <div class="w-6"></div>
         <CreateBoardButtonComponent v-if="currentPath === '/'" />
-        <!-- Recent boards button -->
+        <RecentBoardsComponent v-if="currentPath === '/'" />
       </div>
 
       <div class="flex items-center gap-[10px] w-fit">
