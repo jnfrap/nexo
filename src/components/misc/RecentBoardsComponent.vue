@@ -12,6 +12,7 @@ export default {
   },
   methods: {
     toggle(event) {
+      this.recentBoards.value = getRecents();// Refresh recent boards
       this.$refs.op.toggle(event);
     },
     selectBoard(board) {
