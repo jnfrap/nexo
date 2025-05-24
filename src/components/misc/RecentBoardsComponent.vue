@@ -1,7 +1,7 @@
 <script>
 import Popover from 'primevue/popover';
 import { ref } from 'vue';
-import { getRecents } from '@/shared/utils';
+import { getRecents, saveToRecents } from '@/shared/utils';
 
 export default {
   data() {
@@ -16,6 +16,8 @@ export default {
     },
     selectBoard(board) {
       this.selectedBoard = board;
+      saveToRecents(board);
+      this.recentBoards.value = getRecents();
       this.$refs.op.hide();
     }
   },
