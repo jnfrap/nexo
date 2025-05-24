@@ -2,11 +2,13 @@
 import { useRoute } from 'vue-router';
 import CreateBoardButtonComponent from './CreateBoardButtonComponent.vue';
 import { computed } from 'vue';
+import SearchBarComponent from './SearchBarComponent.vue';
 
 export default {
   name: 'NavBarComponent',
   components: {
-    CreateBoardButtonComponent
+    CreateBoardButtonComponent,
+    SearchBarComponent
   },
   data() {
     return {
@@ -39,7 +41,7 @@ export default {
       </div>
 
       <div class="flex items-center gap-[10px] w-fit">
-        <!-- Search engine -->
+        <SearchBarComponent />
         <!-- Notification button -->
         <!-- User component -->
       </div>

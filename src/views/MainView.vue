@@ -1,12 +1,12 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
 import { storage } from '@/shared/storage.js'
-import { reorderBoarsdArray } from '@/shared/utils';
+import { reorderBoarsdArray } from '@/shared/utils.js';
 
 export default {
-  data() {
-    return {
-      boards: []
+  computed: {
+    boards() {
+      return storage.filteredBoards;
     }
   },
   components: {
