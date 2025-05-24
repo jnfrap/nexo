@@ -66,9 +66,11 @@ export function updateBoardInLocalStorage(board) {
   localStorage.setItem('boards', JSON.stringify(updatedBoards));
 }
 
+
+const key = 'recentBoards';
+const maxItems = 5;
+
 export function saveToRecents(board) {
-  const maxItems = 5;
-  const key = 'recentBoards';
 
   // Obtiene los actuales
   let recents = JSON.parse(localStorage.getItem(key)) || [];
@@ -87,4 +89,8 @@ export function saveToRecents(board) {
   if (recents.length > maxItems) recents = recents.slice(0, maxItems);
 
   localStorage.setItem(key, JSON.stringify(recents));
+}
+
+export function getRecents() {
+  return JSON.parse(localStorage.getItem(key)) || []
 }
