@@ -65,3 +65,26 @@ export function updateBoardInLocalStorage(board) {
   const updatedBoards = boards.map((b) => (b.id === board.id ? board : b));
   localStorage.setItem('boards', JSON.stringify(updatedBoards));
 }
+
+export function saveToRecents(board) {
+  const maxItems = 5;
+  const key = 'recentBoards';
+
+  // Obtiene los actuales
+  let recents = JSON.parse(localStorage.getItem(key)) || [];
+
+  // Elimina si ya existe
+  recents = recents.filter(item => item.id !== board.id);
+
+  // Añade al inicio
+  recents.unshift({
+    id: board.id,
+    name: board.name, // o cualquier info básica que necesites
+    timestamp: Date.now()
+  });
+
+  // Limita a 5
+  if (recents.length > maxItems) recents = recents.slice(0, maxItems);
+
+  localStorage.setItem(key, JSON.stringify(recents));
+}

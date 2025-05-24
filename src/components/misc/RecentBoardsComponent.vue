@@ -4,11 +4,11 @@ import Popover from 'primevue/popover';
 export default {
   data() {
     return {
-      selectedMember: null,
-      members: [
-        { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
-        { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
-        { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
+      selectedBoard: null,
+      recentBoards: [
+        { name: 'Marketing', icon: 'pi pi-briefcase', id: 1 },
+        { name: 'Desarrollo', icon: 'pi pi-code', id: 2 },
+        { name: 'Diseño', icon: 'pi pi-palette', id: 3 }
       ]
     }
   },
@@ -16,8 +16,8 @@ export default {
     toggle(event) {
       this.$refs.op.toggle(event);
     },
-    selectMember(member) {
-      this.selectedMember = member;
+    selectBoard(board) {
+      this.selectedBoard = board;
       this.$refs.op.hide();
     }
   },
@@ -32,21 +32,18 @@ export default {
     <button type="button" @click="toggle"
       class="min-w-48 cursor-pointer rounded-lg bg-fuchsia-500 text-white hover:bg-fuchsia-600">
       <i class="pi pi-chevron-down mr-2"></i>
-      {{ selectedMember ? selectedMember.name : 'Tableros recientes' }}
+      {{ selectedBoard ? selectedBoard.name : 'Tableros recientes' }}
     </button>
     <Popover ref="op">
       <div class="flex flex-col gap-4">
         <div>
-          <span class="font-medium block mb-2">Team Members</span>
+          <span class="font-medium block mb-2">Tableros recientes</span>
           <ul class="list-none p-0 m-0 flex flex-col">
-            <li v-for="member in members" :key="member.name"
-              class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border"
-              @click="selectMember(member)">
-              <img :src="`https://primefaces.org/cdn/primevue/images/avatar/${member.image}`" style="width: 32px" />
-              <div>
-                <span class="font-medium">{{ member.name }}</span>
-                <div class="text-sm text-surface-500 dark:text-surface-400">{{ member.email }}</div>
-              </div>
+            <li v-for="board in recentBoards" :key="board.id"
+              class="flex items-center gap-2 px-2 py-3 hover:bg-fuchsia-100 cursor-pointer rounded"
+              @click="selectBoard(board)">
+              <i :class="`${board.icon} text-fuchsia-500`"></i>
+              <span class="font-medium">{{ board.name }}</span>
             </li>
           </ul>
         </div>
