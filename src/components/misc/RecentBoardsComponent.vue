@@ -20,6 +20,7 @@ export default {
       saveToRecents(board);
       this.recentBoards = getRecents();
       this.$refs.op.hide();
+      this.$router.push({ name: 'board', params: { boardId: board.id } });
     }
   },
   mounted(){
