@@ -27,7 +27,7 @@ export default {
 <template>
   <div class="h-[70px]"></div>
   <div class="w-full h-[70px] bg-[#4b164c] p-[5px] flex justify-center box-border fixed top-0 z-[1000]">
-    <div class="h-full w-[70%] flex justify-between select-none">
+    <div class="h-full w-[90%] flex justify-between select-none">
       <div class="flex flex-row justify-start">
         <RouterLink to="/">
           <div class="h-full flex justify-center items-end w-fit">
