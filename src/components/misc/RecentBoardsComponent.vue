@@ -1,29 +1,28 @@
 <script>
 import Popover from 'primevue/popover';
-import { ref } from 'vue';
 import { getRecents, saveToRecents } from '@/shared/utils';
 
 export default {
   data() {
     return {
       selectedBoard: null,
-      recentBoards: ref([]),
+      recentBoards: [],
     }
   },
   methods: {
     toggle(event) {
-      this.recentBoards.value = getRecents();// Refresh recent boards
+      this.recentBoards= getRecents();// Refresh recent boards
       this.$refs.op.toggle(event);
     },
     selectBoard(board) {
       this.selectedBoard = board;
       saveToRecents(board);
-      this.recentBoards.value = getRecents();
+      this.recentBoards = getRecents();
       this.$refs.op.hide();
     }
   },
   mounted(){
-    this.recentBoards.value = getRecents();
+    this.recentBoards = getRecents();
   },
   components: {
     Popover
