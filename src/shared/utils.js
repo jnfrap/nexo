@@ -102,3 +102,16 @@ export function saveToRecentsBoards(board) {
 export function getRecentsBoards() {
   return JSON.parse(localStorage.getItem(key)) || []
 }
+
+/**
+ * Removes a board from the recent boards list in local storage.
+ * @param {string} boardId - The unique identifier of the board to remove.
+ * @example
+ * removeFromRecents('123');
+ * // This will remove the board with id '123' from the recent boards list in local storage.
+ */
+export function removeFromRecentsBoards(boardId) {
+  let recents = JSON.parse(localStorage.getItem(key)) || [];
+  recents = recents.filter(item => item.id !== boardId);
+  localStorage.setItem(key, JSON.stringify(recents));
+}
