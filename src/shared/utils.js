@@ -115,3 +115,18 @@ export function removeFromRecentsBoards(boardId) {
   recents = recents.filter(item => item.id !== boardId);
   localStorage.setItem(key, JSON.stringify(recents));
 }
+
+
+import mitt from 'mitt';
+export default mitt();
+/**
+ * Creates a new event emitter instance using mitt.
+ * This can be used to handle custom events in the application.
+ * @returns {Object} An event emitter instance.
+ * @example
+ * const emitter = createEventEmitter();
+ * emitter.on('eventName', (data) => {
+ *   console.log(data);
+ * });
+ * emitter.emit('eventName', { key: 'value' });
+ */
