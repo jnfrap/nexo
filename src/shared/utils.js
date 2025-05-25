@@ -77,16 +77,6 @@ export function updateBoardInLocalStorage(board) {
  * @example 
  * saveToRecents({ id: '123', name: 'My Board', icon: 'pi pi-table' });
  * // This will save the board to the recent boards list in local storage.
- * @returns {void}
- * @throws Will throw an error if the board is not an object.
- * @throws Will throw an error if the board does not have an id.
- * @throws Will throw an error if the board does not have a name.
- * @throws Will throw an error if the recent boards list is not an array.
- * @throws Will throw an error if the recent boards list is empty.
- * @throws Will throw an error if the recent boards list exceeds the maximum number of items.
- * @constant {string} key - The key used to store the recent boards in local storage.
- * @constant {number} maxItems - The maximum number of items to keep in the recent boards list.
- * @example
 */
 
 import { key, maxItems } from './constants.js';
