@@ -59,7 +59,6 @@ export default {
         taskGroups: []
       }
       localStorage.setItem('boards', JSON.stringify(storage.boards));
-      this.$emit('boardCreated', storage.boards[0]);
     }
   }
 }
