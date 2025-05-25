@@ -6,6 +6,7 @@ import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
 import { storage } from '@/shared/storage.js'
+import bus from '@/shared/utils.js'
 
 export default {
   name: 'CreateBoardButtonComponent',
@@ -59,6 +60,7 @@ export default {
         taskGroups: []
       }
       localStorage.setItem('boards', JSON.stringify(storage.boards));
+      bus.$emit('board-created', storage.boards[0]);
     }
   }
 }
