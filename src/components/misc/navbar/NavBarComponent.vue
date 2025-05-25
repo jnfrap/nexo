@@ -41,7 +41,7 @@ export default {
       </div>
 
       <div class="flex items-center gap-[10px] w-fit">
-        <SearchBarComponent />
+        <SearchBarComponent v-if="currentPath === '/'" />
         <!-- Notification button -->
         <!-- User component -->
       </div>
