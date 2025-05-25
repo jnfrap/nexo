@@ -66,32 +66,49 @@ export function updateBoardInLocalStorage(board) {
   localStorage.setItem('boards', JSON.stringify(updatedBoards));
 }
 
+/** 
+ * Saves a board to the recent boards list in local storage.
+ * If the board already exists in the list, it will be moved to the top.
+ * If the list exceeds the maximum number of items, the oldest item will be removed.
+ * @param {Object} board - The board object to save to recents.
+ * @property {string} board.id - The unique identifier of the board.
+ * @property {string} board.name - The name of the board.
+ * @property {string} [board.icon] - The icon of the board (optional).
+ * @example 
+ * saveToRecents({ id: '123', name: 'My Board', icon: 'pi pi-table' });
+ * // This will save the board to the recent boards list in local storage.
+ * @returns {void}
+ * @throws Will throw an error if the board is not an object.
+ * @throws Will throw an error if the board does not have an id.
+ * @throws Will throw an error if the board does not have a name.
+ * @throws Will throw an error if the recent boards list is not an array.
+ * @throws Will throw an error if the recent boards list is empty.
+ * @throws Will throw an error if the recent boards list exceeds the maximum number of items.
+ * @constant {string} key - The key used to store the recent boards in local storage.
+ * @constant {number} maxItems - The maximum number of items to keep in the recent boards list.
+ * @example
+*/
 
-const key = 'recentBoards';
-const maxItems = 5;
+import { key, maxItems } from './constants.js';
 
-export function saveToRecents(board) {
+export function saveToRecentsBoards(board) {
 
-  // Obtiene los actuales
   let recents = JSON.parse(localStorage.getItem(key)) || [];
 
-  // Elimina si ya existe
   recents = recents.filter(item => item.id !== board.id);
 
-  // Añade al inicio
   recents.unshift({
     id: board.id,
-    name: board.name || board.title, // o cualquier info básica que necesites
-    icon: board.icon || 'pi pi-table', // o un icono por defecto
+    name: board.name,
+    icon: board.icon || 'pi pi-table',
     timestamp: Date.now()
   });
 
-  // Limita a 5
   if (recents.length > maxItems) recents = recents.slice(0, maxItems);
 
   localStorage.setItem(key, JSON.stringify(recents));
 }
 
-export function getRecents() {
+export function getRecentsBoards() {
   return JSON.parse(localStorage.getItem(key)) || []
 }

@@ -4,7 +4,7 @@ import { Button } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '@/shared/storage.js'
-import { reorderBoarsdArray, saveToRecents } from '@/shared/utils';
+import { reorderBoarsdArray, saveToRecentsBoards } from '@/shared/utils';
 
 export default {
   name: 'BoardPreviewComponent',
@@ -56,10 +56,10 @@ export default {
       }
     },
     goToBoard() {
-      saveToRecents({
+      saveToRecentsBoards({
         id: this.localBoard.id,
-        name: this.localBoard.title, // o .name si existe
-        icon: this.localBoard.icon // si tienes icono
+        name: this.localBoard.title,
+        icon: this.localBoard.icon
       });
       this.$router.push({ name: 'board', params: { boardId: this.localBoard.id } });
     },
