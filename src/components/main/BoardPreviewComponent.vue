@@ -4,7 +4,7 @@ import { Button } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '@/shared/storage.js'
-import { reorderBoarsdArray, saveToRecentsBoards } from '@/shared/utils';
+import { reorderBoarsdArray, saveToRecentsBoards, removeFromRecentsBoards } from '@/shared/utils';
 
 export default {
   name: 'BoardPreviewComponent',
@@ -81,6 +81,7 @@ export default {
           severity: 'danger',
         },
         accept: () => {
+          removeFromRecentsBoards(this.localBoard.id);
           this.$emit('delete-board', this.localBoard.id);
         }
       });
