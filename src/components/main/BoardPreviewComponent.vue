@@ -102,7 +102,7 @@ export default {
         this.boards[boardIndex].title = this.editTitle;
         this.boards[boardIndex].description = this.editDescription;
         storage.boards = this.boards;
-        localStorage.setItem('boards', JSON.stringify(this.boards)); 
+        localStorage.setItem('boards', JSON.stringify(this.boards));
       }
       this.editDialogVisible = false;
       this.$emit('edit-board', this.localBoard);
@@ -143,6 +143,26 @@ export default {
         {{ localBoard.title }}
       </h2>
     </div>
+    <Dialog v-model:visible="editDialogVisible" modal header="Editing board" :style="{ width: '25rem' }" :closable="true"
+      position="center" :draggable="false" @keydown.enter.prevent="saveEdit()"
+      @keydown.esc.prevent="editDialogVisible = false">
+      <div class="flex flex-col gap-4 my-2">
+        <FloatLabel variant="on">
+          <InputText id="edit_title" v-model="editTitle" autocomplete="off" class="resize-none w-full"
+            :maxlength="20" />
+          <label for="edit_title">Title</label>
+        </FloatLabel>
 
+        <FloatLabel variant="on">
+          <Textarea id="edit_desc" v-model="editDescription" autocomplete="off" :maxlength="5000" :minlength="10"
+            class="h-28 resize-none overflow-y-auto w-full overflow-hidden" />
+          <label for="edit_desc">Description</label>
+        </FloatLabel>
+        <div class="flex justify-end gap-2 mt-4">
+          <Button label="Cancel" class="p-button-text" @click="editDialogVisible = false" />
+          <Button label="Save" icon="pi pi-check" class="p-button-primary" @click="saveEdit()" />
+        </div>
+      </div>
+    </Dialog>
   </div>
 </template>
