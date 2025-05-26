@@ -5,6 +5,9 @@ import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '@/shared/storage.js'
 import { reorderBoarsdArray } from '@/shared/utils';
+import Dialog from 'primevue/dialog';
+import InputText from 'primevue/inputtext';
+import Textarea from 'primevue/textarea';
 
 export default {
   name: 'BoardPreviewComponent',
@@ -13,12 +16,15 @@ export default {
       isHovered: false,
       localBoard: {},
       boards: [],
+      editDialogVisible: false,
+      editTitle: '',
+      editDescription: '',
       menuItems: [
         {
           label: 'Edit',
           icon: 'pi pi-fw pi-pencil',
           command: () => {
-            // Add logic to edit the board
+            this.openEditDialog();
           }
         },
         {
@@ -31,11 +37,14 @@ export default {
       ]
     }
   },
-  emits: ['delete-board'],
+  emits: ['delete-board', 'edit-board'],
   components: {
     Menu,
     Button,
-    ContextMenu
+    ContextMenu,
+    Dialog,
+    InputText,
+    Textarea
   },
   props: {
     board: {
@@ -80,6 +89,24 @@ export default {
         }
       });
     },
+    openEditDialog() {
+      this.editTitle = this.localBoard.title;
+      this.editDescription = this.localBoard.description || '';
+      this.editDialogVisible = true;
+    },
+    saveEdit() {
+      this.localBoard.title = this.editTitle;
+      this.localBoard.description = this.editDescription;
+      const boardIndex = this.boards.findIndex(b => b.id === this.localBoard.id);
+      if (boardIndex !== -1) {
+        this.boards[boardIndex].title = this.editTitle;
+        this.boards[boardIndex].description = this.editDescription;
+        storage.boards = this.boards;
+        localStorage.setItem('boards', JSON.stringify(this.boards)); 
+      }
+      this.editDialogVisible = false;
+      this.$emit('edit-board', this.localBoard);
+    }
   },
   created() {
     this.boards = storage.boards;
