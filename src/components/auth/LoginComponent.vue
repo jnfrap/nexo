@@ -17,9 +17,9 @@ export default {
     InputText
   },
   methods: {
-    login() {
+    async login() {
       try {
-        const user = login(this.email, this.password);
+        const user = await login(this.email, this.password);
         console.log('User loged: ', user);
       } catch (error) {
         this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while loging in', life: 3000 });
@@ -30,7 +30,7 @@ export default {
   mounted() {
     const user = localStorage.getItem('user');
     if (user) {
-      this.$router.push({ name: '/' });
+      // this.$router.push({ name: '/' });
     }
   }
 }
