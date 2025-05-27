@@ -1,5 +1,6 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
+import { deleteBoard } from '@/shared/firebaseService';
 import { storage } from '@/shared/storage.js'
 
 export default {
@@ -13,11 +14,21 @@ export default {
   },
   methods: {
     deleteBoard(boardId) {
-      const boardIndex = this.boards.findIndex(board => board.id === boardId);
-      if (boardIndex !== -1) {
+      console.log('Deleting board with ID:', boardId);
+      try {
+        const boardIndex = this.boards.findIndex(board => board.id === boardId);
+        if (boardIndex === -1) {
+          this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board not found', life: 3000 });
+          return;
+        }
+
         this.boards.splice(boardIndex, 1);
         storage.boards = this.boards;
-        localStorage.setItem('boards', JSON.stringify(this.boards));
+
+        deleteBoard(boardId);
+      } catch (error) {
+        console.error('Error deleting board:', error);
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while deleting the board', life: 3000 });
       }
     }
   }

@@ -14,7 +14,6 @@ export default {
     return {
       isDialogVisible: false,
       boardToCreate: {
-        id: 0,
         title: '',
         description: '',
         backgroundImage: '/images/no-image.jpg',
@@ -41,7 +40,6 @@ export default {
         }
 
         const boardToSave = {
-          id: storage.boards.map(board => board.id).length > 0 ? Math.max(...storage.boards.map(board => board.id)) + 1 : 1,
           title: this.boardToCreate.title,
           description: this.boardToCreate.description,
           backgroundImage: this.boardToCreate.backgroundImage,
@@ -57,7 +55,6 @@ export default {
         this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
 
         this.boardToCreate = {
-          id: 0,
           title: '',
           description: '',
           backgroundImage: '/images/no-image.jpg',
