@@ -19,6 +19,7 @@ export default {
       try {
         const user = await register(this.email, this.password);
         console.log('User registered: ', user);
+        this.$toast.add({ severity: 'success', summary: 'Registration successful', detail: 'You have successfully registered', life: 3000 });
       } catch (error) {
         this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error ocurred while registrating new user', life: 3000 });
         console.error('Error registering:', error);

@@ -21,6 +21,7 @@ export default {
       try {
         const user = await login(this.email, this.password);
         console.log('User loged: ', user);
+        this.$toast.add({ severity: 'success', summary: 'Login successful', detail: 'You have successfully logged in', life: 3000 });
       } catch (error) {
         this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while loging in', life: 3000 });
         console.error('Error logging in:', error);
