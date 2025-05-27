@@ -1,6 +1,6 @@
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, db } from '@/firebase/config';
-import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 
 /**
  * Login function to authenticate a user with email and password and saves it on local storage.
@@ -127,4 +127,19 @@ export async function getBoards() {
   }
 
   return boardsList;
+}
+
+/**
+ * Deletes a board from the Firestore database by its ID.
+ * @param {String} boardId The ID of the board to delete.
+ * @returns {Promise} A promise that resolves when the board is deleted.
+ * @throws Will throw an error if the board ID is not provided or if the deletion fails.
+ */
+export async function deleteBoard(boardId) {
+  if (!boardId) {
+    throw new Error("Board ID is required to delete the board");
+  }
+
+  const boardRef = doc(db, "boards", boardId);
+  return await deleteDoc(boardRef);
 }

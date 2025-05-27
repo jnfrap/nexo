@@ -6,6 +6,7 @@ import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
 import { storage } from '@/shared/storage.js'
+// import { saveBoard } from '@/shared/firebaseService';
 
 export default {
   name: 'CreateBoardButtonComponent',
@@ -60,6 +61,7 @@ export default {
       }
 
       localStorage.setItem('boards', JSON.stringify(storage.boards));
+      // saveBoard(storage.boards)
     }
   }
 }
