@@ -1,22 +1,35 @@
+<!-- eslint-disable vue/no-reserved-component-names -->
 <script>
 import RegisterComponent from './RegisterComponent.vue';
 import LoginComponent from './LoginComponent.vue';
+import { Button } from 'primevue';
+import { logout } from '@/shared/firebaseService';
 
 
 export default {
   name: 'AuthView',
   components: {
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    Button
   },
   data() {
     return {
-      isLogin: true // Cambia esto a false para mostrar el registro
+      isLogin: true
     }
   },
   methods: {
     toggleForm() {
       this.isLogin = !this.isLogin;
+    },
+    logout() {
+      try {
+        logout();
+        this.$toast.add({ severity: 'success', summary: 'Logout successful', detail: 'You have successfully logged out', life: 3000 });
+      } catch (error) {
+        this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while logging out', life: 3000 });
+        console.error('Error logging out:', error);
+      }
     }
   }
 
@@ -37,4 +50,5 @@ export default {
       </p>
     </div>
   </div>
+  <Button @click="logout()">Logout</Button>
 </template>
