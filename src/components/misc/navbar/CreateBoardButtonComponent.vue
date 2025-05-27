@@ -6,7 +6,7 @@ import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
 import { storage } from '@/shared/storage.js'
-// import { saveBoard } from '@/shared/firebaseService';
+import { saveBoard } from '@/shared/firebaseService';
 
 export default {
   name: 'CreateBoardButtonComponent',
@@ -34,34 +34,41 @@ export default {
   },
   methods: {
     createBoard() {
-      if (this.boardToCreate.title.trim() === '') {
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board title cannot be empty', life: 3000 });
-        return;
-      }
-      storage.boards.unshift({
-        id: storage.boards.map(board => board.id).length > 0 ? Math.max(...storage.boards.map(board => board.id)) + 1 : 1,
-        title: this.boardToCreate.title,
-        description: this.boardToCreate.description,
-        backgroundImage: this.boardToCreate.backgroundImage,
-        isFavorite: false,
-        createdAt: new Date().toISOString(),
-        taskGroups: []
-      })
-      this.isDialogVisible = false;
-      this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
+      try {
+        if (this.boardToCreate.title.trim() === '') {
+          this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board title cannot be empty', life: 3000 });
+          return;
+        }
 
-      this.boardToCreate = {
-        id: 0,
-        title: '',
-        description: '',
-        backgroundImage: '/images/no-image.jpg',
-        isFavorite: false,
-        createdAt: '',
-        taskGroups: []
-      }
+        const boardToSave = {
+          id: storage.boards.map(board => board.id).length > 0 ? Math.max(...storage.boards.map(board => board.id)) + 1 : 1,
+          title: this.boardToCreate.title,
+          description: this.boardToCreate.description,
+          backgroundImage: this.boardToCreate.backgroundImage,
+          isFavorite: false,
+          createdAt: new Date().toISOString(),
+          taskGroups: []
+        }
 
-      localStorage.setItem('boards', JSON.stringify(storage.boards));
-      // saveBoard(storage.boards)
+        saveBoard(boardToSave);
+
+        storage.boards.unshift(boardToSave);
+        this.isDialogVisible = false;
+        this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
+
+        this.boardToCreate = {
+          id: 0,
+          title: '',
+          description: '',
+          backgroundImage: '/images/no-image.jpg',
+          isFavorite: false,
+          createdAt: '',
+          taskGroups: []
+        }
+      } catch (error) {
+        console.error('Error creating board:', error);
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while creating the board', life: 3000 });
+      }
     }
   }
 }
