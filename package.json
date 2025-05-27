@@ -12,6 +12,7 @@
   "dependencies": {
     "@primeuix/themes": "^1.1.1",
     "@tailwindcss/vite": "^4.1.6",
+    "firebase": "^11.8.1",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.4",
     "tailwindcss": "^4.1.6",
