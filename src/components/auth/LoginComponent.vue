@@ -18,15 +18,13 @@ export default {
   },
   methods: {
     login() {
-      const user = login(this.email, this.password);
-      console.log('User logged in:', user);
-        // .then(() => {
-        //   this.$router.push({ name: '/' });
-        // })
-        // .catch((error) => {
-        //   console.error('Error during login:', error);
-        //   this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'Error ocurred while loging', life: 3000 });
-        // });
+      try {
+        const user = login(this.email, this.password);
+        console.log('User loged: ', user);
+      } catch (error) {
+        this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while loging in', life: 3000 });
+        console.error('Error logging in:', error);
+      }
     }
   },
   mounted() {
