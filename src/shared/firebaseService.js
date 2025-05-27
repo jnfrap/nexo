@@ -1,5 +1,6 @@
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth } from '@/firebase/config';
+import { auth, db } from '@/firebase/config';
+import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 
 /**
  * Login function to authenticate a user with email and password and saves it on local storage.
@@ -57,4 +58,73 @@ export async function register(email, password) {
     .catch((error) => {
       throw new Error("Registration failed: " + error.message);
     });
+}
+
+/**
+ * Save a new board to the Firestore database.
+ * @param {Object} board The board object to save.
+ * @returns {Promise} A promise that resolves to the document reference of the saved board.
+ * @throws Will throw an error if the board is not provided or if saving fails.
+ * @throws Will throw an error if the board is not provided.
+ */
+export async function saveBoard(board) {
+  if (!board) {
+    throw new Error("Board is required to save");
+  }
+  return await addDoc(collection(db, "boards"), board);
+}
+
+/**
+ * Updates an existing board in the Firestore database.
+ * @param {Object} board The board object to update, which must include an id.
+ * @returns {Promise} A promise that resolves when the board is updated.
+ * @throws Will throw an error if the board or board id is not provided.
+ * @throws Will throw an error if the update fails.
+ */
+export async function updateBoard(board) {
+  if (!board || !board.id) {
+    throw new Error("Board and board id are required to update");
+  }
+
+  const boardRef = doc(db, "boards", board.id);
+  return await updateDoc(boardRef, board);
+}
+
+/**
+ * Retrieves a board by its ID from the Firestore database.
+ * @param {*} boardId The ID of the board to retrieve.
+ * @returns {Object} A promise that resolves to the board object if found.
+ * @throws Will throw an error if the board ID is not provided or if the board is not found.
+ * @throws Will throw an error if the board is not found.
+ */
+export async function getBoardByID(boardId) {
+  if (!boardId) {
+    throw new Error("Board ID is required to get the board");
+  }
+
+  const boardRef = doc(db, "boards", boardId);
+  const boardSnapshot = await getDoc(boardRef);
+
+  if (!boardSnapshot.exists()) {
+    throw new Error("Board not found");
+  }
+
+  return { id: boardSnapshot.id, ...boardSnapshot.data() };
+}
+
+/**
+ * Retrieves all boards from the Firestore database.
+ * @returns {Array} A promise that resolves to an array of board objects.
+ * @throws Will throw an error if no boards are found.
+ */
+export async function getBoards() {
+  const boardsCollection = collection(db, "boards");
+  const boardsSnapshot = await getDocs(boardsCollection);
+  const boardsList = boardsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+  if (boardsList.length === 0) {
+    throw new Error("No boards found");
+  }
+
+  return boardsList;
 }
