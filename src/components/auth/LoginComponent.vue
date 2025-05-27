@@ -1,5 +1,5 @@
 <script>
-import { apiKey } from '@/shared/constants';
+import { login } from '@/shared/firebaseService';
 import { InputText } from 'primevue';
 import FloatLabel from 'primevue/floatlabel';
 
@@ -18,7 +18,21 @@ export default {
   },
   methods: {
     login() {
-      localStorage.setItem('token', apiKey);
+      const user = login(this.email, this.password);
+      console.log('User logged in:', user);
+        // .then(() => {
+        //   this.$router.push({ name: '/' });
+        // })
+        // .catch((error) => {
+        //   console.error('Error during login:', error);
+        //   this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'Error ocurred while loging', life: 3000 });
+        // });
+    }
+  },
+  mounted() {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.$router.push({ name: '/' });
     }
   }
 }
