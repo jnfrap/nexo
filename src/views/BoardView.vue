@@ -5,7 +5,7 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { updateBoardInLocalStorage } from '@/shared/utils';
+import { getBoardByID, updateBoard } from '@/shared/firebaseService';
 
 export default {
   name: 'BoardView',
@@ -30,7 +30,7 @@ export default {
     }
   },
   methods: {
-    addTaskGroup() {
+    async addTaskGroup() {
       if (this.taskGroupToCreate.title.trim() === '') {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task group title cannot be empty', life: 3000 });
         return;
@@ -38,7 +38,7 @@ export default {
       this.taskGroupToCreate.id = this.taskGroups.map(tg => tg.id).length > 0 ? Math.max(...this.taskGroups.map(tg => tg.id)) + 1 : 1;
       this.taskGroups.push(this.taskGroupToCreate);
       this.board.taskGroups = this.taskGroups;
-      updateBoardInLocalStorage(this.board);
+      await updateBoard(this.board)
       this.isDialogVisible = false;
       this.taskGroupToCreate = {
         id: 0,
@@ -47,33 +47,32 @@ export default {
       }
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
     },
-    updateReorderedTasks(taskGroup) {
+    async updateReorderedTasks(taskGroup) {
       const index = this.taskGroups.findIndex(tg => tg.id === taskGroup.id);
       if (index !== -1) {
         this.taskGroups[index] = taskGroup;
         this.board.taskGroups = this.taskGroups;
-        updateBoardInLocalStorage(this.board);
+        await updateBoard(this.board);
       }
     },
-    updateReorderedTaskGroups() {
+    async updateReorderedTaskGroups() {
       this.board.taskGroups = this.taskGroups;
-      updateBoardInLocalStorage(this.board);
+      await updateBoard(this.board);
     },
-    deleteTaskGroup(taskGroupId) {
+    async deleteTaskGroup(taskGroupId) {
       this.taskGroups = this.taskGroups.filter(tg => tg.id !== taskGroupId);
       this.board.taskGroups = this.taskGroups;
-      updateBoardInLocalStorage(this.board);
+      await updateBoard(this.board);
       this.$toast.add({ severity: 'success', summary: 'Deleted succesfully', detail: 'Task group deleted succesfully', life: 3000 });
     },
   },
-  mounted() {
+  async mounted() {
     try {
-      const boards = localStorage.getItem('boards') ? JSON.parse(localStorage.getItem('boards')) : [];
-      const boardId = parseInt(this.$route.params.boardId);
-      const board = boards.find(b => b.id === boardId);
+      const boardId = this.$route.params.boardId;
+      const board = await getBoardByID(boardId);
       if (board) {
         this.board = board;
-        this.taskGroups = board.taskGroups;
+        this.taskGroups = board.taskGroups || [];
       } else {
         throw new Error(`Board ${boardId} not found`);
       }
