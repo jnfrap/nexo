@@ -34,7 +34,6 @@ export default {
         return;
       }
       await saveTaskGroup(this.board.id, this.taskGroupToCreate)
-      console.log("Esto que me da",this.board.id, this.taskGroupToCreate)
       this.isDialogVisible = false;
       this.taskGroupToCreate = {
         title: '',
