@@ -122,7 +122,7 @@ export default {
       <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
     </div>
 
-    <draggable :list="localTaskGroup.tasks" class="flex flex-col gap-2" @end="updateReorderedTaskGroup">
+    <draggable :list="localTaskGroup.tasks" class="flex flex-col gap-2" @end="updateReorderedTaskGroup" group="tasks">
       <div v-for="t in localTaskGroup.tasks" :key="t.id">
         <TaskComponent :task="t" @delete-task="deleteTask" />
       </div>

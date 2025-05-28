@@ -1,5 +1,8 @@
 <script>
+import { db } from '@/firebase/config';
+import { getBoards } from '@/shared/firebaseService';
 import { storage } from '@/shared/storage';
+import { collection, onSnapshot } from 'firebase/firestore';
 import AutoComplete from 'primevue/autocomplete';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
@@ -40,9 +43,21 @@ export default {
       this.search({ query: event.value.title });
     }
   },
-  mounted() {
-    this.boards = storage.boards;
+  async mounted() {
+    this.boards = await getBoards();
+    console.log('Boards loaded:', this.boards);
     this.filteredBoards = this.boards;
+
+    const boardsCollection = collection(db, "boards");
+    onSnapshot(boardsCollection, (querySnapshot) => {
+      this.boards = [];
+      querySnapshot.forEach((board) => {
+        this.boards.push({
+          id: board.id,
+          ...board.data()
+        });
+      });
+    });
   },
 }
 </script>
