@@ -4,7 +4,7 @@ import { Button } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '@/shared/storage.js'
-import { reorderBoarsdArray } from '@/shared/utils';
+import { reorderBoarsdArray, saveBoardToRecentsBoards, removeFromRecentsBoards } from '@/shared/utils';
 
 export default {
   name: 'BoardPreviewComponent',
@@ -56,6 +56,11 @@ export default {
       }
     },
     goToBoard() {
+      saveBoardToRecentsBoards({
+        id: this.localBoard.id,
+        name: this.localBoard.title,
+        icon: this.localBoard.icon
+      });
       this.$router.push({ name: 'board', params: { boardId: this.localBoard.id } });
     },
     toggleMenu(event) {
@@ -76,6 +81,7 @@ export default {
           severity: 'danger',
         },
         accept: () => {
+          removeFromRecentsBoards(this.localBoard.id);
           this.$emit('delete-board', this.localBoard.id);
         }
       });
@@ -84,6 +90,14 @@ export default {
   created() {
     this.boards = storage.boards;
     this.localBoard = this.board;
+  },
+  watch: {
+    board: {
+      immediate: true,
+      handler(newVal) {
+        this.localBoard = { ...newVal };
+      }
+    }
   },
 }
 </script>

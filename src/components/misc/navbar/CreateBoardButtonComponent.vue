@@ -46,6 +46,7 @@ export default {
         createdAt: new Date().toISOString(),
         taskGroups: []
       })
+      storage.filteredBoards = storage.boards;
       this.isDialogVisible = false;
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
 
@@ -58,7 +59,6 @@ export default {
         createdAt: '',
         taskGroups: []
       }
-
       localStorage.setItem('boards', JSON.stringify(storage.boards));
     }
   }

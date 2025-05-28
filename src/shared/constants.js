@@ -1,2 +1,4 @@
 export const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTYiLCJlbWFpbCI6Imp1YW4uZXhhbXBsZUBuZXhvLmNvbSIsImlhdCI6MTY5NTYwMDAwMCwiZXhwIjoxNjk1Njg2NDAwfQ.dQw4w9WgXcQ8vQ1w9wXcQ8vQ1w9wXcQ8vQ1w9wXcQ8vQ"
 
+export const recentBoardsLocalStoragekey = 'recentBoards';
+export const maxBoardsInRecentBoards = 5;
