@@ -5,7 +5,7 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { getBoardByID, updateBoard } from '@/shared/firebaseService';
+import { getBoardByID, getTaskGroupFromBoardId, updateBoard } from '@/shared/firebaseService';
 
 export default {
   name: 'BoardView',
@@ -70,9 +70,10 @@ export default {
     try {
       const boardId = this.$route.params.boardId;
       const board = await getBoardByID(boardId);
+      const taskGroups = await getTaskGroupFromBoardId(boardId);
       if (board) {
         this.board = board;
-        this.taskGroups = board.taskGroups || [];
+        this.taskGroups = taskGroups || [];
       } else {
         throw new Error(`Board ${boardId} not found`);
       }

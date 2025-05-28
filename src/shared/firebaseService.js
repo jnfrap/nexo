@@ -112,6 +112,16 @@ export async function getBoardByID(boardId) {
   return { id: boardSnapshot.id, ...boardSnapshot.data() };
 }
 
+export async function getTaskGroupFromBoardId(boardId) {
+  const taskGroupsRef = collection(db, 'boards', boardId, 'taskGroups');
+  const querySnapshot = await getDocs(taskGroupsRef);
+  let taskGroups = [];
+  querySnapshot.forEach((doc) => {
+    taskGroups.push({ id: doc.id, ...doc.data() });
+  });
+  return taskGroups;
+}
+
 /**
  * Retrieves all boards from the Firestore database.
  * @returns {Array} A promise that resolves to an array of board objects.
