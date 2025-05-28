@@ -33,7 +33,8 @@ export default {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task group title cannot be empty', life: 3000 });
         return;
       }
-      await saveTaskGroup(this.board.id, this.taskGroupToCreate)
+      
+      this.taskGroups.push(await saveTaskGroup(this.board.id, this.taskGroupToCreate))
       this.isDialogVisible = false;
       this.taskGroupToCreate = {
         title: '',

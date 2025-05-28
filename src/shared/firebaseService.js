@@ -140,7 +140,8 @@ export async function saveTaskGroup(boardID, taskGroup) {
   if (!boardID) {
     throw new Error("Board id is required to save");
   }
-  return await addDoc(collection(db, "boards", boardID, "taskGroups"), taskGroup);
+  const docRef = await addDoc(collection(db, "boards", boardID, "taskGroups"), taskGroup);
+  return { id: docRef.id, ...taskGroup };
 }
 
 
