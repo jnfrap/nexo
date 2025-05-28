@@ -5,7 +5,7 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { getBoardByID, getTaskGroupFromBoardId, updateBoard, saveTaskGroup } from '@/shared/firebaseService';
+import { getBoardByID, getTaskGroupFromBoardId, updateBoard, saveTaskGroup, deleteTaskGroup as delTaskGroup } from '@/shared/firebaseService';
 
 export default {
   name: 'BoardView',
@@ -56,7 +56,8 @@ export default {
     async deleteTaskGroup(taskGroupId) {
       this.taskGroups = this.taskGroups.filter(tg => tg.id !== taskGroupId);
       this.board.taskGroups = this.taskGroups;
-      await updateBoard(this.board);
+      const boardId = this.$route.params.boardId;
+      await delTaskGroup(boardId, taskGroupId)
       this.$toast.add({ severity: 'success', summary: 'Deleted succesfully', detail: 'Task group deleted succesfully', life: 3000 });
     },
   },

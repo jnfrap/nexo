@@ -194,3 +194,19 @@ export async function deleteBoard(boardId) {
   const boardRef = doc(db, "boards", boardId);
   return await deleteDoc(boardRef);
 }
+
+/**
+ * Deletes a task group from a specific board in Firestore.
+ *
+ * @async
+ * @param {string} boardID - The ID of the board containing the task group.
+ * @param {string} taskGroupId - The ID of the task group to delete.
+ * @returns {Promise<void>} A promise that resolves when the task group is deleted.
+ * @throws {Error} If the boardID is not provided.
+ */
+export async function deleteTaskGroup(boardID, taskGroupId) {
+  if (!boardID) {
+    throw new Error("Board id is required to delete");
+  }
+return await deleteDoc(doc(db, "boards", boardID, "taskGroups", taskGroupId));
+}
