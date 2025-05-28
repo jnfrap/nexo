@@ -93,7 +93,7 @@ export async function updateBoard(board) {
 
 /**
  * Retrieves a board by its ID from the Firestore database.
- * @param {*} boardId The ID of the board to retrieve.
+ * @param {String} boardId The ID of the board to retrieve.
  * @returns {Object} A promise that resolves to the board object if found.
  * @throws Will throw an error if the board ID is not provided or if the board is not found.
  * @throws Will throw an error if the board is not found.
@@ -115,7 +115,7 @@ export async function getBoardByID(boardId) {
 
 /**
  * Retrieves all task groups from a specific board by its ID.
- * @param {string} boardId - The ID of the board whose task groups are to be retrieved.
+ * @param {String} boardId - The ID of the board whose task groups are to be retrieved.
  * @returns {Promise<Array<Object>>} A promise that resolves to an array of task group objects, each containing its id and data.
  * @throws Will throw an error if the board ID is not provided or if the retrieval fails.
  */
@@ -129,20 +129,35 @@ export async function getTaskGroupFromBoardId(boardId) {
   return taskGroups;
 }
 
+
+/**
+ * Save taskGroup on firebase
+ * @param {String} boardID - The ID of the board containing the task group.
+ * @param {Object} taskGroup - The task group to add.
+ * @returns {Promise<Object>} A promise that resolves to an object with the added task group. 
+ */
+export async function saveTaskGroup(boardID, taskGroup) {
+  if (!boardID) {
+    throw new Error("Board id is required to save");
+  }
+  return await addDoc(collection(db, "boards", boardID, "taskGroups"), taskGroup);
+}
+
+
 /**
  * Retrieves all tasks from a specific task group within a board from Firestore.
  *
  * @async
- * @param {string} taskGroupId - The ID of the task group to retrieve tasks from.
- * @param {string} boardId - The ID of the board containing the task group.
+ * @param {String} taskGroupId - The ID of the task group to retrieve tasks from.
+ * @param {String} boardId - The ID of the board containing the task group.
  * @returns {Promise<Array<Object>>} A promise that resolves to an array of task objects, each including its Firestore document ID and data.
  */
-export async function getTasksByGroupId(taskGroupId, boardId){
+export async function getTasksByGroupId(taskGroupId, boardId) {
   const taskRef = collection(db, 'boards', boardId, 'taskGroups', taskGroupId);
   const querySnapshot = await getDocs(taskRef);
   let tasks = [];
   querySnapshot.forEach((doc) => {
-    tasks.push({id: doc.id, ...doc.data()});
+    tasks.push({ id: doc.id, ...doc.data() });
   });
   return tasks;
 }
