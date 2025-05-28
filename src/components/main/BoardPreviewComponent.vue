@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-reserved-component-names -->
 <script>
-import { Button } from 'primevue';
+import { Button, FloatLabel } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '@/shared/storage.js'
@@ -45,7 +45,8 @@ export default {
     ContextMenu,
     Dialog,
     InputText,
-    Textarea
+    Textarea,
+    FloatLabel
   },
   props: {
     board: {
