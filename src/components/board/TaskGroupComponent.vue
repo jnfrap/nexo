@@ -5,6 +5,7 @@ import ContextMenu from 'primevue/contextmenu';
 import { Button, Dialog, FloatLabel, InputText } from 'primevue';
 import TaskComponent from './TaskComponent.vue';
 import { VueDraggableNext } from 'vue-draggable-next';
+import { getTasksByGroupId } from '@/shared/firebaseService';
 
 export default {
   name: 'TaskGroupComponent',
@@ -42,6 +43,7 @@ export default {
         id: 0,
         title: '',
       },
+      tasks: []
     }
   },
   emits: [
@@ -104,8 +106,21 @@ export default {
       });
     },
   },
-  created() {
+  async created() {
     this.localTaskGroup = this.taskGroup;
+    try {
+      const boardId = this.$route.params.boardId;
+      const tasks = await getTasksByGroupId(this.localTaskGroup.id, boardId);
+      if (tasks) {
+        this.tasks = tasks || [];
+      } else {
+        throw new Error(`Board ${boardId} not found`);
+      }
+    }
+    catch (error) {
+      console.error(error);
+      this.$router.push('/');
+    }
   }
 }
 </script>
@@ -126,12 +141,13 @@ export default {
       <div v-for="t in localTaskGroup.tasks" :key="t.id">
         <TaskComponent :task="t" @delete-task="deleteTask" />
       </div>
-      <Button type="button" icon="pi pi-plus" label="Add Task" class="w-full" size="small" @click="isDialogVisible = true" />
+      <Button type="button" icon="pi pi-plus" label="Add Task" class="w-full" size="small"
+        @click="isDialogVisible = true" />
     </draggable>
   </div>
 
-  <Dialog v-model:visible="isDialogVisible" modal header="Creating new Task" :style="{ width: '25rem' }"
-    :closable=false position="center" :draggable="false" @keydown.enter.prevent="addTask()"
+  <Dialog v-model:visible="isDialogVisible" modal header="Creating new Task" :style="{ width: '25rem' }" :closable=false
+    position="center" :draggable="false" @keydown.enter.prevent="addTask()"
     @keydown.esc.prevent="isDialogVisible = false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
