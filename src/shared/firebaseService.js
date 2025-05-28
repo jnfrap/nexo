@@ -2,6 +2,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, si
 import { auth, db } from '@/firebase/config';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 
+
 /**
  * Login function to authenticate a user with email and password and saves it on local storage.
  * @param {*} email The user's email address.
@@ -112,6 +113,12 @@ export async function getBoardByID(boardId) {
   return { id: boardSnapshot.id, ...boardSnapshot.data() };
 }
 
+/**
+ * Retrieves all task groups from a specific board by its ID.
+ * @param {string} boardId - The ID of the board whose task groups are to be retrieved.
+ * @returns {Promise<Array<Object>>} A promise that resolves to an array of task group objects, each containing its id and data.
+ * @throws Will throw an error if the board ID is not provided or if the retrieval fails.
+ */
 export async function getTaskGroupFromBoardId(boardId) {
   const taskGroupsRef = collection(db, 'boards', boardId, 'taskGroups');
   const querySnapshot = await getDocs(taskGroupsRef);
@@ -120,6 +127,24 @@ export async function getTaskGroupFromBoardId(boardId) {
     taskGroups.push({ id: doc.id, ...doc.data() });
   });
   return taskGroups;
+}
+
+/**
+ * Retrieves all tasks from a specific task group within a board from Firestore.
+ *
+ * @async
+ * @param {string} taskGroupId - The ID of the task group to retrieve tasks from.
+ * @param {string} boardId - The ID of the board containing the task group.
+ * @returns {Promise<Array<Object>>} A promise that resolves to an array of task objects, each including its Firestore document ID and data.
+ */
+export async function getTasksByGroupId(taskGroupId, boardId){
+  const taskRef = collection(db, 'boards', boardId, 'taskGroups', taskGroupId);
+  const querySnapshot = await getDocs(taskRef);
+  let tasks = [];
+  querySnapshot.forEach((doc) => {
+    tasks.push({id: doc.id, ...doc.data()});
+  });
+  return tasks;
 }
 
 /**
