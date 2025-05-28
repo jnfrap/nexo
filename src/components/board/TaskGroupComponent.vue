@@ -40,7 +40,6 @@ export default {
       ],
       isDialogVisible: false,
       taskToCreate: {
-        id: 0,
         title: '',
       },
       tasks: []
@@ -70,7 +69,6 @@ export default {
       this.$emit('update-task-group', this.localTaskGroup);
       this.isDialogVisible = false;
       this.taskToCreate = {
-        id: 0,
         title: '',
       }
       this.$toast.add({ severity: 'success', summary: 'Created successfully', detail: 'Task created successfully', life: 3000 });
@@ -110,7 +108,10 @@ export default {
     this.localTaskGroup = this.taskGroup;
     try {
       const boardId = this.$route.params.boardId;
+      console.log("Esto es el boardId:", boardId)
+      console.log("Esto es localTaskGroup", this.localTaskGroup)
       const tasks = await getTasksByGroupId(this.localTaskGroup.id, boardId);
+      console.log("Esto es el tasks:", tasks)
       if (tasks) {
         this.tasks = tasks || [];
       } else {

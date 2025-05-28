@@ -153,7 +153,7 @@ export async function saveTaskGroup(boardID, taskGroup) {
  * @returns {Promise<Array<Object>>} A promise that resolves to an array of task objects, each including its Firestore document ID and data.
  */
 export async function getTasksByGroupId(taskGroupId, boardId) {
-  const taskRef = collection(db, 'boards', boardId, 'taskGroups', taskGroupId);
+  const taskRef = collection(db, 'boards', boardId, 'taskGroups', taskGroupId, 'tasks');
   const querySnapshot = await getDocs(taskRef);
   let tasks = [];
   querySnapshot.forEach((doc) => {

@@ -5,7 +5,7 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { getBoardByID, getTaskGroupFromBoardId, updateBoard } from '@/shared/firebaseService';
+import { getBoardByID, getTaskGroupFromBoardId, updateBoard, saveTaskGroup } from '@/shared/firebaseService';
 
 export default {
   name: 'BoardView',
@@ -23,9 +23,7 @@ export default {
       taskGroups: [],
       isDialogVisible: false,
       taskGroupToCreate: {
-        id: 0,
         title: '',
-        tasks: []
       },
     }
   },
@@ -35,15 +33,11 @@ export default {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task group title cannot be empty', life: 3000 });
         return;
       }
-      this.taskGroupToCreate.id = this.taskGroups.map(tg => tg.id).length > 0 ? Math.max(...this.taskGroups.map(tg => tg.id)) + 1 : 1;
-      this.taskGroups.push(this.taskGroupToCreate);
-      this.board.taskGroups = this.taskGroups;
-      await updateBoard(this.board)
+      await saveTaskGroup(this.board.id, this.taskGroupToCreate)
+      console.log("Esto que me da",this.board.id, this.taskGroupToCreate)
       this.isDialogVisible = false;
       this.taskGroupToCreate = {
-        id: 0,
         title: '',
-        tasks: []
       }
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
     },
