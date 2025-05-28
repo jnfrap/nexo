@@ -1,3 +1,5 @@
+import { recentBoardsLocalStoragekey, maxBoardsInRecentBoards } from './constants.js';
+
 /**
  * Recieves a list of boards and sorts them based on the following criteria:
  * 1. Favorite boards are always at the top
@@ -78,12 +80,9 @@ export function updateBoardInLocalStorage(board) {
  * saveToRecents({ id: '123', name: 'My Board', icon: 'pi pi-table' });
  * // This will save the board to the recent boards list in local storage.
 */
+export function saveBoardToRecentsBoards(board) {
 
-import { key, maxItems } from './constants.js';
-
-export function saveToRecentsBoards(board) {
-
-  let recents = JSON.parse(localStorage.getItem(key)) || [];
+  let recents = JSON.parse(localStorage.getItem(recentBoardsLocalStoragekey)) || [];
 
   recents = recents.filter(item => item.id !== board.id);
 
@@ -94,13 +93,13 @@ export function saveToRecentsBoards(board) {
     timestamp: Date.now()
   });
 
-  if (recents.length > maxItems) recents = recents.slice(0, maxItems);
+  if (recents.length > maxBoardsInRecentBoards) recents = recents.slice(0, maxBoardsInRecentBoards);
 
-  localStorage.setItem(key, JSON.stringify(recents));
+  localStorage.setItem(recentBoardsLocalStoragekey, JSON.stringify(recents));
 }
 
 export function getRecentsBoards() {
-  return JSON.parse(localStorage.getItem(key)) || []
+  return JSON.parse(localStorage.getItem(recentBoardsLocalStoragekey)) || []
 }
 
 /**
@@ -111,7 +110,7 @@ export function getRecentsBoards() {
  * // This will remove the board with id '123' from the recent boards list in local storage.
  */
 export function removeFromRecentsBoards(boardId) {
-  let recents = JSON.parse(localStorage.getItem(key)) || [];
+  let recents = JSON.parse(localStorage.getItem(recentBoardsLocalStoragekey)) || [];
   recents = recents.filter(item => item.id !== boardId);
-  localStorage.setItem(key, JSON.stringify(recents));
+  localStorage.setItem(recentBoardsLocalStoragekey, JSON.stringify(recents));
 }

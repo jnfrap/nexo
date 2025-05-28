@@ -1,6 +1,6 @@
 <script>
 import Popover from 'primevue/popover';
-import {  getRecentsBoards, saveToRecentsBoards } from '@/shared/utils';
+import {  getRecentsBoards, saveBoardToRecentsBoards } from '@/shared/utils';
 
 export default {
   data() {
@@ -17,7 +17,7 @@ export default {
     },
     selectBoard(board) {
       this.selectedBoard = board;
-      saveToRecentsBoards(board);
+      saveBoardToRecentsBoards(board);
       this.recentBoards = getRecentsBoards();
       this.$refs.op.hide();
       this.$router.push({ name: 'board', params: { boardId: board.id } });

@@ -4,7 +4,7 @@ import { Button } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '@/shared/storage.js'
-import { reorderBoarsdArray, saveToRecentsBoards, removeFromRecentsBoards } from '@/shared/utils';
+import { reorderBoarsdArray, saveBoardToRecentsBoards, removeFromRecentsBoards } from '@/shared/utils';
 
 export default {
   name: 'BoardPreviewComponent',
@@ -56,7 +56,7 @@ export default {
       }
     },
     goToBoard() {
-      saveToRecentsBoards({
+      saveBoardToRecentsBoards({
         id: this.localBoard.id,
         name: this.localBoard.title,
         icon: this.localBoard.icon
