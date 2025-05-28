@@ -90,10 +90,12 @@ export default {
 
   <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @end="updateReorderedTaskGroups">
     <div v-for="tg in taskGroups" :key="tg.id">
-      <TaskGroupComponent :taskGroup="tg" @update-task-group="updateReorderedTasks" @delete-task-group="deleteTaskGroup" />
+      <TaskGroupComponent :taskGroup="tg" @update-task-group="updateReorderedTasks"
+        @delete-task-group="deleteTaskGroup" />
     </div>
     <div class="flex-shrink-0">
-      <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true" class="w-40 h-12" />
+      <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true"
+        class="w-40 h-12" />
     </div>
   </draggable>
 
