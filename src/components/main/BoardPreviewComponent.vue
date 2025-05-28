@@ -4,7 +4,10 @@ import { Button } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '@/shared/storage.js'
-import { reorderBoarsdArray } from '@/shared/utils';
+import { reorderBoarsdArray, saveBoardToRecentsBoards, removeFromRecentsBoards } from '@/shared/utils';
+import Dialog from 'primevue/dialog';
+import InputText from 'primevue/inputtext';
+import Textarea from 'primevue/textarea';
 
 export default {
   name: 'BoardPreviewComponent',
@@ -13,12 +16,15 @@ export default {
       isHovered: false,
       localBoard: {},
       boards: [],
+      editDialogVisible: false,
+      editTitle: '',
+      editDescription: '',
       menuItems: [
         {
           label: 'Edit',
           icon: 'pi pi-fw pi-pencil',
           command: () => {
-            // Add logic to edit the board
+            this.openEditDialog();
           }
         },
         {
@@ -31,11 +37,14 @@ export default {
       ]
     }
   },
-  emits: ['delete-board'],
+  emits: ['delete-board', 'edit-board'],
   components: {
     Menu,
     Button,
-    ContextMenu
+    ContextMenu,
+    Dialog,
+    InputText,
+    Textarea
   },
   props: {
     board: {
@@ -56,6 +65,11 @@ export default {
       }
     },
     goToBoard() {
+      saveBoardToRecentsBoards({
+        id: this.localBoard.id,
+        name: this.localBoard.title,
+        icon: this.localBoard.icon
+      });
       this.$router.push({ name: 'board', params: { boardId: this.localBoard.id } });
     },
     toggleMenu(event) {
@@ -76,14 +90,41 @@ export default {
           severity: 'danger',
         },
         accept: () => {
+          removeFromRecentsBoards(this.localBoard.id);
           this.$emit('delete-board', this.localBoard.id);
         }
       });
     },
+    openEditDialog() {
+      this.editTitle = this.localBoard.title;
+      this.editDescription = this.localBoard.description || '';
+      this.editDialogVisible = true;
+    },
+    saveEdit() {
+      this.localBoard.title = this.editTitle;
+      this.localBoard.description = this.editDescription;
+      const boardIndex = this.boards.findIndex(b => b.id === this.localBoard.id);
+      if (boardIndex !== -1) {
+        this.boards[boardIndex].title = this.editTitle;
+        this.boards[boardIndex].description = this.editDescription;
+        storage.boards = this.boards;
+        localStorage.setItem('boards', JSON.stringify(this.boards));
+      }
+      this.editDialogVisible = false;
+      this.$emit('edit-board', this.localBoard);
+    }
   },
   created() {
     this.boards = storage.boards;
     this.localBoard = this.board;
+  },
+  watch: {
+    board: {
+      immediate: true,
+      handler(newVal) {
+        this.localBoard = { ...newVal };
+      }
+    }
   },
 }
 </script>
@@ -116,6 +157,26 @@ export default {
         {{ localBoard.title }}
       </h2>
     </div>
+    <Dialog v-model:visible="editDialogVisible" modal header="Editing board" :style="{ width: '25rem' }" :closable="true"
+      position="center" :draggable="false" @keydown.enter.prevent="saveEdit()"
+      @keydown.esc.prevent="editDialogVisible = false">
+      <div class="flex flex-col gap-4 my-2">
+        <FloatLabel variant="on">
+          <InputText id="edit_title" v-model="editTitle" autocomplete="off" class="resize-none w-full"
+            :maxlength="20" />
+          <label for="edit_title">Title</label>
+        </FloatLabel>
 
+        <FloatLabel variant="on">
+          <Textarea id="edit_desc" v-model="editDescription" autocomplete="off" :maxlength="5000" :minlength="10"
+            class="h-28 resize-none overflow-y-auto w-full overflow-hidden" />
+          <label for="edit_desc">Description</label>
+        </FloatLabel>
+        <div class="flex justify-end gap-2 mt-4">
+          <Button label="Cancel" class="p-button-text" @click="editDialogVisible = false" />
+          <Button label="Save" icon="pi pi-check" class="p-button-primary" @click="saveEdit()" />
+        </div>
+      </div>
+    </Dialog>
   </div>
 </template>
