@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router';
 import CreateBoardButtonComponent from './CreateBoardButtonComponent.vue';
 import { computed } from 'vue';
 import SearchBarComponent from './SearchBarComponent.vue';
-import RecentBoardsComponent from '../RecentBoardsComponent.vue';
+import RecentBoardsComponent from './RecentBoardsComponent.vue';
 import UserProfileComponent from './UserProfileComponent.vue';
 
 export default {

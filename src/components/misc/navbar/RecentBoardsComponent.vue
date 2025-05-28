@@ -11,9 +11,9 @@ export default {
   },
   methods: {
     toggle(event) {
-      this.recentBoards= getRecentsBoards();
+      this.recentBoards = getRecentsBoards();
       this.$refs.op.toggle(event);
-      
+
     },
     selectBoard(board) {
       this.selectedBoard = board;

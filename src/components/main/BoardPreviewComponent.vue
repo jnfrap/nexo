@@ -8,6 +8,7 @@ import { reorderBoarsdArray, saveBoardToRecentsBoards, removeFromRecentsBoards }
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
+import { updateBoard } from '@/shared/firebaseService';
 
 export default {
   name: 'BoardPreviewComponent',
@@ -61,7 +62,7 @@ export default {
         this.boards = reorderBoarsdArray(this.boards);
         storage.filteredBoards = reorderBoarsdArray(storage.filteredBoards);
         storage.boards = this.boards;
-        localStorage.setItem('boards', JSON.stringify(this.boards));
+        updateBoard(board);
       }
     },
     goToBoard() {
@@ -103,12 +104,12 @@ export default {
     saveEdit() {
       this.localBoard.title = this.editTitle;
       this.localBoard.description = this.editDescription;
-      const boardIndex = this.boards.findIndex(b => b.id === this.localBoard.id);
-      if (boardIndex !== -1) {
-        this.boards[boardIndex].title = this.editTitle;
-        this.boards[boardIndex].description = this.editDescription;
+      const board = this.boards.find(b => b.id === this.localBoard.id);
+      if (board) {
+        board.title = this.editTitle;
+        board.description = this.editDescription;
         storage.boards = this.boards;
-        localStorage.setItem('boards', JSON.stringify(this.boards));
+        updateBoard(board);
       }
       this.editDialogVisible = false;
       this.$emit('edit-board', this.localBoard);
