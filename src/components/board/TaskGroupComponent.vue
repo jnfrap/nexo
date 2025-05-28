@@ -108,10 +108,7 @@ export default {
     this.localTaskGroup = this.taskGroup;
     try {
       const boardId = this.$route.params.boardId;
-      console.log("Esto es el boardId:", boardId)
-      console.log("Esto es localTaskGroup", this.localTaskGroup)
       const tasks = await getTasksByGroupId(this.localTaskGroup.id, boardId);
-      console.log("Esto es el tasks:", tasks)
       if (tasks) {
         this.tasks = tasks || [];
       } else {
