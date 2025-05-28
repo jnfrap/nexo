@@ -4,11 +4,13 @@ import CreateBoardButtonComponent from './CreateBoardButtonComponent.vue';
 import { computed } from 'vue';
 import SearchBarComponent from './SearchBarComponent.vue';
 import RecentBoardsComponent from '../RecentBoardsComponent.vue';
+import UserProfileComponent from './UserProfileComponent.vue';
 
 export default {
   name: 'NavBarComponent',
   components: {
     CreateBoardButtonComponent,
+    UserProfileComponent,
     SearchBarComponent,
     RecentBoardsComponent
   },
@@ -45,7 +47,7 @@ export default {
       <div class="flex items-center gap-[10px] w-fit">
         <SearchBarComponent />
         <!-- Notification button -->
-        <!-- User component -->
+        <UserProfileComponent />
       </div>
     </div>
   </div>
