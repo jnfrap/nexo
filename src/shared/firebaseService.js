@@ -92,6 +92,22 @@ export async function updateBoard(board) {
 }
 
 /**
+ * Updates a task group in Firestore.
+ * @param {String} boardID - The ID of the board containing the task group.
+ * @param {String} taskGroupId - The ID of the task group to update.
+ * @param {Object} updatedData - Los datos a actualizar en el task group.
+ * @returns {Promise<void>} Una promesa que se resuelve cuando el grupo se ha actualizado.
+ * @throws {Error} Si falta algún parámetro.
+ */
+export async function updateTaskGroup(boardID, taskGroupId, updatedData) {
+  if (!boardID || !taskGroupId) {
+    throw new Error("Board ID y Task Group ID son requeridos para actualizar");
+  }
+  const taskGroupRef = doc(db, "boards", boardID, "taskGroups", taskGroupId);
+  return await updateDoc(taskGroupRef, updatedData);
+}
+
+/**
  * Retrieves a board by its ID from the Firestore database.
  * @param {String} boardId The ID of the board to retrieve.
  * @returns {Object} A promise that resolves to the board object if found.

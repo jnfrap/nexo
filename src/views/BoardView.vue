@@ -5,7 +5,7 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { getBoardByID, getTaskGroupFromBoardId, updateBoard, saveTaskGroup, deleteTaskGroup as delTaskGroup } from '@/shared/firebaseService';
+import { getBoardByID, getTaskGroupFromBoardId, saveTaskGroup, deleteTaskGroup as delTaskGroup, updateTaskGroup } from '@/shared/firebaseService';
 
 export default {
   name: 'BoardView',
@@ -33,7 +33,7 @@ export default {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task group title cannot be empty', life: 3000 });
         return;
       }
-      
+
       this.taskGroups.push(await saveTaskGroup(this.board.id, this.taskGroupToCreate))
       this.isDialogVisible = false;
       this.taskGroupToCreate = {
@@ -46,12 +46,13 @@ export default {
       if (index !== -1) {
         this.taskGroups[index] = taskGroup;
         this.board.taskGroups = this.taskGroups;
-        await updateBoard(this.board);
+        await updateTaskGroup(this.board.id, taskGroup.id, taskGroup);
       }
     },
     async updateReorderedTaskGroups() {
-      this.board.taskGroups = this.taskGroups;
-      await updateBoard(this.board);
+      for (const tg of this.taskGroups) {
+        await updateTaskGroup(this.board.id, tg.id, tg);
+      }
     },
     async deleteTaskGroup(taskGroupId) {
       this.taskGroups = this.taskGroups.filter(tg => tg.id !== taskGroupId);
