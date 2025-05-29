@@ -22,12 +22,15 @@ export default {
   data() {
     return {
       localTaskGroup: {},
+      isEditMode: false,
       menuItems: [
         {
           label: 'Edit',
           icon: 'pi pi-fw pi-pencil',
           command: () => {
-            // Add logic to edit the board
+            this.taskToCreate.title = this.localTaskGroup.title;
+            this.isEditMode = true;
+            this.isDialogVisible = true;
           }
         },
         {
@@ -62,6 +65,14 @@ export default {
     addTask() {
       if (this.taskToCreate.title.trim() === '') {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task title cannot be empty', life: 3000 });
+        return;
+      }
+      if (this.isEditMode) {
+        this.localTaskGroup.title = this.taskToCreate.title;
+        this.$emit('update-task-group', this.localTaskGroup);
+        this.isEditMode = false;
+        this.isDialogVisible = false;
+        this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Task group updated', life: 3000 });
         return;
       }
       this.taskToCreate.id = this.localTaskGroup.tasks.map(task => task.id).length > 0 ? Math.max(...this.localTaskGroup.tasks.map(task => task.id)) + 1 : 1;
@@ -144,9 +155,9 @@ export default {
     </draggable>
   </div>
 
-  <Dialog v-model:visible="isDialogVisible" modal header="Creating new Task" :style="{ width: '25rem' }" :closable=false
-    position="center" :draggable="false" @keydown.enter.prevent="addTask()"
-    @keydown.esc.prevent="isDialogVisible = false">
+  <Dialog v-model:visible="isDialogVisible" modal :header="isEditMode ? 'Edit Task Group' : 'Creating new Task'"
+    :style="{ width: '25rem' }" :closable=false position="center" :draggable="false" @keydown.enter.prevent="addTask()"
+    @keydown.esc.prevent="isDialogVisible = false; isEditMode = false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
         <InputText id="in_label" v-model="taskToCreate.title" autocomplete="off" class="resize-none w-full"
@@ -156,7 +167,8 @@ export default {
 
       <div class="flex justify-end gap-2 mt-4">
         <Button label="Cancel" class="p-button-text" @click="isDialogVisible = false" />
-        <Button label="Create" icon="pi pi-check" class="p-button-primary" @click="addTask()" />
+        <Button :label="isEditMode ? 'Save' : 'Create'" icon="pi pi-check" class="p-button-primary"
+          @click="addTask()" />
       </div>
     </div>
   </Dialog>
