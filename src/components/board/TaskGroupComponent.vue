@@ -157,7 +157,7 @@ export default {
 
   <Dialog v-model:visible="isDialogVisible" modal :header="isEditMode ? 'Edit Task Group' : 'Creating new Task'"
     :style="{ width: '25rem' }" :closable=false position="center" :draggable="false" @keydown.enter.prevent="addTask()"
-    @keydown.esc.prevent="isDialogVisible = false; isEditMode = false">
+    @keydown.esc.prevent="isDialogVisible = false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
         <InputText id="in_label" v-model="taskToCreate.title" autocomplete="off" class="resize-none w-full"
