@@ -180,6 +180,21 @@ export async function getTasksByGroupId(taskGroupId, boardId) {
 }
 
 /**
+ * Save an especific task on firebase.
+ * @param {String} boardID - Board ID.
+ * @param {String} taskGroupId - Task Group ID.
+ * @param {Object} task - Task object to save.
+ * @returns {Promise<Object>} - Task save it with his id.
+ */
+export async function saveTask(boardID, taskGroupId, task) {
+  if (!boardID || !taskGroupId) {
+    throw new Error("Board ID and Task Group ID is required");
+  }
+  const docRef = await addDoc(collection(db, "boards", boardID, "taskGroups", taskGroupId, "tasks"), task);
+  return { id: docRef.id, ...task};
+}
+
+/**
  * Retrieves all boards from the Firestore database.
  * @returns {Array} A promise that resolves to an array of board objects.
  * @throws Will throw an error if no boards are found.

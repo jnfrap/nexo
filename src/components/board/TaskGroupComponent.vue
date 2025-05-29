@@ -5,7 +5,7 @@ import ContextMenu from 'primevue/contextmenu';
 import { Button, Dialog, FloatLabel, InputText } from 'primevue';
 import TaskComponent from './TaskComponent.vue';
 import { VueDraggableNext } from 'vue-draggable-next';
-import { getTasksByGroupId } from '@/shared/firebaseService';
+import { getTasksByGroupId, saveTask } from '@/shared/firebaseService';
 
 export default {
   name: 'TaskGroupComponent',
@@ -62,7 +62,7 @@ export default {
     toggleMenu(event) {
       this.$refs.menu.toggle(event);
     },
-    addTask() {
+    async addTask() {
       if (this.taskToCreate.title.trim() === '') {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task title cannot be empty', life: 3000 });
         return;
@@ -75,8 +75,10 @@ export default {
         this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Task group updated', life: 3000 });
         return;
       }
-      this.taskToCreate.id = this.localTaskGroup.tasks.map(task => task.id).length > 0 ? Math.max(...this.localTaskGroup.tasks.map(task => task.id)) + 1 : 1;
-      this.localTaskGroup.tasks.push(this.taskToCreate);
+      const boardId = this.$route.params.boardId;
+      const taskGroupId = this.localTaskGroup.id;
+      const savedTask = await saveTask(boardId, taskGroupId, this.taskToCreate)
+      this.localTaskGroup.tasks.push(savedTask);
       this.$emit('update-task-group', this.localTaskGroup);
       this.isDialogVisible = false;
       this.taskToCreate = {
