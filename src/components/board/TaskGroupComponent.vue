@@ -5,7 +5,7 @@ import ContextMenu from 'primevue/contextmenu';
 import { Button, Dialog, FloatLabel, InputText } from 'primevue';
 import TaskComponent from './TaskComponent.vue';
 import { VueDraggableNext } from 'vue-draggable-next';
-import { getTasksByGroupId, saveTask } from '@/shared/firebaseService';
+import { getTasksByGroupId, saveTask, deleteTask } from '@/shared/firebaseService';
 
 export default {
   name: 'TaskGroupComponent',
@@ -89,7 +89,10 @@ export default {
     updateReorderedTaskGroup() {
       this.$emit('update-task-group', this.localTaskGroup);
     },
-    deleteTask(taskId) {
+    async deleteTask(taskId) {
+      const boardId = this.$route.params.boardId;
+      const taskGroupId = this.localTaskGroup.id;
+      await deleteTask(boardId, taskGroupId, taskId);
       this.localTaskGroup.tasks = this.localTaskGroup.tasks.filter(task => task.id !== taskId);
       this.$emit('update-task-group', this.localTaskGroup);
       this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Task deleted', life: 3000 });

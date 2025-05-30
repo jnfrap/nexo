@@ -195,6 +195,23 @@ export async function saveTask(boardID, taskGroupId, task) {
 }
 
 /**
+ * Deletes a task from a specific task group in Firestore.
+ *
+ * @async
+ * @param {string} boardID - The ID of the board containing the task group.
+ * @param {string} taskGroupId - The ID of the task group containing the task.
+ * @param {string} taskId - The ID of the task to delete.
+ * @returns {Promise<void>} A promise that resolves when the task is deleted.
+ * @throws {Error} If any parameter is not provided.
+ */
+export async function deleteTask(boardID, taskGroupId, taskId) {
+  if (!boardID || !taskGroupId || !taskId) {
+    throw new Error("Board ID, Task Group ID, and Task ID are required to delete the task");
+  }
+  return await deleteDoc(doc(db, "boards", boardID, "taskGroups", taskGroupId, "tasks", taskId));
+}
+
+/**
  * Retrieves all boards from the Firestore database.
  * @returns {Array} A promise that resolves to an array of board objects.
  * @throws Will throw an error if no boards are found.
