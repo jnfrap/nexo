@@ -1,18 +1,24 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
-import { deleteBoard } from '@/shared/firebaseService';
+import NavBarComponent from '@/components/misc/navbar/NavBarComponent.vue';
+import { deleteBoard, getBoards } from '@/shared/firebaseService';
 import { storage } from '@/shared/storage.js'
 
 export default {
-  computed: {
-    boards() {
-      return storage.filteredBoards;
+  data() {
+    return {
+      boards: []
     }
   },
   components: {
-    BoardPreviewComponent
+    BoardPreviewComponent,
+    NavBarComponent
   },
   methods: {
+    async loadBoards() {
+      this.boards = await getBoards();
+      storage.filteredBoards = this.boards;
+    },
     deleteBoard(boardId) {
       console.log('Deleting board with ID:', boardId);
       try {
@@ -31,11 +37,15 @@ export default {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while deleting the board', life: 3000 });
       }
     }
+  },
+  async mounted() {
+    await this.loadBoards();
   }
 }
 </script>
 
 <template>
+  <NavBarComponent @board-created="loadBoards" />
   <div class="w-4/5 mx-auto flex flex-col items-center py-10">
     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-items-center">
       <div v-for="board in boards" :key="board.id">

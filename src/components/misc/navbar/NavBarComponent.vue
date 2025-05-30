@@ -40,7 +40,7 @@ export default {
           </div>
         </RouterLink>
         <div class="w-6"></div>
-        <CreateBoardButtonComponent v-if="currentPath === '/'" />
+        <CreateBoardButtonComponent v-if="currentPath === '/'" @board-created="this.$emit('board-created')"/>
         <RecentBoardsComponent v-if="currentPath === '/'" />
       </div>
 

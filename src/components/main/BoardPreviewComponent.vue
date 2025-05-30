@@ -159,8 +159,8 @@ export default {
         {{ localBoard.title }}
       </h2>
     </div>
-    <Dialog v-model:visible="editDialogVisible" modal header="Editing board" :style="{ width: '25rem' }" :closable="true"
-      position="center" :draggable="false" @keydown.enter.prevent="saveEdit()"
+    <Dialog v-model:visible="editDialogVisible" modal header="Editing board" :style="{ width: '25rem' }"
+      :closable="true" position="center" :draggable="false" @keydown.enter.prevent="saveEdit()"
       @keydown.esc.prevent="editDialogVisible = false">
       <div class="flex flex-col gap-4 my-2">
         <FloatLabel variant="on">
