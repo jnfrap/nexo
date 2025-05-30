@@ -122,11 +122,7 @@ export default {
     try {
       const boardId = this.$route.params.boardId;
       const tasks = await getTasksByGroupId(this.localTaskGroup.id, boardId);
-      if (tasks) {
-        this.tasks = tasks || [];
-      } else {
-        throw new Error(`Board ${boardId} not found`);
-      }
+      this.localTaskGroup.tasks = tasks || [];
     }
     catch (error) {
       console.error(error);
