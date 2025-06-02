@@ -5,9 +5,9 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
-import { storage } from '@/shared/storage.js'
 import { saveBoard } from '@/shared/firebaseService';
 import { getAuth } from 'firebase/auth';
+import { getRandomBackgroundImage } from '@/shared/utils';
 
 export default {
   name: 'CreateBoardButtonComponent',
@@ -17,11 +17,12 @@ export default {
       boardToCreate: {
         title: '',
         description: '',
-        backgroundImage: '/images/no-image.jpg',
+        backgroundImage: '',
         isFavorite: false,
         createdAt: '',
         taskGroups: []
-      },
+      }
+
     }
   },
 
@@ -32,6 +33,7 @@ export default {
     FloatLabel,
     Textarea
   },
+  emits: ['board-created'],
   methods: {
     async createBoard() {
       try {
@@ -44,7 +46,7 @@ export default {
         const boardToSave = {
           title: this.boardToCreate.title,
           description: this.boardToCreate.description,
-          backgroundImage: this.boardToCreate.backgroundImage,
+          backgroundImage: getRandomBackgroundImage(),
           isFavorite: false,
           createdAt: new Date().toISOString(),
           taskGroups: [],
@@ -53,18 +55,18 @@ export default {
 
         await saveBoard(boardToSave);
 
-        storage.boards.unshift(boardToSave);
         this.isDialogVisible = false;
         this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
 
         this.boardToCreate = {
           title: '',
           description: '',
-          backgroundImage: '/images/no-image.jpg',
+          backgroundImage: '/images/no-image.png',
           isFavorite: false,
           createdAt: '',
           taskGroups: []
-        }
+        };
+        this.$emit('board-created');
       } catch (error) {
         console.error('Error creating board:', error);
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while creating the board', life: 3000 });

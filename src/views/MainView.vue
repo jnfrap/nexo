@@ -1,7 +1,7 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
 import { deleteBoard, getBoards } from '@/shared/firebaseService';
-import { getAuth } from 'firebase/auth';
+import { storage } from '@/shared/storage.js'
 
 export default {
   data() {
@@ -14,16 +14,10 @@ export default {
   },
   methods: {
     async loadBoards() {
-      const auth = getAuth();
-      const user = auth.currentUser;
-      if (!user) {
-        this.boards = [];
-        return;
-      }
-      const allBoards = await getBoards();
-      this.boards = allBoards.filter(board => board.userId === user.uid);
+      this.boards = await getBoards();
+      storage.filteredBoards.splice(0, storage.filteredBoards.length, ...this.boards);
     },
-    async deleteBoard(boardId) {
+    deleteBoard(boardId) {
       console.log('Deleting board with ID:', boardId);
       try {
         const boardIndex = this.boards.findIndex(board => board.id === boardId);
@@ -33,13 +27,16 @@ export default {
         }
 
         this.boards.splice(boardIndex, 1);
-        await deleteBoard(boardId);
+        deleteBoard(boardId);
 
       } catch (error) {
         console.error('Error deleting board:', error);
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while deleting the board', life: 3000 });
       }
     }
+  },
+  async mounted() {
+    await this.loadBoards();
   }
 }
 </script>

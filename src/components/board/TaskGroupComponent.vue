@@ -5,6 +5,7 @@ import ContextMenu from 'primevue/contextmenu';
 import { Button, Dialog, FloatLabel, InputText } from 'primevue';
 import TaskComponent from './TaskComponent.vue';
 import { VueDraggableNext } from 'vue-draggable-next';
+import { getTasksByGroupId, saveTask, deleteTask } from '@/shared/firebaseService';
 
 export default {
   name: 'TaskGroupComponent',
@@ -21,12 +22,15 @@ export default {
   data() {
     return {
       localTaskGroup: {},
+      isEditMode: false,
       menuItems: [
         {
           label: 'Edit',
           icon: 'pi pi-fw pi-pencil',
           command: () => {
-            // Add logic to edit the board
+            this.taskToCreate.title = this.localTaskGroup.title;
+            this.isEditMode = true;
+            this.isDialogVisible = true;
           }
         },
         {
@@ -39,9 +43,9 @@ export default {
       ],
       isDialogVisible: false,
       taskToCreate: {
-        id: 0,
         title: '',
       },
+      tasks: []
     }
   },
   emits: [
@@ -58,17 +62,26 @@ export default {
     toggleMenu(event) {
       this.$refs.menu.toggle(event);
     },
-    addTask() {
+    async addTask() {
       if (this.taskToCreate.title.trim() === '') {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task title cannot be empty', life: 3000 });
         return;
       }
-      this.taskToCreate.id = this.localTaskGroup.tasks.map(task => task.id).length > 0 ? Math.max(...this.localTaskGroup.tasks.map(task => task.id)) + 1 : 1;
-      this.localTaskGroup.tasks.push(this.taskToCreate);
+      if (this.isEditMode) {
+        this.localTaskGroup.title = this.taskToCreate.title;
+        this.$emit('update-task-group', this.localTaskGroup);
+        this.isEditMode = false;
+        this.isDialogVisible = false;
+        this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Task group updated', life: 3000 });
+        return;
+      }
+      const boardId = this.$route.params.boardId;
+      const taskGroupId = this.localTaskGroup.id;
+      const savedTask = await saveTask(boardId, taskGroupId, this.taskToCreate)
+      this.localTaskGroup.tasks.push(savedTask);
       this.$emit('update-task-group', this.localTaskGroup);
       this.isDialogVisible = false;
       this.taskToCreate = {
-        id: 0,
         title: '',
       }
       this.$toast.add({ severity: 'success', summary: 'Created successfully', detail: 'Task created successfully', life: 3000 });
@@ -76,7 +89,10 @@ export default {
     updateReorderedTaskGroup() {
       this.$emit('update-task-group', this.localTaskGroup);
     },
-    deleteTask(taskId) {
+    async deleteTask(taskId) {
+      const boardId = this.$route.params.boardId;
+      const taskGroupId = this.localTaskGroup.id;
+      await deleteTask(boardId, taskGroupId, taskId);
       this.localTaskGroup.tasks = this.localTaskGroup.tasks.filter(task => task.id !== taskId);
       this.$emit('update-task-group', this.localTaskGroup);
       this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Task deleted', life: 3000 });
@@ -104,8 +120,17 @@ export default {
       });
     },
   },
-  created() {
+  async created() {
     this.localTaskGroup = this.taskGroup;
+    try {
+      const boardId = this.$route.params.boardId;
+      const tasks = await getTasksByGroupId(this.localTaskGroup.id, boardId);
+      this.localTaskGroup.tasks = tasks || [];
+    }
+    catch (error) {
+      console.error(error);
+      this.$router.push('/');
+    }
   }
 }
 </script>
@@ -126,12 +151,13 @@ export default {
       <div v-for="t in localTaskGroup.tasks" :key="t.id">
         <TaskComponent :task="t" @delete-task="deleteTask" />
       </div>
-      <Button type="button" icon="pi pi-plus" label="Add Task" class="w-full" size="small" @click="isDialogVisible = true" />
+      <Button type="button" icon="pi pi-plus" label="Add Task" class="w-full" size="small"
+        @click="isDialogVisible = true" />
     </draggable>
   </div>
 
-  <Dialog v-model:visible="isDialogVisible" modal header="Creating new Task" :style="{ width: '25rem' }"
-    :closable=false position="center" :draggable="false" @keydown.enter.prevent="addTask()"
+  <Dialog v-model:visible="isDialogVisible" modal :header="isEditMode ? 'Edit Task Group' : 'Creating new Task'"
+    :style="{ width: '25rem' }" :closable=false position="center" :draggable="false" @keydown.enter.prevent="addTask()"
     @keydown.esc.prevent="isDialogVisible = false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
@@ -142,7 +168,8 @@ export default {
 
       <div class="flex justify-end gap-2 mt-4">
         <Button label="Cancel" class="p-button-text" @click="isDialogVisible = false" />
-        <Button label="Create" icon="pi pi-check" class="p-button-primary" @click="addTask()" />
+        <Button :label="isEditMode ? 'Save' : 'Create'" icon="pi pi-check" class="p-button-primary"
+          @click="addTask()" />
       </div>
     </div>
   </Dialog>

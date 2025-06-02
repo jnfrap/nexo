@@ -5,7 +5,7 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { getBoardByID, getTaskGroupFromBoardId, updateBoard } from '@/shared/firebaseService';
+import { getBoardByID, getTaskGroupFromBoardId, saveTaskGroup, deleteTaskGroup as delTaskGroup, updateTaskGroup } from '@/shared/firebaseService';
 
 export default {
   name: 'BoardView',
@@ -23,9 +23,7 @@ export default {
       taskGroups: [],
       isDialogVisible: false,
       taskGroupToCreate: {
-        id: 0,
         title: '',
-        tasks: []
       },
     }
   },
@@ -35,15 +33,11 @@ export default {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task group title cannot be empty', life: 3000 });
         return;
       }
-      this.taskGroupToCreate.id = this.taskGroups.map(tg => tg.id).length > 0 ? Math.max(...this.taskGroups.map(tg => tg.id)) + 1 : 1;
-      this.taskGroups.push(this.taskGroupToCreate);
-      this.board.taskGroups = this.taskGroups;
-      await updateBoard(this.board)
+
+      this.taskGroups.push(await saveTaskGroup(this.board.id, this.taskGroupToCreate))
       this.isDialogVisible = false;
       this.taskGroupToCreate = {
-        id: 0,
         title: '',
-        tasks: []
       }
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
     },
@@ -52,17 +46,19 @@ export default {
       if (index !== -1) {
         this.taskGroups[index] = taskGroup;
         this.board.taskGroups = this.taskGroups;
-        await updateBoard(this.board);
+        await updateTaskGroup(this.board.id, taskGroup.id, taskGroup);
       }
     },
     async updateReorderedTaskGroups() {
-      this.board.taskGroups = this.taskGroups;
-      await updateBoard(this.board);
+      for (const tg of this.taskGroups) {
+        await updateTaskGroup(this.board.id, tg.id, tg);
+      }
     },
     async deleteTaskGroup(taskGroupId) {
       this.taskGroups = this.taskGroups.filter(tg => tg.id !== taskGroupId);
       this.board.taskGroups = this.taskGroups;
-      await updateBoard(this.board);
+      const boardId = this.$route.params.boardId;
+      await delTaskGroup(boardId, taskGroupId)
       this.$toast.add({ severity: 'success', summary: 'Deleted succesfully', detail: 'Task group deleted succesfully', life: 3000 });
     },
   },
