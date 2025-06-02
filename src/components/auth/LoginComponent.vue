@@ -2,8 +2,7 @@
 import { login } from '@/shared/firebaseService';
 import { InputText } from 'primevue';
 import FloatLabel from 'primevue/floatlabel';
-import { auth } from '@/firebase/config';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, getAuth } from 'firebase/auth';
 
 export default {
   name: 'LoginComponent',
@@ -31,6 +30,7 @@ export default {
     }
   },
   mounted() {
+    const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('User is already logged in:', user);

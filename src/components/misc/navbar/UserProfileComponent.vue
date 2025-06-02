@@ -4,7 +4,7 @@ import Menu from 'primevue/menu';
 import Dialog from 'primevue/dialog';
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
-
+import { logout } from '@/shared/firebaseService';
 
 export default {
   name: 'UserProfileComponent',
@@ -22,7 +22,10 @@ export default {
             },
             {
               label: 'Cerrar sesión',
-              icon: 'pi pi-sign-out'
+              icon: 'pi pi-sign-out',
+              command: async () => {
+                await this.handleLogout();
+              }
             }
           ]
         }
@@ -54,6 +57,15 @@ export default {
     },
     openSettings() {
       this.dialogVisible = true;
+    },
+    async handleLogout() {
+      try {
+        await logout();
+        this.$router.push('/auth');
+      } catch (error) {
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cerrar sesión', life: 3000 });
+        console.error(error);
+      }
     }
   }
 };
