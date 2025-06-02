@@ -2,7 +2,6 @@
 <script>
 import RegisterComponent from './RegisterComponent.vue';
 import LoginComponent from './LoginComponent.vue';
-import { Button } from 'primevue';
 import { logout } from '@/shared/firebaseService';
 
 
@@ -10,8 +9,7 @@ export default {
   name: 'AuthView',
   components: {
     LoginComponent,
-    RegisterComponent,
-    Button
+    RegisterComponent
   },
   data() {
     return {

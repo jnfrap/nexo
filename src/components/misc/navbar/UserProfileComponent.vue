@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-reserved-component-names -->
 <script>
 import Button from 'primevue/button';
 import Menu from 'primevue/menu';

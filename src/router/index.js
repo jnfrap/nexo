@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MainView from '../views/MainView.vue'
 import AuthView from '../views/AuthView.vue'
 import BoardView from '../views/BoardView.vue'
-import RegisterComponent from '../components/auth/RegisterComponent.vue'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 
@@ -20,7 +19,8 @@ const router = createRouter({
     {
       path: '/auth',
       name: 'auth',
-      component: AuthView
+      component: AuthView,
+      meta: { guest: true }
     },
     {
       path: '/board/:boardId',
@@ -29,11 +29,6 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       }
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: RegisterComponent
     },
     {
       path: '/:catchAll(.*)',
@@ -45,6 +40,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const guestOnly = to.matched.some(record => record.meta.guest);
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -56,7 +52,15 @@ router.beforeEach((to, from, next) => {
         next({ name: 'auth' });
       }
     });
-  } else {
+  } else if (guestOnly) {
+    onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        next({ name: 'main' });
+      } else {
+        next();
+      }
+    });
+  }else {
     next();
   }
 });
