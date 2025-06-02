@@ -1,18 +1,22 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
-import { deleteBoard } from '@/shared/firebaseService';
+import { deleteBoard, getBoards } from '@/shared/firebaseService';
 import { storage } from '@/shared/storage.js'
 
 export default {
-  computed: {
-    boards() {
-      return storage.filteredBoards;
+  data() {
+    return {
+      boards: []
     }
   },
   components: {
     BoardPreviewComponent
   },
   methods: {
+    async loadBoards() {
+      this.boards = await getBoards();
+      storage.filteredBoards.splice(0, storage.filteredBoards.length, ...this.boards);
+    },
     deleteBoard(boardId) {
       console.log('Deleting board with ID:', boardId);
       try {
@@ -31,6 +35,9 @@ export default {
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while deleting the board', life: 3000 });
       }
     }
+  },
+  async mounted() {
+    await this.loadBoards();
   }
 }
 </script>

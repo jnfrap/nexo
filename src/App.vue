@@ -12,6 +12,12 @@ export default {
     ConfirmDialog,
     Toast
   },
+  methods: {
+    async loadBoards() {
+      this.boards = await getBoards();
+      storage.filteredBoards = this.boards;
+    },
+  },
   async created() {
     try {
       const boards = await getBoards();
@@ -24,12 +30,21 @@ export default {
     }
     storage.filteredBoards = storage.boards;
     storage.boards = reorderBoarsdArray(storage.boards);
+  },
+  watch: {
+    'storage.filteredBoards': {
+      handler(newVal, oldVal) {
+        console.log('filteredBoards cambió:', newVal);
+        console.log('Valor anterior:', oldVal);
+      },
+      deep: true
+    }
   }
 }
 </script>
 
 <template>
-  <NavBarComponent />
+  <NavBarComponent @board-created="loadBoards" />
   <RouterView />
   <ConfirmDialog :draggable="false"></ConfirmDialog>
   <Toast></Toast>

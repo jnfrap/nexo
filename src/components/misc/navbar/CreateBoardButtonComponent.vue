@@ -5,7 +5,6 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
-import { storage } from '@/shared/storage.js'
 import { saveBoard } from '@/shared/firebaseService';
 import { getRandomBackgroundImage } from '@/shared/utils';
 
@@ -33,8 +32,9 @@ export default {
     FloatLabel,
     Textarea
   },
+  emits: ['board-created'],
   methods: {
-    createBoard() {
+    async createBoard() {
       try {
         if (this.boardToCreate.title.trim() === '') {
           this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board title cannot be empty', life: 3000 });
@@ -50,9 +50,8 @@ export default {
           taskGroups: []
         }
 
-        saveBoard(boardToSave);
+        await saveBoard(boardToSave);
 
-        storage.boards.unshift(boardToSave);
         this.isDialogVisible = false;
         this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
 
@@ -63,7 +62,8 @@ export default {
           isFavorite: false,
           createdAt: '',
           taskGroups: []
-        }
+        };
+        this.$emit('board-created');
       } catch (error) {
         console.error('Error creating board:', error);
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while creating the board', life: 3000 });
