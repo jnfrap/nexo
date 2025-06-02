@@ -5,9 +5,9 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
-import { saveBoard } from '@/shared/firebaseService';
 import { getAuth } from 'firebase/auth';
 import { getRandomBackgroundImage } from '@/shared/utils';
+import { saveBoard } from '@/shared/services/boardService';
 
 export default {
   name: 'CreateBoardButtonComponent',

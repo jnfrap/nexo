@@ -1,6 +1,7 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
-import { deleteBoard, getBoards } from '@/shared/firebaseService';
+import { ErrorCodes } from '@/shared/enums';
+import { deleteBoard, getBoards } from '@/shared/services/boardService';
 import { storage } from '@/shared/storage.js'
 
 export default {
@@ -14,8 +15,17 @@ export default {
   },
   methods: {
     async loadBoards() {
-      this.boards = await getBoards();
-      storage.filteredBoards.splice(0, storage.filteredBoards.length, ...this.boards);
+      try {
+        this.boards = await getBoards();
+        storage.filteredBoards.splice(0, storage.filteredBoards.length, ...this.boards);
+      } catch (error) {
+        if (error.code === ErrorCodes.NOT_FOUND) {
+          this.$toast.add({ severity: 'error', summary: 'Error', detail: 'No boards found', life: 3000 });
+        } else {
+          console.error('Error fetching boards:', error);
+          this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An unexpected error occurred while loading boards', life: 3000 });
+        }
+      }
     },
     deleteBoard(boardId) {
       console.log('Deleting board with ID:', boardId);

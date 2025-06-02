@@ -8,7 +8,7 @@ import { reorderBoarsdArray, saveBoardToRecentsBoards, removeFromRecentsBoards }
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
-import { updateBoard } from '@/shared/firebaseService';
+import { updateBoard } from '@/shared/services/boardService';
 
 export default {
   name: 'BoardPreviewComponent',

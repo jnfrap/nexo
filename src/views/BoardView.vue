@@ -5,7 +5,8 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { getBoardByID, getTaskGroupFromBoardId, saveTaskGroup, deleteTaskGroup as delTaskGroup, updateTaskGroup } from '@/shared/firebaseService';
+import { deleteTaskGroup, getTaskGroupFromBoardId, saveTaskGroup, updateTaskGroup } from '@/shared/services/taskGroupService';
+import { getBoardByID } from '@/shared/services/boardService';
 
 export default {
   name: 'BoardView',
@@ -54,11 +55,11 @@ export default {
         await updateTaskGroup(this.board.id, tg.id, tg);
       }
     },
-    async deleteTaskGroup(taskGroupId) {
+    async localDeleteTaskGroup(taskGroupId) {
       this.taskGroups = this.taskGroups.filter(tg => tg.id !== taskGroupId);
       this.board.taskGroups = this.taskGroups;
       const boardId = this.$route.params.boardId;
-      await delTaskGroup(boardId, taskGroupId)
+      await deleteTaskGroup(boardId, taskGroupId)
       this.$toast.add({ severity: 'success', summary: 'Deleted succesfully', detail: 'Task group deleted succesfully', life: 3000 });
     },
   },
@@ -87,7 +88,7 @@ export default {
   <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @end="updateReorderedTaskGroups">
     <div v-for="tg in taskGroups" :key="tg.id">
       <TaskGroupComponent :taskGroup="tg" @update-task-group="updateReorderedTasks"
-        @delete-task-group="deleteTaskGroup" />
+        @delete-task-group="localDeleteTaskGroup" />
     </div>
     <div class="flex-shrink-0">
       <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true"
