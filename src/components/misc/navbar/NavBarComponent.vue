@@ -14,6 +14,7 @@ export default {
     SearchBarComponent,
     RecentBoardsComponent
   },
+  emits: ['board-created'],
   data() {
     return {
       isRouteInMain: false,

@@ -30,6 +30,7 @@ export default {
     FloatLabel,
     Textarea
   },
+  emits: ['board-created'],
   methods: {
     async createBoard() {
       try {
