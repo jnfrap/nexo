@@ -5,8 +5,9 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { deleteTaskGroup, getTaskGroupFromBoardId, saveTaskGroup, updateTaskGroup } from '@/shared/services/taskGroupService';
+import { deleteAllTaskInGroup, deleteTaskGroup, getTaskGroupFromBoardId, saveTaskGroup, updateTaskGroup } from '@/shared/services/taskGroupService';
 import { getBoardByID } from '@/shared/services/boardService';
+import { saveTask } from '@/shared/services/taskService';
 
 export default {
   name: 'BoardView',
@@ -43,11 +44,16 @@ export default {
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
     },
     async updateReorderedTasks(taskGroup) {
-      const index = this.taskGroups.findIndex(tg => tg.id === taskGroup.id);
-      if (index !== -1) {
-        this.taskGroups[index] = taskGroup;
-        this.board.taskGroups = this.taskGroups;
-        await updateTaskGroup(this.board.id, taskGroup.id, taskGroup);
+      // const index = this.taskGroups.findIndex(tg => tg.id === taskGroup.id);
+      // if (index !== -1) {
+      //   this.taskGroups[index] = taskGroup;
+      //   this.board.taskGroups = this.taskGroups;
+      //   await updateTaskGroup(this.board.id, taskGroup.id, taskGroup);
+      // }
+
+      await deleteAllTaskInGroup(this.board.id, taskGroup.id);
+      for (const task of taskGroup.tasks) {
+        await saveTask(this.board.id, taskGroup.id, task);
       }
     },
     async updateReorderedTaskGroups() {
@@ -61,7 +67,7 @@ export default {
       const boardId = this.$route.params.boardId;
       await deleteTaskGroup(boardId, taskGroupId)
       this.$toast.add({ severity: 'success', summary: 'Deleted succesfully', detail: 'Task group deleted succesfully', life: 3000 });
-    },
+    }
   },
   async mounted() {
     try {

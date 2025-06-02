@@ -70,3 +70,15 @@ export async function deleteTaskGroup(boardID, taskGroupId) {
   }
 return await deleteDoc(doc(db, "boards", boardID, "taskGroups", taskGroupId));
 }
+
+export async function deleteAllTaskInGroup(boardID, taskGroupId) {
+  if (!boardID || !taskGroupId) {
+    const error = Error("Board ID y Task Group ID son requeridos para eliminar");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
+  }
+  const tasksRef = collection(db, "boards", boardID, "taskGroups", taskGroupId, "tasks");
+  const tasksSnapshot = await getDocs(tasksRef);
+  const deletePromises = tasksSnapshot.docs.map((taskDoc) => deleteDoc(taskDoc.ref));
+  await Promise.all(deletePromises);
+}
