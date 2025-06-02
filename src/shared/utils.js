@@ -1,4 +1,5 @@
-import { recentBoardsLocalStoragekey, maxBoardsInRecentBoards } from './constants.js';
+import { recentBoardsLocalStoragekey, maxBoardsInRecentBoards, backgroundImages } from './constants.js';
+
 
 /**
  * Recieves a list of boards and sorts them based on the following criteria:
@@ -75,4 +76,14 @@ export function removeFromRecentsBoards(boardId) {
   let recents = JSON.parse(localStorage.getItem(recentBoardsLocalStoragekey)) || [];
   recents = recents.filter(item => item.id !== boardId);
   localStorage.setItem(recentBoardsLocalStoragekey, JSON.stringify(recents));
+}
+
+/**
+ * Gets a random background image from the predefined list of background images.
+ * @returns {string} A random background image URL.
+ */
+export function getRandomBackgroundImage() {
+  const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+  const randomImage = backgroundImages[randomIndex];
+  return randomImage;
 }
