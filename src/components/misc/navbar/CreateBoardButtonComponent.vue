@@ -8,6 +8,7 @@ import Textarea from 'primevue/textarea';
 import { getAuth } from 'firebase/auth';
 import { getRandomBackgroundImage } from '@/shared/utils';
 import { saveBoard } from '@/shared/services/boardService';
+import { storage } from '@/shared/storage';
 
 export default {
   name: 'CreateBoardButtonComponent',
@@ -19,10 +20,9 @@ export default {
         description: '',
         backgroundImage: '',
         isFavorite: false,
-        createdAt: '',
-        taskGroups: []
-      }
-
+        createdAt: ''
+      },
+      storage: storage,
     }
   },
 
@@ -49,7 +49,6 @@ export default {
           backgroundImage: getRandomBackgroundImage(),
           isFavorite: false,
           createdAt: new Date().toISOString(),
-          taskGroups: [],
           userId: user.uid
         }
 
@@ -64,7 +63,6 @@ export default {
           backgroundImage: '/images/no-image.png',
           isFavorite: false,
           createdAt: '',
-          taskGroups: []
         };
         this.$emit('board-created');
       } catch (error) {

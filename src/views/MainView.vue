@@ -1,52 +1,34 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
-import { ErrorCodes } from '@/shared/enums';
-import { deleteBoard, getBoards } from '@/shared/services/boardService';
-import { storage } from '@/shared/storage.js'
+import { deleteBoard } from '@/shared/services/boardService';
+import { storage } from '../shared/storage.js'
 
 export default {
   data() {
     return {
-      boards: []
+      storage: storage
     }
   },
   components: {
     BoardPreviewComponent
   },
   methods: {
-    async loadBoards() {
-      try {
-        this.boards = await getBoards();
-        storage.filteredBoards.splice(0, storage.filteredBoards.length, ...this.boards);
-      } catch (error) {
-        if (error.code === ErrorCodes.NOT_FOUND) {
-          this.$toast.add({ severity: 'error', summary: 'Error', detail: 'No boards found', life: 3000 });
-        } else {
-          console.error('Error fetching boards:', error);
-          this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An unexpected error occurred while loading boards', life: 3000 });
-        }
-      }
-    },
-    deleteBoard(boardId) {
+    async deleteBoard(boardId) {
       console.log('Deleting board with ID:', boardId);
       try {
-        const boardIndex = this.boards.findIndex(board => board.id === boardId);
+        const boardIndex = this.storage.boards.findIndex(board => board.id === boardId);
         if (boardIndex === -1) {
           this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board not found', life: 3000 });
-          return;
+          throw new Error('Board not found');
         }
 
-        this.boards.splice(boardIndex, 1);
-        deleteBoard(boardId);
-
+        await deleteBoard(boardId);
+        this.storage.boards.splice(boardIndex, 1);
       } catch (error) {
         console.error('Error deleting board:', error);
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while deleting the board', life: 3000 });
       }
     }
-  },
-  async mounted() {
-    await this.loadBoards();
   }
 }
 </script>
@@ -54,7 +36,7 @@ export default {
 <template>
   <div class="w-4/5 mx-auto flex flex-col items-center py-10">
     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-items-center">
-      <div v-for="board in boards" :key="board.id">
+      <div v-for="board in this.storage.filteredBoards" :key="board.id">
         <BoardPreviewComponent :board="board" @delete-board="deleteBoard" />
       </div>
     </div>

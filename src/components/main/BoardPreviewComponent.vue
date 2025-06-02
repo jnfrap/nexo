@@ -3,8 +3,8 @@
 import { Button, FloatLabel } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
-import { storage } from '@/shared/storage.js'
-import { reorderBoarsdArray, saveBoardToRecentsBoards, removeFromRecentsBoards } from '@/shared/utils';
+import { storage } from '../../shared/storage.js'
+import { reorderBoarsdArray, saveBoardToRecentsBoards } from '@/shared/utils';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
@@ -35,7 +35,8 @@ export default {
             this.confirmDeletion();
           }
         }
-      ]
+      ],
+      storage: storage,
     }
   },
   emits: ['delete-board', 'edit-board'],
@@ -61,8 +62,8 @@ export default {
         board.isFavorite = !board.isFavorite;
         this.localBoard.isFavorite = board.isFavorite;
         this.boards = reorderBoarsdArray(this.boards);
-        storage.filteredBoards = reorderBoarsdArray(storage.filteredBoards);
-        storage.boards = this.boards;
+        this.storage.filteredBoards = reorderBoarsdArray(this.storage.filteredBoards);
+        this.storage.boards = this.boards;
         updateBoard(board);
       }
     },
@@ -92,7 +93,6 @@ export default {
           severity: 'danger',
         },
         accept: () => {
-          removeFromRecentsBoards(this.localBoard.id);
           this.$emit('delete-board', this.localBoard.id);
         }
       });
@@ -109,7 +109,7 @@ export default {
       if (board) {
         board.title = this.editTitle;
         board.description = this.editDescription;
-        storage.boards = this.boards;
+        this.storage.boards = this.boards;
         updateBoard(board);
       }
       this.editDialogVisible = false;
@@ -117,7 +117,7 @@ export default {
     }
   },
   created() {
-    this.boards = storage.boards;
+    this.boards = this.storage.boards;
     this.localBoard = this.board;
   },
   watch: {

@@ -1,9 +1,6 @@
 <script>
-import { db } from '@/firebase/config';
 import { ErrorCodes } from '@/shared/enums';
-import { getBoards } from '@/shared/services/boardService';
 import { storage } from '@/shared/storage';
-import { collection, onSnapshot } from 'firebase/firestore';
 import AutoComplete from 'primevue/autocomplete';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
@@ -18,8 +15,7 @@ export default {
         backgroundImage: '',
         isFavorite: false,
       },
-      boards: [],
-      filteredBoards: [],
+      storage: storage,
     }
   },
   components: {
@@ -31,13 +27,12 @@ export default {
     search(event) {
       setTimeout(() => {
         if (!event.query.trim().length) {
-          this.filteredBoards = [...this.boards];
+          this.storage.filteredBoards = [...this.storage.boards];
         } else {
-          this.filteredBoards = this.boards.filter((b) => {
+          this.storage.filteredBoards = this.storage.boards.filter((b) => {
             return b.title.toLowerCase().includes(event.query.toLowerCase());
           });
         }
-        storage.filteredBoards = this.filteredBoards;
       }, 250);
     },
     onOptionSelected(event) {
@@ -46,26 +41,15 @@ export default {
   },
   async mounted() {
     try {
-      this.boards = await getBoards();
-      console.log('Boards loaded:', this.boards);
-      this.filteredBoards = this.boards;
+      // storage.boards = await getBoards();
+      console.log('Boards loaded:', this.storage.boards);
+      this.storage.filteredBoards = this.storage.boards;
     } catch (error) {
       if (error.code !== ErrorCodes.NOT_FOUND) {
         console.error('Error fetching boards:', error);
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An unexpected error occurred while loading boards', life: 3000 });
       }
     }
-
-    const boardsCollection = collection(db, "boards");
-    onSnapshot(boardsCollection, (querySnapshot) => {
-      this.boards = [];
-      querySnapshot.forEach((board) => {
-        this.boards.push({
-          id: board.id,
-          ...board.data()
-        });
-      });
-    });
   },
 }
 </script>
@@ -73,7 +57,7 @@ export default {
 <template>
   <IconField>
     <InputIcon class="pi pi-search" />
-    <AutoComplete v-model="selectecBoard" optionLabel="title" :suggestions="filteredBoards" @complete="search($event)"
+    <AutoComplete v-model="selectecBoard" optionLabel="title" :suggestions="storage?.filteredBoards" @complete="search($event)"
       @input="search({ query: $event.target.value })" placeholder="Search..."
       @option-select="onOptionSelected($event)" />
   </IconField>
