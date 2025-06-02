@@ -7,7 +7,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      displayName: ''
     }
   },
   components: {
@@ -17,7 +18,7 @@ export default {
   methods: {
     async register() {
       try {
-        const user = await register(this.email, this.password);
+        const user = await register(this.email, this.password, this.displayName);
         console.log('User registered: ', user);
         this.$toast.add({ severity: 'success', summary: 'Registration successful', detail: 'You have successfully registered', life: 3000 });
         this.$router.push('/');
@@ -40,6 +41,11 @@ export default {
       <InputText id="email" v-model="email" class="w-full border border-slate-300 rounded-lg p-4 text-md" type="email"
         autocomplete="off" />
       <label for="email">Email</label>
+    </FloatLabel>
+    <FloatLabel variant="in" class="w-full">
+      <InputText id="displayName" v-model="displayName" class="w-full border border-slate-300 rounded-lg p-4 text-md"
+        autocomplete="off" :maxlength=15 />
+      <label for="displayName">Nombre de usuario</label>
     </FloatLabel>
     <FloatLabel variant="in" class="w-full">
       <InputText id="password" v-model="password" class="w-full border border-slate-300 rounded-lg p-4 text-md"
