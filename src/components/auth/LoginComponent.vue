@@ -1,5 +1,5 @@
 <script>
-import { login } from '@/shared/firebaseService';
+import { login } from '@/shared/services/firebaseService';
 import { InputText } from 'primevue';
 import FloatLabel from 'primevue/floatlabel';
 import { onAuthStateChanged, getAuth } from 'firebase/auth';

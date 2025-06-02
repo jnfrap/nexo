@@ -1,5 +1,5 @@
 <script>
-import { register } from '@/shared/firebaseService';
+import { register } from '@/shared/services/firebaseService';
 import { FloatLabel, InputText } from 'primevue';
 
 export default {

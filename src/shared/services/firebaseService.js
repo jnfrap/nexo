@@ -1,7 +1,7 @@
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, db } from '@/firebase/config';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
-import { ErrorCodes } from "./enums";
+import { ErrorCodes } from "../enums";
 
 
 /**

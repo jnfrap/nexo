@@ -3,7 +3,7 @@ import NavBarComponent from './components/misc/navbar/NavBarComponent.vue';
 import { ConfirmDialog, Toast } from 'primevue';
 import { storage } from './shared/storage';
 import { reorderBoarsdArray } from './shared/utils';
-import { getBoards } from './shared/firebaseService';
+import { getBoards } from './shared/services/firebaseService';
 
 export default {
   name: 'App',

@@ -5,7 +5,7 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { getBoardByID, getTaskGroupFromBoardId, saveTaskGroup, deleteTaskGroup as delTaskGroup, updateTaskGroup } from '@/shared/firebaseService';
+import { getBoardByID, getTaskGroupFromBoardId, saveTaskGroup, deleteTaskGroup as delTaskGroup, updateTaskGroup } from '@/shared/services/firebaseService';
 
 export default {
   name: 'BoardView',

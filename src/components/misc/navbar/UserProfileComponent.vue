@@ -5,7 +5,7 @@ import Menu from 'primevue/menu';
 import Dialog from 'primevue/dialog';
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
-import { logout } from '@/shared/firebaseService';
+import { logout } from '@/shared/services/firebaseService';
 
 export default {
   name: 'UserProfileComponent',

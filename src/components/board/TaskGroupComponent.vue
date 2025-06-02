@@ -5,7 +5,7 @@ import ContextMenu from 'primevue/contextmenu';
 import { Button, Dialog, FloatLabel, InputText } from 'primevue';
 import TaskComponent from './TaskComponent.vue';
 import { VueDraggableNext } from 'vue-draggable-next';
-import { getTasksByGroupId, saveTask, deleteTask } from '@/shared/firebaseService';
+import { getTasksByGroupId, saveTask, deleteTask } from '@/shared/services/firebaseService';
 
 export default {
   name: 'TaskGroupComponent',
