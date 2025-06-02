@@ -50,5 +50,4 @@ export default {
       </p>
     </div>
   </div>
-  <Button @click="logout()">Logout</Button>
 </template>
