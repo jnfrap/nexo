@@ -6,6 +6,7 @@ import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
 import { saveBoard } from '@/shared/firebaseService';
+import { getRandomBackgroundImage } from '@/shared/utils';
 
 export default {
   name: 'CreateBoardButtonComponent',
@@ -15,11 +16,12 @@ export default {
       boardToCreate: {
         title: '',
         description: '',
-        backgroundImage: '/images/no-image.jpg',
+        backgroundImage: '',
         isFavorite: false,
         createdAt: '',
         taskGroups: []
-      },
+      }
+
     }
   },
 
@@ -42,7 +44,7 @@ export default {
         const boardToSave = {
           title: this.boardToCreate.title,
           description: this.boardToCreate.description,
-          backgroundImage: this.boardToCreate.backgroundImage,
+          backgroundImage: getRandomBackgroundImage(),
           isFavorite: false,
           createdAt: new Date().toISOString(),
           taskGroups: []
@@ -56,7 +58,7 @@ export default {
         this.boardToCreate = {
           title: '',
           description: '',
-          backgroundImage: '/images/no-image.jpg',
+          backgroundImage: '/images/no-image.png',
           isFavorite: false,
           createdAt: '',
           taskGroups: []
