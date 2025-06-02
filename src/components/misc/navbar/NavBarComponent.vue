@@ -48,7 +48,7 @@ export default {
       <div class="flex items-center gap-[10px] w-fit">
         <SearchBarComponent v-if="currentPath === '/'" />
         <!-- Notification button -->
-        <UserProfileComponent />
+        <UserProfileComponent v-if="currentPath !== '/auth'" />
       </div>
     </div>
   </div>

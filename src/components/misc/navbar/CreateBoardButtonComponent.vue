@@ -6,6 +6,7 @@ import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
 import { saveBoard } from '@/shared/firebaseService';
+import { getAuth } from 'firebase/auth';
 import { getRandomBackgroundImage } from '@/shared/utils';
 
 export default {
@@ -40,14 +41,16 @@ export default {
           this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board title cannot be empty', life: 3000 });
           return;
         }
-
+        const auth = getAuth();
+        const user = auth.currentUser;
         const boardToSave = {
           title: this.boardToCreate.title,
           description: this.boardToCreate.description,
           backgroundImage: getRandomBackgroundImage(),
           isFavorite: false,
           createdAt: new Date().toISOString(),
-          taskGroups: []
+          taskGroups: [],
+          userId: user.uid
         }
 
         await saveBoard(boardToSave);

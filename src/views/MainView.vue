@@ -27,9 +27,8 @@ export default {
         }
 
         this.boards.splice(boardIndex, 1);
-        storage.boards = this.boards;
-
         deleteBoard(boardId);
+
       } catch (error) {
         console.error('Error deleting board:', error);
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while deleting the board', life: 3000 });
