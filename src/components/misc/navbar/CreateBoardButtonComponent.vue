@@ -16,11 +16,20 @@ export default {
       boardToCreate: {
         title: '',
         description: '',
-        backgroundImage: '/images/no-image.jpg',
+        backgroundImage: '',
         isFavorite: false,
         createdAt: '',
         taskGroups: []
       },
+      boardImages: [
+        '/images/fondo1.avif',
+        '/images/fondo2.avif',
+        '/images/fondo3.avif',
+        '/images/fondo4.avif',
+        '/images/fondo5.avif',
+        '/images/fondo6.avif',
+        '/images/fondo7.avif',
+      ]
     }
   },
 
@@ -39,10 +48,13 @@ export default {
           return;
         }
 
+        const randomIndex = Math.floor(Math.random() * this.boardImages.length);
+        const randomImage = this.boardImages[randomIndex];
+
         const boardToSave = {
           title: this.boardToCreate.title,
           description: this.boardToCreate.description,
-          backgroundImage: this.boardToCreate.backgroundImage,
+          backgroundImage: randomImage,
           isFavorite: false,
           createdAt: new Date().toISOString(),
           taskGroups: []
@@ -57,7 +69,7 @@ export default {
         this.boardToCreate = {
           title: '',
           description: '',
-          backgroundImage: '/images/no-image.jpg',
+          backgroundImage: '',
           isFavorite: false,
           createdAt: '',
           taskGroups: []
