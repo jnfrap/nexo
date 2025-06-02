@@ -20,7 +20,9 @@ export default {
         description: '',
         backgroundImage: '',
         isFavorite: false,
-        createdAt: ''
+        createdAt: '',
+        userId: '',
+        lastAccessedAt: '',
       },
       storage: storage,
     }
@@ -49,6 +51,7 @@ export default {
           backgroundImage: getRandomBackgroundImage(),
           isFavorite: false,
           createdAt: new Date().toISOString(),
+          lastAccessedAt: new Date().toISOString(),
           userId: user.uid
         }
 
@@ -63,6 +66,8 @@ export default {
           backgroundImage: '/images/no-image.png',
           isFavorite: false,
           createdAt: '',
+          userId: '',
+          lastAccessedAt: '',
         };
         this.$emit('board-created');
       } catch (error) {

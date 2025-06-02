@@ -4,7 +4,7 @@ import { Button, FloatLabel } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '../../shared/storage.js'
-import { reorderBoarsdArray, saveBoardToRecentsBoards } from '@/shared/utils';
+import { reorderBoarsdArray } from '@/shared/utils';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
@@ -68,11 +68,14 @@ export default {
       }
     },
     goToBoard() {
-      saveBoardToRecentsBoards({
-        id: this.localBoard.id,
-        name: this.localBoard.title,
-        icon: this.localBoard.icon
-      });
+      this.localBoard.lastAccessedAt = new Date().toISOString();
+      const boardIndex = this.boards.findIndex(b => b.id === this.localBoard.id);
+      if (boardIndex !== -1) {
+        this.boards.splice(boardIndex, 1);
+        this.boards.unshift(this.localBoard);
+        this.storage.boards = this.boards;
+      }
+      console.log('Navigating to board:', this.storage.boards);
       this.$router.push({ name: 'board', params: { boardId: this.localBoard.id } });
     },
     toggleMenu(event) {
