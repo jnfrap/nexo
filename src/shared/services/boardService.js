@@ -1,5 +1,5 @@
 import { db } from "@/firebase/config";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { ErrorCodes } from "../enums";
 
 /**
@@ -60,25 +60,6 @@ export async function updateBoard(board) {
 
   const boardRef = doc(db, "boards", board.id);
   return await updateDoc(boardRef, board);
-}
-
-/**
- * Retrieves all boards from the Firestore database.
- * @returns {Array} A promise that resolves to an array of board objects.
- * @throws Will throw an error if no boards are found.
- */
-export async function getBoards() {
-  const boardsCollection = collection(db, "boards");
-  const boardsSnapshot = await getDocs(boardsCollection);
-  const boardsList = boardsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-  if (boardsList.length === 0) {
-    const error = Error("No boards found");
-    error.code = ErrorCodes.NOT_FOUND;
-    throw error;
-  }
-
-  return boardsList;
 }
 
 /**

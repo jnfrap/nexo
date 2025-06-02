@@ -6,31 +6,14 @@ import Dialog from 'primevue/dialog';
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
 import { logout } from '@/shared/services/authService';
+import { getAuth } from 'firebase/auth';
 
 export default {
   name: 'UserProfileComponent',
   data() {
     return {
       dialogVisible: false,
-      items: [
-        {
-          label: 'Perfil',
-          items: [
-            {
-              label: 'Ajustes',
-              icon: 'pi pi-cog',
-              command: () => { this.openSettings(); }
-            },
-            {
-              label: 'Cerrar sesión',
-              icon: 'pi pi-sign-out',
-              command: async () => {
-                await this.handleLogout();
-              }
-            }
-          ]
-        }
-      ],
+      user: null,
       settings: [
         'Cuenta',
         'Privacidad',
@@ -68,7 +51,40 @@ export default {
         console.error(error);
       }
     }
-  }
+  },
+  created() {
+    const auth = getAuth();
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
+      }
+    });
+  },
+  computed: {
+    items() {
+      return [
+        {
+          label: `Bienvenido, ${this.user ? this.user.displayName : 'Usuario'}`,
+          items: [
+            {
+              label: 'Ajustes',
+              icon: 'pi pi-cog',
+              command: () => { this.openSettings(); }
+            },
+            {
+              label: 'Cerrar sesión',
+              icon: 'pi pi-sign-out',
+              command: async () => {
+                await this.handleLogout();
+              }
+            }
+          ]
+        }
+      ];
+    }
+  },
 };
 
 </script>

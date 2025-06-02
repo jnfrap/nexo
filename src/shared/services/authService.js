@@ -1,5 +1,5 @@
 import { auth } from "@/firebase/config";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { ErrorCodes } from "../enums";
 
 /**
@@ -50,11 +50,13 @@ export async function logout() {
  * @returns {Object} A promise that resolves to the user object if registration is successful.
  * @throws Will throw an error if email or password is not provided.
  */
-export async function register(email, password) {
+export async function register(email, password, displayName) {
   return createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       const user = userCredential.user;
-      localStorage.setItem('user', JSON.stringify(user));
+      if (displayName) {
+        await updateProfile(user, { displayName });
+      }
       return user;
     })
     .catch((error) => {
