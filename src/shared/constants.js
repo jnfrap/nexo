@@ -1,4 +1,3 @@
-export const recentBoardsLocalStoragekey = 'recentBoards';
 export const maxBoardsInRecentBoards = 5;
 
 export const backgroundImages = [
@@ -9,4 +8,4 @@ export const backgroundImages = [
   '/images/background5.avif',
   '/images/background6.avif',
   '/images/background7.avif',
-] 
+]

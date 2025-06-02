@@ -4,7 +4,7 @@ import { Button, FloatLabel } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '../../shared/storage.js'
-import { reorderBoarsdArray, saveBoardToRecentsBoards } from '@/shared/utils';
+import { reorderBoarsdArray } from '@/shared/utils';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
@@ -56,7 +56,7 @@ export default {
     },
   },
   methods: {
-    toggleFavorite() {
+    async toggleFavorite() {
       const board = this.boards.find(b => b.id === this.localBoard.id);
       if (board) {
         board.isFavorite = !board.isFavorite;
@@ -64,15 +64,19 @@ export default {
         this.boards = reorderBoarsdArray(this.boards);
         this.storage.filteredBoards = reorderBoarsdArray(this.storage.filteredBoards);
         this.storage.boards = this.boards;
-        updateBoard(board);
+        await updateBoard(board);
       }
     },
-    goToBoard() {
-      saveBoardToRecentsBoards({
-        id: this.localBoard.id,
-        name: this.localBoard.title,
-        icon: this.localBoard.icon
-      });
+    async goToBoard() {
+      this.localBoard.lastAccessedAt = new Date().toISOString();
+      const boardIndex = this.boards.findIndex(b => b.id === this.localBoard.id);
+      if (boardIndex !== -1) {
+        this.boards.splice(boardIndex, 1);
+        this.boards.unshift(this.localBoard);
+        this.storage.boards = this.boards;
+      }
+      await updateBoard(this.localBoard);
+      console.log(this.localBoard)
       this.$router.push({ name: 'board', params: { boardId: this.localBoard.id } });
     },
     toggleMenu(event) {
