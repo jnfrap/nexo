@@ -13,27 +13,7 @@ export default {
     ConfirmDialog,
     Toast
   },
-  methods: {
-    async loadBoards() {
-      // storage.boards = await getBoards() || [];
-      // storage.filteredBoards = await getBoards();
-    },
-  },
-  async created() {
-    // try {
-    //   const boards = await getBoards();
-    //   storage.boards = boards || [];
-    // } catch (error) {
-    //   if (error.message !== 'No boards found') {
-    //     console.error('Error fetching boards:', error);
-    //     this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while fetching boards', life: 3000 });
-    //   }
-    // }
-    // storage.filteredBoards = storage.boards;
-    // storage.boards = reorderBoarsdArray(storage.boards);
-  },
   mounted() {
-    // this.loadBoards();
     console.log(JSON.parse(JSON.stringify(storage)));
     const boardsCollection = collection(db, "boards");
     onSnapshot(boardsCollection, (querySnapshot) => {

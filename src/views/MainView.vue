@@ -22,8 +22,8 @@ export default {
           throw new Error('Board not found');
         }
 
+        this.storage.boards = this.storage.boards.filter(board => board.id !== boardId);
         await deleteBoard(boardId);
-        this.storage.boards.splice(boardIndex, 1);
       } catch (error) {
         console.error('Error deleting board:', error);
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while deleting the board', life: 3000 });

@@ -3,6 +3,9 @@ import Popover from 'primevue/popover';
 import { storage } from '@/shared/storage';
 
 export default {
+  components: {
+    Popover
+  },
   data() {
     return {
       selectedBoard: null,
@@ -32,11 +35,8 @@ export default {
         .filter(board => board.lastAccessedAt)
         .sort((a, b) => new Date(b.lastAccessedAt) - new Date(a.lastAccessedAt))
         .slice(0, 5);
-        return recentBoards;
+      return recentBoards;
     }
-  },
-  components: {
-    Popover
   }
 };
 </script>
