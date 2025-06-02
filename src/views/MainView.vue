@@ -6,7 +6,6 @@ import { storage } from '../shared/storage.js'
 export default {
   data() {
     return {
-      boards: storage.boards || [],
       storage: storage
     }
   },
@@ -14,18 +13,17 @@ export default {
     BoardPreviewComponent
   },
   methods: {
-    deleteBoard(boardId) {
+    async deleteBoard(boardId) {
       console.log('Deleting board with ID:', boardId);
       try {
-        const boardIndex = this.boards.findIndex(board => board.id === boardId);
+        const boardIndex = this.storage.boards.findIndex(board => board.id === boardId);
         if (boardIndex === -1) {
           this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board not found', life: 3000 });
-          return;
+          throw new Error('Board not found');
         }
 
-        this.boards.splice(boardIndex, 1);
-        deleteBoard(boardId);
-
+        await deleteBoard(boardId);
+        this.storage.boards.splice(boardIndex, 1);
       } catch (error) {
         console.error('Error deleting board:', error);
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while deleting the board', life: 3000 });

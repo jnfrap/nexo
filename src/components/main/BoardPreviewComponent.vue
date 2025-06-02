@@ -4,7 +4,7 @@ import { Button, FloatLabel } from 'primevue';
 import Menu from 'primevue/menu';
 import ContextMenu from 'primevue/contextmenu';
 import { storage } from '../../shared/storage.js'
-import { reorderBoarsdArray, saveBoardToRecentsBoards, removeFromRecentsBoards } from '@/shared/utils';
+import { reorderBoarsdArray, saveBoardToRecentsBoards } from '@/shared/utils';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
@@ -93,7 +93,6 @@ export default {
           severity: 'danger',
         },
         accept: () => {
-          removeFromRecentsBoards(this.localBoard.id);
           this.$emit('delete-board', this.localBoard.id);
         }
       });

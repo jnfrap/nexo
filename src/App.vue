@@ -4,6 +4,7 @@ import { ConfirmDialog, Toast } from 'primevue';
 import { storage } from './shared/storage';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from './firebase/config';
+import { reorderBoarsdArray } from './shared/utils';
 
 export default {
   name: 'App',
@@ -48,8 +49,8 @@ export default {
           ...board.data()
         });
       });
-      console.log(JSON.parse(JSON.stringify(storage)));
-      console.log('wenas');
+      storage.boards = reorderBoarsdArray(storage.boards);
+      storage.filteredBoards = reorderBoarsdArray(storage.filteredBoards);
     });
   },
 }
