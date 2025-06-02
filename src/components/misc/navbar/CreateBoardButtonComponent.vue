@@ -7,6 +7,7 @@ import FloatLabel from 'primevue/floatlabel';
 import Textarea from 'primevue/textarea';
 import { storage } from '@/shared/storage.js'
 import { saveBoard } from '@/shared/firebaseService';
+import { getAuth } from 'firebase/auth';
 
 export default {
   name: 'CreateBoardButtonComponent',
@@ -38,6 +39,8 @@ export default {
           this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board title cannot be empty', life: 3000 });
           return;
         }
+        const auth = getAuth();
+        const user = auth.currentUser;
         const boardToSave = {
           title: this.boardToCreate.title,
           description: this.boardToCreate.description,
@@ -45,6 +48,7 @@ export default {
           isFavorite: false,
           createdAt: new Date().toISOString(),
           taskGroups: [],
+          userId: user.uid
         }
 
         await saveBoard(boardToSave);
