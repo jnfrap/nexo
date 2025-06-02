@@ -1,5 +1,6 @@
 import { auth } from "@/firebase/config";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { ErrorCodes } from "../enums";
 
 /**
  * Login function to authenticate a user with email and password and saves it on local storage.
@@ -10,17 +11,18 @@ import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, si
  */
 export async function login(email, password) {
   if (!email || !password) {
-    throw new Error("Email and password are required for login");
+    const error = Error("Email and password are required for login");
+    error.code = ErrorCodes.BAD_REQUEST;
   }
   const auth = getAuth();
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      localStorage.setItem('user', JSON.stringify(user));
-      return user;
+      return userCredential.user;
     })
     .catch((error) => {
-      throw new Error("Login failed: " + error.message);
+      const custumError = new Error("Login failed: " + error.message);
+      custumError.code = ErrorCodes.AUTHENTICATION_FAILED;
+      throw custumError;
     });
 }
 
@@ -33,10 +35,11 @@ export async function logout() {
   const auth = getAuth();
   return signOut(auth).then(() => {
     console.log("User signed out successfully");
-    localStorage.removeItem('user');
     return auth;
   }).catch((error) => {
-    throw new Error("Logout failed: " + error.message);
+    const custumError = new Error("Logout failed: " + error.message);
+    custumError.code = ErrorCodes.AUTHENTICATION_FAILED;
+    throw custumError;
   });
 }
 
@@ -55,6 +58,8 @@ export async function register(email, password) {
       return user;
     })
     .catch((error) => {
-      throw new Error("Registration failed: " + error.message);
+      const custumError = new Error("Registration failed: " + error.message);
+      custumError.code = ErrorCodes.AUTHENTICATION_FAILED;
+      throw custumError;
     });
 }

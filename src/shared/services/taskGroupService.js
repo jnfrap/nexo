@@ -1,5 +1,6 @@
 import { db } from "@/firebase/config";
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
+import { ErrorCodes } from "../enums";
 
 /**
  * Updates a task group in Firestore.
@@ -11,7 +12,9 @@ import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase
  */
 export async function updateTaskGroup(boardID, taskGroupId, updatedData) {
   if (!boardID || !taskGroupId) {
-    throw new Error("Board ID y Task Group ID son requeridos para actualizar");
+    const error = Error("Board ID y Task Group ID son requeridos para actualizar");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
   }
   const taskGroupRef = doc(db, "boards", boardID, "taskGroups", taskGroupId);
   return await updateDoc(taskGroupRef, updatedData);
@@ -26,7 +29,7 @@ export async function updateTaskGroup(boardID, taskGroupId, updatedData) {
 export async function getTaskGroupFromBoardId(boardId) {
   const taskGroupsRef = collection(db, 'boards', boardId, 'taskGroups');
   const querySnapshot = await getDocs(taskGroupsRef);
-  let taskGroups = [];
+  const taskGroups = [];
   querySnapshot.forEach((doc) => {
     taskGroups.push({ id: doc.id, ...doc.data() });
   });
@@ -42,7 +45,9 @@ export async function getTaskGroupFromBoardId(boardId) {
  */
 export async function saveTaskGroup(boardID, taskGroup) {
   if (!boardID) {
-    throw new Error("Board id is required to save");
+    const error = Error("Board id is required to save");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
   }
   const docRef = await addDoc(collection(db, "boards", boardID, "taskGroups"), taskGroup);
   return { id: docRef.id, ...taskGroup };
@@ -59,7 +64,9 @@ export async function saveTaskGroup(boardID, taskGroup) {
  */
 export async function deleteTaskGroup(boardID, taskGroupId) {
   if (!boardID) {
-    throw new Error("Board id is required to delete");
+    const error = Error("Board id is required to delete");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
   }
 return await deleteDoc(doc(db, "boards", boardID, "taskGroups", taskGroupId));
 }

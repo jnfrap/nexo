@@ -11,14 +11,18 @@ import { ErrorCodes } from "../enums";
  */
 export async function getBoardByID(boardId) {
   if (!boardId) {
-    throw new Error("Board ID is required to get the board");
+    const error = Error("Board ID is required to get the board");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
   }
 
   const boardRef = doc(db, "boards", boardId);
   const boardSnapshot = await getDoc(boardRef);
 
   if (!boardSnapshot.exists()) {
-    throw new Error("Board not found");
+    const error = new Error("Board not found");
+    error.code = ErrorCodes.NOT_FOUND;
+    throw error;
   }
 
   return { id: boardSnapshot.id, ...boardSnapshot.data() };
@@ -33,7 +37,9 @@ export async function getBoardByID(boardId) {
  */
 export async function saveBoard(board) {
   if (!board) {
-    throw new Error("Board is required to save");
+    const error = Error("Board is required to save");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
   }
   return await addDoc(collection(db, "boards"), board);
 }
@@ -47,7 +53,9 @@ export async function saveBoard(board) {
  */
 export async function updateBoard(board) {
   if (!board || !board.id) {
-    throw new Error("Board and board id are required to update");
+    const error = Error("Board and board id are required to update");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
   }
 
   const boardRef = doc(db, "boards", board.id);
@@ -81,7 +89,9 @@ export async function getBoards() {
  */
 export async function deleteBoard(boardId) {
   if (!boardId) {
-    throw new Error("Board ID is required to delete the board");
+    const error = Error("Board ID is required to delete the board");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
   }
 
   const boardRef = doc(db, "boards", boardId);

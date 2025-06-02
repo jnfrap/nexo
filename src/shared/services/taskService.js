@@ -1,5 +1,6 @@
 import { db } from "@/firebase/config";
 import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import { ErrorCodes } from "../enums";
 
 /**
  * Retrieves all tasks from a specific task group within a board from Firestore.
@@ -28,7 +29,9 @@ export async function getTasksByGroupId(taskGroupId, boardId) {
  */
 export async function saveTask(boardID, taskGroupId, task) {
   if (!boardID || !taskGroupId) {
-    throw new Error("Board ID and Task Group ID is required");
+    const error = Error("Board ID and Task Group ID is required");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
   }
   const docRef = await addDoc(collection(db, "boards", boardID, "taskGroups", taskGroupId, "tasks"), task);
   return { id: docRef.id, ...task};
@@ -46,7 +49,9 @@ export async function saveTask(boardID, taskGroupId, task) {
  */
 export async function deleteTask(boardID, taskGroupId, taskId) {
   if (!boardID || !taskGroupId || !taskId) {
-    throw new Error("Board ID, Task Group ID, and Task ID are required to delete the task");
+    const error = Error("Board ID, Task Group ID, and Task ID are required to delete the task");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
   }
   return await deleteDoc(doc(db, "boards", boardID, "taskGroups", taskGroupId, "tasks", taskId));
 }
