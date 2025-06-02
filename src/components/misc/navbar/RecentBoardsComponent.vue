@@ -1,30 +1,39 @@
 <script>
 import Popover from 'primevue/popover';
-import {  getRecentsBoards, saveBoardToRecentsBoards } from '@/shared/utils';
+import { storage } from '@/shared/storage';
 
 export default {
   data() {
     return {
       selectedBoard: null,
-      recentBoards: [],
+      storage: storage,
     }
   },
   methods: {
     toggle(event) {
-      this.recentBoards = getRecentsBoards();
       this.$refs.op.toggle(event);
-
     },
     selectBoard(board) {
       this.selectedBoard = board;
-      saveBoardToRecentsBoards(board);
-      this.recentBoards = getRecentsBoards();
+      this.selectedBoard.lastAccessedAt = new Date().toISOString();
+      this.storage.boards = this.storage.boards.map(b => {
+        if (b.id === board.id) {
+          return { ...b, lastAccessedAt: board.lastAccessedAt };
+        }
+        return b;
+      });
       this.$refs.op.hide();
       this.$router.push({ name: 'board', params: { boardId: board.id } });
     }
   },
-  mounted(){
-    this.recentBoards = getRecentsBoards();
+  computed: {
+    recentBoards() {
+      const recentBoards = this.storage.boards
+        .filter(board => board.lastAccessedAt)
+        .sort((a, b) => new Date(b.lastAccessedAt) - new Date(a.lastAccessedAt))
+        .slice(0, 5);
+        return recentBoards;
+    }
   },
   components: {
     Popover
@@ -37,7 +46,7 @@ export default {
     <button type="button" @click="toggle"
       class="min-w-48 cursor-pointer rounded-lg bg-fuchsia-500 text-white hover:bg-fuchsia-600">
       <i class="pi pi-chevron-down mr-2"></i>
-      {{ selectedBoard ? selectedBoard.name : 'Tableros recientes' }}
+      {{ selectedBoard ? selectedBoard.title : 'Tableros recientes' }}
     </button>
     <Popover ref="op">
       <div class="flex flex-col gap-4">
@@ -48,7 +57,7 @@ export default {
               class="flex items-center gap-2 px-2 py-3 hover:bg-fuchsia-100 cursor-pointer rounded"
               @click="selectBoard(board)">
               <i :class="`${board.icon || 'pi pi-table'} text-fuchsia-500`"></i>
-              <span class="font-medium">{{ board.name }}</span>
+              <span class="font-medium">{{ board.title }}</span>
             </li>
           </ul>
         </div>

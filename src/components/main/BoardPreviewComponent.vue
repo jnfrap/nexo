@@ -56,7 +56,7 @@ export default {
     },
   },
   methods: {
-    toggleFavorite() {
+    async toggleFavorite() {
       const board = this.boards.find(b => b.id === this.localBoard.id);
       if (board) {
         board.isFavorite = !board.isFavorite;
@@ -64,10 +64,10 @@ export default {
         this.boards = reorderBoarsdArray(this.boards);
         this.storage.filteredBoards = reorderBoarsdArray(this.storage.filteredBoards);
         this.storage.boards = this.boards;
-        updateBoard(board);
+        await updateBoard(board);
       }
     },
-    goToBoard() {
+    async goToBoard() {
       this.localBoard.lastAccessedAt = new Date().toISOString();
       const boardIndex = this.boards.findIndex(b => b.id === this.localBoard.id);
       if (boardIndex !== -1) {
@@ -75,7 +75,8 @@ export default {
         this.boards.unshift(this.localBoard);
         this.storage.boards = this.boards;
       }
-      console.log('Navigating to board:', this.storage.boards);
+      await updateBoard(this.localBoard);
+      console.log(this.localBoard)
       this.$router.push({ name: 'board', params: { boardId: this.localBoard.id } });
     },
     toggleMenu(event) {

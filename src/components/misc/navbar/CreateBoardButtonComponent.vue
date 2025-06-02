@@ -51,7 +51,7 @@ export default {
           backgroundImage: getRandomBackgroundImage(),
           isFavorite: false,
           createdAt: new Date().toISOString(),
-          lastAccessedAt: new Date().toISOString(),
+          lastAccessedAt: '',
           userId: user.uid
         }
 
