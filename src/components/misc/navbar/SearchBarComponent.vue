@@ -1,7 +1,7 @@
 <script>
 import { db } from '@/firebase/config';
 import { ErrorCodes } from '@/shared/enums';
-import { getBoards } from '@/shared/services/firebaseService';
+import { getBoards } from '@/shared/services/boardService';
 import { storage } from '@/shared/storage';
 import { collection, onSnapshot } from 'firebase/firestore';
 import AutoComplete from 'primevue/autocomplete';

@@ -2,7 +2,7 @@
 <script>
 import RegisterComponent from './RegisterComponent.vue';
 import LoginComponent from './LoginComponent.vue';
-import { logout } from '@/shared/services/firebaseService';
+import { logout } from '@/shared/services/authService';
 
 
 export default {

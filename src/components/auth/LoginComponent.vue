@@ -1,8 +1,8 @@
 <script>
-import { login } from '@/shared/services/firebaseService';
 import { InputText } from 'primevue';
 import FloatLabel from 'primevue/floatlabel';
 import { onAuthStateChanged, getAuth } from 'firebase/auth';
+import { login } from '@/shared/services/authService';
 
 export default {
   name: 'LoginComponent',

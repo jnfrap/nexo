@@ -1,7 +1,7 @@
 <script>
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
 import { ErrorCodes } from '@/shared/enums';
-import { deleteBoard, getBoards } from '@/shared/services/firebaseService';
+import { deleteBoard, getBoards } from '@/shared/services/boardService';
 import { storage } from '@/shared/storage.js'
 
 export default {
