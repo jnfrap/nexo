@@ -23,7 +23,7 @@ export default {
         const user = await login(this.email, this.password);
         console.log('User loged: ', user);
         this.$toast.add({ severity: 'success', summary: 'Login successful', detail: 'You have successfully logged in', life: 3000 });
-        this.$router.push({ name: '/'});
+        this.$router.push('/');
       } catch (error) {
         this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while loging in', life: 3000 });
         console.error('Error logging in:', error);
@@ -34,7 +34,7 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('User is already logged in:', user);
-        this.$router.push({ name: '/' });
+        // this.$router.push('/');
       } else {
         console.log('No user is logged in');
       }
