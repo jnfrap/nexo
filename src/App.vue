@@ -2,8 +2,8 @@
 import NavBarComponent from './components/misc/navbar/NavBarComponent.vue';
 import { ConfirmDialog, Toast } from 'primevue';
 import { storage } from './shared/storage';
-import { reorderBoarsdArray } from './shared/utils';
-import { getBoards } from './shared/services/boardService';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from './firebase/config';
 
 export default {
   name: 'App',
@@ -14,32 +14,44 @@ export default {
   },
   methods: {
     async loadBoards() {
-      this.boards = await getBoards();
-      storage.filteredBoards = this.boards;
+      // storage.boards = await getBoards() || [];
+      // storage.filteredBoards = await getBoards();
     },
   },
   async created() {
-    try {
-      const boards = await getBoards();
-      storage.boards = boards || [];
-    } catch (error) {
-      if (error.message !== 'No boards found') {
-        console.error('Error fetching boards:', error);
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while fetching boards', life: 3000 });
-      }
-    }
-    storage.filteredBoards = storage.boards;
-    storage.boards = reorderBoarsdArray(storage.boards);
+    // try {
+    //   const boards = await getBoards();
+    //   storage.boards = boards || [];
+    // } catch (error) {
+    //   if (error.message !== 'No boards found') {
+    //     console.error('Error fetching boards:', error);
+    //     this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while fetching boards', life: 3000 });
+    //   }
+    // }
+    // storage.filteredBoards = storage.boards;
+    // storage.boards = reorderBoarsdArray(storage.boards);
   },
-  watch: {
-    'storage.filteredBoards': {
-      handler(newVal, oldVal) {
-        console.log('filteredBoards cambió:', newVal);
-        console.log('Valor anterior:', oldVal);
-      },
-      deep: true
-    }
-  }
+  mounted() {
+    // this.loadBoards();
+    console.log(JSON.parse(JSON.stringify(storage)));
+    const boardsCollection = collection(db, "boards");
+    onSnapshot(boardsCollection, (querySnapshot) => {
+      storage.boards = [];
+      storage.filteredBoards = [];
+      querySnapshot.forEach((board) => {
+        storage.boards.push({
+          id: board.id,
+          ...board.data()
+        });
+        storage.filteredBoards.push({
+          id: board.id,
+          ...board.data()
+        });
+      });
+      console.log(JSON.parse(JSON.stringify(storage)));
+      console.log('wenas');
+    });
+  },
 }
 </script>
 
