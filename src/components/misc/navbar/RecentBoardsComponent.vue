@@ -1,6 +1,7 @@
 <script>
 import Popover from 'primevue/popover';
 import { storage } from '@/shared/storage';
+import { maxBoardsInRecentBoards } from '@/shared/constants';
 
 export default {
   components: {
@@ -34,7 +35,7 @@ export default {
       const recentBoards = this.storage.boards
         .filter(board => board.lastAccessedAt)
         .sort((a, b) => new Date(b.lastAccessedAt) - new Date(a.lastAccessedAt))
-        .slice(0, 5);
+        .slice(0, maxBoardsInRecentBoards);
       return recentBoards;
     }
   }
