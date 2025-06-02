@@ -1,5 +1,6 @@
 <script>
 import { db } from '@/firebase/config';
+import { ErrorCodes } from '@/shared/enums';
 import { getBoards } from '@/shared/firebaseService';
 import { storage } from '@/shared/storage';
 import { collection, onSnapshot } from 'firebase/firestore';
@@ -44,9 +45,16 @@ export default {
     }
   },
   async mounted() {
-    this.boards = await getBoards();
-    console.log('Boards loaded:', this.boards);
-    this.filteredBoards = this.boards;
+    try {
+      this.boards = await getBoards();
+      console.log('Boards loaded:', this.boards);
+      this.filteredBoards = this.boards;
+    } catch (error) {
+      if (error.code !== ErrorCodes.NOT_FOUND) {
+        console.error('Error fetching boards:', error);
+        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An unexpected error occurred while loading boards', life: 3000 });
+      }
+    }
 
     const boardsCollection = collection(db, "boards");
     onSnapshot(boardsCollection, (querySnapshot) => {

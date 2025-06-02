@@ -1,6 +1,7 @@
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, db } from '@/firebase/config';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { ErrorCodes } from "./enums";
 
 
 /**
@@ -150,7 +151,7 @@ export async function getTaskGroupFromBoardId(boardId) {
  * Save taskGroup on firebase
  * @param {String} boardID - The ID of the board containing the task group.
  * @param {Object} taskGroup - The task group to add.
- * @returns {Promise<Object>} A promise that resolves to an object with the added task group. 
+ * @returns {Promise<Object>} A promise that resolves to an object with the added task group.
  */
 export async function saveTaskGroup(boardID, taskGroup) {
   if (!boardID) {
@@ -222,7 +223,9 @@ export async function getBoards() {
   const boardsList = boardsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
   if (boardsList.length === 0) {
-    throw new Error("No boards found");
+    const error = Error("No boards found");
+    error.code = ErrorCodes.NOT_FOUND;
+    throw error;
   }
 
   return boardsList;
