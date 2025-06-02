@@ -2,7 +2,8 @@
 import { login } from '@/shared/firebaseService';
 import { InputText } from 'primevue';
 import FloatLabel from 'primevue/floatlabel';
-
+import { auth } from '@/firebase/config';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default {
   name: 'LoginComponent',
@@ -22,6 +23,7 @@ export default {
         const user = await login(this.email, this.password);
         console.log('User loged: ', user);
         this.$toast.add({ severity: 'success', summary: 'Login successful', detail: 'You have successfully logged in', life: 3000 });
+        this.$router.push({ name: '/'});
       } catch (error) {
         this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while loging in', life: 3000 });
         console.error('Error logging in:', error);
@@ -29,10 +31,14 @@ export default {
     }
   },
   mounted() {
-    const user = localStorage.getItem('user');
-    if (user) {
-      // this.$router.push({ name: '/' });
-    }
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('User is already logged in:', user);
+        this.$router.push({ name: '/' });
+      } else {
+        console.log('No user is logged in');
+      }
+    });
   }
 }
 
