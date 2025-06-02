@@ -34,7 +34,6 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('User is already logged in:', user);
-        // this.$router.push('/');
       } else {
         console.log('No user is logged in');
       }
