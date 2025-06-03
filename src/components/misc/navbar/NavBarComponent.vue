@@ -45,6 +45,7 @@ export default {
         </RouterLink>
         <div class="w-6"></div>
         <CreateBoardButtonComponent v-if="currentPath === '/'"/>
+        <div class="w-3"></div>
         <RecentBoardsComponent v-if="currentPath === '/'" />
       </div>
 
