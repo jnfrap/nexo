@@ -5,9 +5,8 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { deleteAllTaskInGroup, deleteTaskGroup, getTaskGroupFromBoardId, saveTaskGroup, updateTaskGroup } from '@/shared/services/taskGroupService';
+import { deleteTaskGroup, getTaskGroupFromBoardId, saveTaskGroup, updateTaskGroup } from '@/shared/services/taskGroupService';
 import { getBoardByID } from '@/shared/services/boardService';
-import { saveTask } from '@/shared/services/taskService';
 import { navHeight } from '@/shared/constants';
 
 export default {
@@ -45,19 +44,6 @@ export default {
         title: '',
       }
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
-    },
-    async updateReorderedTasks(taskGroup) {
-      // const index = this.taskGroups.findIndex(tg => tg.id === taskGroup.id);
-      // if (index !== -1) {
-      //   this.taskGroups[index] = taskGroup;
-      //   this.board.taskGroups = this.taskGroups;
-      //   await updateTaskGroup(this.board.id, taskGroup.id, taskGroup);
-      // }
-
-      await deleteAllTaskInGroup(this.board.id, taskGroup.id);
-      for (const task of taskGroup.tasks) {
-        await saveTask(this.board.id, taskGroup.id, task);
-      }
     },
     async updateReorderedTaskGroups() {
       for (const tg of this.taskGroups) {

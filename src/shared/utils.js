@@ -40,3 +40,21 @@ export function getRandomBackgroundImage() {
   const randomImage = backgroundImages[randomIndex];
   return randomImage;
 }
+
+/**
+ * Reorders an array of tasks based on their order property.
+ * @param {Object[]} tasks Array of tasks to be reordered
+ * @returns {Object[]} Reordered array of tasks
+ */
+export function reorderTasksArray(tasks) {
+  return tasks.slice().sort((a, b) => a.order - b.order);
+}
+
+/**
+ * Reorders an array of task groups based on their order property.
+ * @param {Object[]} taskGroups Array of task groups to be reordered
+ * @returns {Object[]} Reordered array of task groups
+ */
+export function reorderTaskGroupsArray(taskGroups) {
+  return taskGroups.slice().sort((a, b) => a.order - b.order);
+}

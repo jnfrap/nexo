@@ -6,6 +6,8 @@ import { Button, Dialog, FloatLabel, InputText } from 'primevue';
 import TaskComponent from './TaskComponent.vue';
 import { VueDraggableNext } from 'vue-draggable-next';
 import { deleteTask, getTasksByGroupId, saveTask } from '@/shared/services/taskService';
+import { deleteAllTaskInGroup } from '@/shared/services/taskGroupService';
+import { reorderTasksArray } from '@/shared/utils';
 
 export default {
   name: 'TaskGroupComponent',
@@ -44,12 +46,10 @@ export default {
       isDialogVisible: false,
       taskToCreate: {
         title: '',
-      },
-      tasks: []
+      }
     }
   },
   emits: [
-    'update-task-group',
     'delete-task-group',
   ],
   props: {
@@ -77,24 +77,29 @@ export default {
       }
       const boardId = this.$route.params.boardId;
       const taskGroupId = this.localTaskGroup.id;
-      const savedTask = await saveTask(boardId, taskGroupId, this.taskToCreate)
+      const savedTask = await saveTask(boardId, taskGroupId, this.taskToCreate);
       this.localTaskGroup.tasks.push(savedTask);
       this.$emit('update-task-group', this.localTaskGroup);
       this.isDialogVisible = false;
       this.taskToCreate = {
         title: '',
+        order: this.tasks.length + 1,
       }
       this.$toast.add({ severity: 'success', summary: 'Created successfully', detail: 'Task created successfully', life: 3000 });
     },
-    updateReorderedTaskGroup() {
-      this.$emit('update-task-group', this.localTaskGroup);
+    async updateReorderedTaskGroup() {
+      await deleteAllTaskInGroup(this.board.id, this.localTaskGroup.id);
+      for (const task of this.localTaskGroup.tasks) {
+        await saveTask(this.board.id, this.localTaskGroup.id, task);
+      }
+      this.localTaskGroup.tasks = reorderTasksArray(this.localTaskGroup.tasks);
     },
     async deleteTask(taskId) {
       const boardId = this.$route.params.boardId;
       const taskGroupId = this.localTaskGroup.id;
       await deleteTask(boardId, taskGroupId, taskId);
       this.localTaskGroup.tasks = this.localTaskGroup.tasks.filter(task => task.id !== taskId);
-      this.$emit('update-task-group', this.localTaskGroup);
+      this.updateReorderedTaskGroup();
       this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Task deleted', life: 3000 });
     },
     deleteTaskGroup() {
@@ -121,10 +126,10 @@ export default {
     },
   },
   async created() {
-    this.localTaskGroup = this.taskGroup;
     try {
+      this.localTaskGroup = this.taskGroup;
       const boardId = this.$route.params.boardId;
-      const tasks = await getTasksByGroupId(this.localTaskGroup.id, boardId);
+      const tasks = reorderTasksArray(await getTasksByGroupId(this.localTaskGroup.id, boardId));
       this.localTaskGroup.tasks = tasks || [];
     }
     catch (error) {
