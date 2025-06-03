@@ -9,3 +9,5 @@ export const backgroundImages = [
   '/images/background6.avif',
   '/images/background7.avif',
 ]
+
+export const navHeight = '70px';
