@@ -89,6 +89,10 @@ export default {
       this.$toast.add({ severity: 'success', summary: 'Created successfully', detail: 'Task created successfully', life: 3000 });
     },
     async updateReorderedTaskGroup() {
+      this.localTaskGroup.tasks = this.localTaskGroup.tasks.map((task, index) => ({
+        ...task,
+        order: index + 1
+      }));
       const boardId = this.$route.params.boardId;
       await deleteAllTaskInGroup(boardId, this.localTaskGroup.id);
       for (const task of this.localTaskGroup.tasks) {
