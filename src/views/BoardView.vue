@@ -7,8 +7,9 @@ import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
 import { deleteTaskGroup, getTaskGroupFromBoardId, saveTaskGroup, updateTaskGroup } from '@/shared/services/taskGroupService';
 import { getBoardByID } from '@/shared/services/boardService';
-import { navHeight } from '@/shared/constants';
+import { defaultBackgroundImage, navHeight } from '@/shared/constants';
 import { reorderTaskGroupsArray } from '@/shared/utils';
+import BoardNavBarComponent from '@/components/board/BoardNavBarComponent.vue';
 
 export default {
   name: 'BoardView',
@@ -18,7 +19,8 @@ export default {
     Button,
     Dialog,
     FloatLabel,
-    InputText
+    InputText,
+    BoardNavBarComponent
   },
   data() {
     return {
@@ -68,10 +70,18 @@ export default {
   },
   async mounted() {
     try {
+      const container = this.$refs.draggable;
+      if (!container) {
+        throw new Error('Draggable container not found');
+      }
+      container.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        container.scrollLeft += event.deltaY;
+      });
+
       const boardId = this.$route.params.boardId;
       const board = await getBoardByID(boardId);
-      this.backgroundImage = board.backgroundImage ? `url(${board.backgroundImage})` : 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80';
-      console.log(this.backgroundImage);
+      this.backgroundImage = board.backgroundImage ? `url(${board.backgroundImage})` : defaultBackgroundImage;
       const taskGroups = await getTaskGroupFromBoardId(boardId);
       if (board) {
         this.board = board;
@@ -88,19 +98,20 @@ export default {
 </script>
 
 <template>
-  <div class="background-board">
-    <p>{{ board.backgroundImage }}</p>
-    <h1>{{ board.title }}</h1> <!-- This must be in the future second navbar -->
-
-    <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @change="updateReorderedTaskGroups">
-      <div v-for="tg in taskGroups" :key="tg.id">
-        <TaskGroupComponent :taskGroup="tg" @delete-task-group="localDeleteTaskGroup" />
-      </div>
-      <div class="flex-shrink-0">
-        <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true"
-          class="w-40 h-12" />
-      </div>
-    </draggable>
+  <div class="background-board flex flex-col relative overflow-hidden">
+    <BoardNavBarComponent />
+    <div class="relative flex-1 overflow-hidden overflow-x-scroll" ref="draggable">
+      <draggable :list="taskGroups" class="flex flex-row space-x-4 px-4 absolute inset-0"
+        @change="updateReorderedTaskGroups">
+        <div v-for="tg in taskGroups" :key="tg.id">
+          <TaskGroupComponent :taskGroup="tg" @delete-task-group="localDeleteTaskGroup" />
+        </div>
+        <div class="flex-shrink-0">
+          <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true"
+            class="w-40 h-12" />
+        </div>
+      </draggable>
+    </div>
 
     <Dialog v-model:visible="isDialogVisible" modal header="Creating new Task Group" :style="{ width: '25rem' }"
       :closable=false position="center" :draggable="false" @keydown.enter.prevent="addTaskGroup()"
@@ -125,7 +136,6 @@ export default {
 .background-board {
   position: relative;
   height: calc(100vh - v-bind('navHeight'));
-  padding: 20px;
 }
 
 .background-board::before {
@@ -141,4 +151,31 @@ export default {
   z-index: -1;
   opacity: 85%;
 }
+
+/* Custom scrollbar styles */
+.background-board .flex-1::-webkit-scrollbar {
+  height: 12px;
+  background: white;
+}
+
+.background-board .flex-1::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 1);
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.background-board .flex-1:hover::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.1);
+}
+
+.background-board .flex-1::-webkit-scrollbar-track {
+  background: white;
+}
+
+.background-board .flex-1 {
+  scrollbar-width: 10px;
+  scrollbar-color: rgba(100,100,100,1) transparent;
+}
+
+
 </style>

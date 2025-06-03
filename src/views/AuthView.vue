@@ -1,5 +1,5 @@
 <script>
-import { navHeight } from '@/shared/constants';
+import { defaultBackgroundImage, navHeight } from '@/shared/constants';
 import AuthFormComponent from '../components/auth/AuthFormComponent.vue';
 
 export default {
@@ -9,7 +9,8 @@ export default {
   },
   data() {
     return {
-      navHeight: navHeight
+      navHeight: navHeight,
+      defaultBackgroundImage: defaultBackgroundImage
     };
   }
 }
@@ -23,10 +24,11 @@ export default {
 
 <style scoped>
 .container {
+  background-image: v-bind('defaultBackgroundImage');
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fdf4ff;
   height: calc(100vh - v-bind('navHeight'));
   width: 100vw;
   min-width: 100vw;

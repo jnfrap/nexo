@@ -61,7 +61,7 @@ export default {
 </script>
 
 <template>
-  <NavBarComponent @board-created="loadBoards" />
+  <NavBarComponent />
   <RouterView />
   <ConfirmDialog :draggable="false"></ConfirmDialog>
   <Toast></Toast>

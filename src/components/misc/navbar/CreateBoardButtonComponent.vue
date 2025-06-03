@@ -35,7 +35,6 @@ export default {
     FloatLabel,
     Textarea
   },
-  emits: ['board-created'],
   methods: {
     async createBoard() {
       try {
@@ -69,7 +68,6 @@ export default {
           userId: '',
           lastAccessedAt: '',
         };
-        this.$emit('board-created');
       } catch (error) {
         console.error('Error creating board:', error);
         this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while creating the board', life: 3000 });
