@@ -15,7 +15,6 @@ export default {
     SearchBarComponent,
     RecentBoardsComponent
   },
-  emits: ['board-created'],
   data() {
     return {
       navHeight: navHeight,
@@ -43,7 +42,7 @@ export default {
           </div>
         </RouterLink>
         <div class="w-6"></div>
-        <CreateBoardButtonComponent v-if="currentPath === '/'" @board-created="this.$emit('board-created')"/>
+        <CreateBoardButtonComponent v-if="currentPath === '/'"/>
         <RecentBoardsComponent v-if="currentPath === '/'" />
       </div>
 
