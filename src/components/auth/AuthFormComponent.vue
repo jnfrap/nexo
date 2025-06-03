@@ -35,7 +35,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex justify-center items-center h-screen bg-fuchsia-50">
+  <div class="flex justify-center items-center bg-fuchsia-50">
     <div class="bg-fuchsia-950 text-white p-4 rounded-xl w-xl">
       <div class="py-8">
         <h1 class="text-2xl font-bold font-[Montserrat]">{{ isLogin ? "Iniciar sesión" : "Registrarse" }}</h1>
