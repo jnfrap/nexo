@@ -16,7 +16,13 @@ export default {
 </script>
 
 <template>
-  <div class="flex items-center justify-between px-6 py-3 bg-black-800 text-white shadow-md">
-    <h1>{{ board.title }}</h1>
+  <div class="flex items-center justify-between px-6 h-[50px] bg-[#b0b0b094] shadow-md">
+    <h1 class="text-white text-xl">{{ board.title }}</h1>
   </div>
 </template>
+
+<style>
+.sdgdfg {
+  color: #b0b0b094;
+}
+</style>

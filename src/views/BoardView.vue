@@ -91,8 +91,7 @@ export default {
 
 <template>
   <div class="background-board">
-    <BoardNavBarComponent />
-
+    <BoardNavBarComponent class="mb-5"/>
     <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @change="updateReorderedTaskGroups">
       <div v-for="tg in taskGroups" :key="tg.id">
         <TaskGroupComponent :taskGroup="tg" @delete-task-group="localDeleteTaskGroup" />
@@ -126,7 +125,6 @@ export default {
 .background-board {
   position: relative;
   height: calc(100vh - v-bind('navHeight'));
-  padding: 20px;
 }
 
 .background-board::before {
