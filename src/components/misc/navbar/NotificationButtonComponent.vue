@@ -1,6 +1,13 @@
 <script>
+import Button from 'primevue/button'
+import Popover from 'primevue/popover'
+
 export default {
   name: 'NotificationButtonComponent',
+  components: {
+    AppButton: Button,
+    Popover
+  },
   data() {
     return {
       notifications: [
@@ -32,7 +39,7 @@ export default {
       </span>
     </AppButton>
 
-    <OverlayPanel ref="panelRef" :dismissable="true" :showCloseIcon="true" style="width: 300px">
+    <Popover ref="panelRef" :dismissable="true" :showCloseIcon="true" style="width: 300px">
       <p v-if="notifications.length === 0" class="text-gray-500 italic">No hay notificaciones</p>
       <ul v-else class="space-y-3">
         <li v-for="(n, index) in notifications" :key="index"
@@ -45,6 +52,6 @@ export default {
           </button>
         </li>
       </ul>
-    </OverlayPanel>
+    </Popover>
   </div>
 </template>

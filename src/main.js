@@ -9,8 +9,7 @@ import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
 import { ToastService } from 'primevue'
 import ConfirmationService from 'primevue/confirmationservice';
-import Button from 'primevue/button'
-import OverlayPanel from 'primevue/overlaypanel'
+
 
 const app = createApp(App)
 
@@ -47,6 +46,4 @@ app.use(PrimeVue, {
 app.use(ToastService);
 app.use(ConfirmationService);
 
-app.component('AppButton', Button)
-app.component('OverlayPanel', OverlayPanel)
 app.mount('#app')
