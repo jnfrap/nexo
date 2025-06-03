@@ -21,5 +21,24 @@
       "settingsButton": "Settings",
       "logoutButton": "Log out"
     }
+  },
+  "mainView": {
+    "boardPreviewMenu": {
+      "editButton": "Edit",
+      "deleteButton": "Delete",
+      "editDialog": {
+        "title": "Edit board",
+        "titleLabel": "Title",
+        "descriptionLabel": "Description",
+        "saveButton": "Save",
+        "cancelButton": "Cancel"
+      },
+      "deleteDialog": {
+        "title": "Confirmation",
+        "message": "Are you sure you want to delete the board",
+        "confirmButton": "Delete",
+        "cancelButton": "Cancel"
+      }
+    }
   }
 }

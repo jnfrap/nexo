@@ -21,5 +21,24 @@
       "settingsButton": "Configuración",
       "logoutButton": "Cerrar sesión"
     }
+  },
+  "mainView": {
+    "boardPreviewMenu": {
+      "editButton": "Editar",
+      "deleteButton": "Eliminar",
+      "editDialog": {
+        "title": "Editar tablero",
+        "titleLabel": "Título",
+        "descriptionLabel": "Descripción",
+        "saveButton": "Guardar",
+        "cancelButton": "Cancelar"
+      },
+      "deleteDialog": {
+        "title": "Confirmación",
+        "message": "¿Estás seguro de que quieres eliminar el tablero",
+        "confirmButton": "Eliminar",
+        "cancelButton": "Cancelar"
+      }
+    }
   }
 }

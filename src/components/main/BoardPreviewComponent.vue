@@ -20,23 +20,27 @@ export default {
       editDialogVisible: false,
       editTitle: '',
       editDescription: '',
-      menuItems: [
+      storage: storage,
+    }
+  },
+  computed: {
+    menuItems() {
+      return [
         {
-          label: 'Edit',
+          label: this.$t('mainView.boardPreviewMenu.editButton'),
           icon: 'pi pi-fw pi-pencil',
           command: () => {
             this.openEditDialog();
           }
         },
         {
-          label: 'Delete',
+          label: this.$t('mainView.boardPreviewMenu.deleteButton'),
           icon: 'pi pi-fw pi-trash',
           command: () => {
             this.confirmDeletion();
           }
         }
-      ],
-      storage: storage,
+      ];
     }
   },
   emits: ['delete-board', 'edit-board'],
@@ -84,16 +88,16 @@ export default {
     },
     confirmDeletion() {
       this.$confirm.require({
-        message: `Are you sure you want to delete the board ${this.localBoard.title}?`,
-        header: 'Confirmation',
+        message: `${this.$t('mainView.boardPreviewMenu.deleteDialog.message')} ${this.localBoard.title}?`,
+        header: this.$t('mainView.boardPreviewMenu.deleteDialog.title'),
         icon: 'pi pi-exclamation-triangle',
         rejectProps: {
-          label: 'Cancel',
+          label: this.$t('mainView.boardPreviewMenu.deleteDialog.cancelButton'),
           severity: 'secondary',
           outlined: true
         },
         acceptProps: {
-          label: 'Delete',
+          label: this.$t('mainView.boardPreviewMenu.deleteDialog.confirmButton'),
           severity: 'danger',
         },
         accept: () => {
@@ -163,24 +167,24 @@ export default {
         {{ localBoard.title }}
       </h2>
     </div>
-    <Dialog v-model:visible="editDialogVisible" modal header="Editing board" :style="{ width: '25rem' }"
+    <Dialog v-model:visible="editDialogVisible" modal :header="this.$t('mainView.boardPreviewMenu.editDialog.title')" :style="{ width: '25rem' }"
       :closable="true" position="center" :draggable="false" @keydown.enter.prevent="saveEdit()"
       @keydown.esc.prevent="editDialogVisible = false">
       <div class="flex flex-col gap-4 my-2">
         <FloatLabel variant="on">
           <InputText id="edit_title" v-model="editTitle" autocomplete="off" class="resize-none w-full"
             :maxlength="20" />
-          <label for="edit_title">Title</label>
+          <label for="edit_title">{{ this.$t('mainView.boardPreviewMenu.editDialog.titleLabel') }}</label>
         </FloatLabel>
 
         <FloatLabel variant="on">
           <Textarea id="edit_desc" v-model="editDescription" autocomplete="off" :maxlength="5000" :minlength="10"
             class="h-28 resize-none overflow-y-auto w-full overflow-hidden" />
-          <label for="edit_desc">Description</label>
+          <label for="edit_desc">{{ this.$t('mainView.boardPreviewMenu.editDialog.descriptionLabel') }}</label>
         </FloatLabel>
         <div class="flex justify-end gap-2 mt-4">
-          <Button label="Cancel" class="p-button-text" @click="editDialogVisible = false" />
-          <Button label="Save" icon="pi pi-check" class="p-button-primary" @click="saveEdit()" />
+          <Button :label="this.$t('mainView.boardPreviewMenu.editDialog.cancelButton')" class="p-button-text" @click="editDialogVisible = false" />
+          <Button :label="this.$t('mainView.boardPreviewMenu.editDialog.saveButton')" icon="pi pi-check" class="p-button-primary" @click="saveEdit()" />
         </div>
       </div>
     </Dialog>
