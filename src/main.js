@@ -9,6 +9,7 @@ import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
 import { ToastService } from 'primevue'
 import ConfirmationService from 'primevue/confirmationservice';
+import i18n from '@/i18n/i18n'
 
 const app = createApp(App)
 
@@ -42,6 +43,8 @@ app.use(PrimeVue, {
 
 });
 
+
+app.use(i18n)
 app.use(ToastService);
 app.use(ConfirmationService);
 
