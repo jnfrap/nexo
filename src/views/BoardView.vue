@@ -7,7 +7,7 @@ import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
 import { deleteTaskGroup, getTaskGroupFromBoardId, saveTaskGroup, updateTaskGroup } from '@/shared/services/taskGroupService';
 import { getBoardByID } from '@/shared/services/boardService';
-import { navHeight } from '@/shared/constants';
+import { defaultBackgroundImage, navHeight } from '@/shared/constants';
 import { reorderTaskGroupsArray } from '@/shared/utils';
 import BoardNavBarComponent from '@/components/board/BoardNavBarComponent.vue';
 
@@ -72,8 +72,7 @@ export default {
     try {
       const boardId = this.$route.params.boardId;
       const board = await getBoardByID(boardId);
-      this.backgroundImage = board.backgroundImage ? `url(${board.backgroundImage})` : 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80';
-      console.log(this.backgroundImage);
+      this.backgroundImage = board.backgroundImage ? `url(${board.backgroundImage})` : defaultBackgroundImage;
       const taskGroups = await getTaskGroupFromBoardId(boardId);
       if (board) {
         this.board = board;
@@ -91,7 +90,7 @@ export default {
 
 <template>
   <div class="background-board">
-    <BoardNavBarComponent class="mb-5"/>
+    <BoardNavBarComponent />
     <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @change="updateReorderedTaskGroups">
       <div v-for="tg in taskGroups" :key="tg.id">
         <TaskGroupComponent :taskGroup="tg" @delete-task-group="localDeleteTaskGroup" />

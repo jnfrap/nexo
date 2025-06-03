@@ -72,7 +72,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex items-center justify-between px-6 h-[50px] bg-[#b0b0b094] shadow-md">
+  <div class="flex items-center justify-between px-6 h-[50px] bg-[#b0b0b094] shadow-md mb-5">
     <div class="flex items-center gap-4">
       <Button class="text-white cursor-pointer mt-1.5" icon="pi pi-arrow-left" @click="goBack"
         aria-label="Back to boards" unstyled />
