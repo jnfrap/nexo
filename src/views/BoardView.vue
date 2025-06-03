@@ -5,10 +5,10 @@ import Button from 'primevue/button';
 import TaskGroupComponent from '@/components/board/TaskGroupComponent.vue';
 import Dialog from 'primevue/dialog';
 import { FloatLabel, InputText } from 'primevue';
-import { deleteAllTaskInGroup, deleteTaskGroup, getTaskGroupFromBoardId, saveTaskGroup, updateTaskGroup } from '@/shared/services/taskGroupService';
+import { deleteTaskGroup, getTaskGroupFromBoardId, saveTaskGroup, updateTaskGroup } from '@/shared/services/taskGroupService';
 import { getBoardByID } from '@/shared/services/boardService';
-import { saveTask } from '@/shared/services/taskService';
 import { navHeight } from '@/shared/constants';
+import { reorderTaskGroupsArray } from '@/shared/utils';
 
 export default {
   name: 'BoardView',
@@ -29,6 +29,7 @@ export default {
       isDialogVisible: false,
       taskGroupToCreate: {
         title: '',
+        order: 0,
       },
     }
   },
@@ -39,34 +40,27 @@ export default {
         return;
       }
 
+      this.taskGroupToCreate.order = this.taskGroups.length + 1;
       this.taskGroups.push(await saveTaskGroup(this.board.id, this.taskGroupToCreate))
       this.isDialogVisible = false;
       this.taskGroupToCreate = {
         title: '',
+        order: 0,
       }
+      this.taskGroups = reorderTaskGroupsArray(this.taskGroups);
       this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
     },
-    async updateReorderedTasks(taskGroup) {
-      // const index = this.taskGroups.findIndex(tg => tg.id === taskGroup.id);
-      // if (index !== -1) {
-      //   this.taskGroups[index] = taskGroup;
-      //   this.board.taskGroups = this.taskGroups;
-      //   await updateTaskGroup(this.board.id, taskGroup.id, taskGroup);
-      // }
-
-      await deleteAllTaskInGroup(this.board.id, taskGroup.id);
-      for (const task of taskGroup.tasks) {
-        await saveTask(this.board.id, taskGroup.id, task);
-      }
-    },
     async updateReorderedTaskGroups() {
+      this.taskGroups = this.taskGroups.map((tg, index) => {
+        return { ...tg, order: index + 1 };
+      });
+      this.taskGroups = reorderTaskGroupsArray(this.taskGroups);
       for (const tg of this.taskGroups) {
         await updateTaskGroup(this.board.id, tg.id, tg);
       }
     },
     async localDeleteTaskGroup(taskGroupId) {
       this.taskGroups = this.taskGroups.filter(tg => tg.id !== taskGroupId);
-      this.board.taskGroups = this.taskGroups;
       const boardId = this.$route.params.boardId;
       await deleteTaskGroup(boardId, taskGroupId)
       this.$toast.add({ severity: 'success', summary: 'Deleted succesfully', detail: 'Task group deleted succesfully', life: 3000 });
@@ -81,7 +75,7 @@ export default {
       const taskGroups = await getTaskGroupFromBoardId(boardId);
       if (board) {
         this.board = board;
-        this.taskGroups = taskGroups || [];
+        this.taskGroups = reorderTaskGroupsArray(taskGroups) || [];
       } else {
         throw new Error(`Board ${boardId} not found`);
       }
@@ -98,10 +92,9 @@ export default {
     <p>{{ board.backgroundImage }}</p>
     <h1>{{ board.title }}</h1> <!-- This must be in the future second navbar -->
 
-    <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @end="updateReorderedTaskGroups">
+    <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @change="updateReorderedTaskGroups">
       <div v-for="tg in taskGroups" :key="tg.id">
-        <TaskGroupComponent :taskGroup="tg" @update-task-group="updateReorderedTasks"
-          @delete-task-group="localDeleteTaskGroup" />
+        <TaskGroupComponent :taskGroup="tg" @delete-task-group="localDeleteTaskGroup" />
       </div>
       <div class="flex-shrink-0">
         <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true"
