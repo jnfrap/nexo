@@ -7,6 +7,7 @@ import RecentBoardsComponent from './RecentBoardsComponent.vue';
 import UserProfileComponent from './UserProfileComponent.vue';
 import { navHeight } from '@/shared/constants';
 import NotificationButtonComponent from './NotificationButtonComponent.vue';
+import LanguageSelectorComponent from './LanguageSelectorComponent.vue';
 
 export default {
   name: 'NavBarComponent',
@@ -15,7 +16,8 @@ export default {
     UserProfileComponent,
     SearchBarComponent,
     RecentBoardsComponent,
-    NotificationButtonComponent
+    NotificationButtonComponent,
+    LanguageSelectorComponent
   },
   data() {
     return {
@@ -50,6 +52,7 @@ export default {
       </div>
 
       <div class="flex items-center gap-[10px] w-fit">
+        <LanguageSelectorComponent />
         <SearchBarComponent v-if="currentPath === '/'" />
         <NotificationButtonComponent v-if="currentPath === '/'" />
         <UserProfileComponent v-if="currentPath !== '/auth'" />
