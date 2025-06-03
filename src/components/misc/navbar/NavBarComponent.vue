@@ -6,6 +6,7 @@ import SearchBarComponent from './SearchBarComponent.vue';
 import RecentBoardsComponent from './RecentBoardsComponent.vue';
 import UserProfileComponent from './UserProfileComponent.vue';
 import { navHeight } from '@/shared/constants';
+import NotificationButtonComponent from './NotificationButtonComponent.vue';
 
 export default {
   name: 'NavBarComponent',
@@ -13,7 +14,8 @@ export default {
     CreateBoardButtonComponent,
     UserProfileComponent,
     SearchBarComponent,
-    RecentBoardsComponent
+    RecentBoardsComponent,
+    NotificationButtonComponent
   },
   emits: ['board-created'],
   data() {
@@ -49,7 +51,7 @@ export default {
 
       <div class="flex items-center gap-[10px] w-fit">
         <SearchBarComponent v-if="currentPath === '/'" />
-        <!-- Notification button -->
+        <NotificationButtonComponent v-if="currentPath === '/'" />
         <UserProfileComponent v-if="currentPath !== '/auth'" />
       </div>
     </div>
