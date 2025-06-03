@@ -9,6 +9,7 @@ import { deleteTaskGroup, getTaskGroupFromBoardId, saveTaskGroup, updateTaskGrou
 import { getBoardByID } from '@/shared/services/boardService';
 import { navHeight } from '@/shared/constants';
 import { reorderTaskGroupsArray } from '@/shared/utils';
+import BoardNavBarComponent from '@/components/board/BoardNavBarComponent.vue';
 
 export default {
   name: 'BoardView',
@@ -18,7 +19,8 @@ export default {
     Button,
     Dialog,
     FloatLabel,
-    InputText
+    InputText,
+    BoardNavBarComponent
   },
   data() {
     return {
@@ -89,8 +91,7 @@ export default {
 
 <template>
   <div class="background-board">
-    <p>{{ board.backgroundImage }}</p>
-    <h1>{{ board.title }}</h1> <!-- This must be in the future second navbar -->
+    <BoardNavBarComponent />
 
     <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @change="updateReorderedTaskGroups">
       <div v-for="tg in taskGroups" :key="tg.id">
