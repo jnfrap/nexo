@@ -70,6 +70,15 @@ export default {
   },
   async mounted() {
     try {
+      const container = this.$refs.draggable;
+      if (!container) {
+        throw new Error('Draggable container not found');
+      }
+      container.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        container.scrollLeft += event.deltaY;
+      });
+
       const boardId = this.$route.params.boardId;
       const board = await getBoardByID(boardId);
       this.backgroundImage = board.backgroundImage ? `url(${board.backgroundImage})` : defaultBackgroundImage;
@@ -91,8 +100,8 @@ export default {
 <template>
   <div class="background-board flex flex-col relative overflow-hidden">
     <BoardNavBarComponent />
-    <div class="relative flex-1 overflow-hidden">
-      <draggable :list="taskGroups" class="flex flex-row space-x-4 px-4 overflow-x-scroll absolute inset-0"
+    <div class="relative flex-1 overflow-hidden overflow-x-scroll" ref="draggable">
+      <draggable :list="taskGroups" class="flex flex-row space-x-4 px-4 absolute inset-0"
         @change="updateReorderedTaskGroups">
         <div v-for="tg in taskGroups" :key="tg.id">
           <TaskGroupComponent :taskGroup="tg" @delete-task-group="localDeleteTaskGroup" />
@@ -142,4 +151,31 @@ export default {
   z-index: -1;
   opacity: 85%;
 }
+
+/* Custom scrollbar styles */
+.background-board .flex-1::-webkit-scrollbar {
+  height: 12px;
+  background: white;
+}
+
+.background-board .flex-1::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 1);
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.background-board .flex-1:hover::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.1);
+}
+
+.background-board .flex-1::-webkit-scrollbar-track {
+  background: white;
+}
+
+.background-board .flex-1 {
+  scrollbar-width: 10px;
+  scrollbar-color: rgba(100,100,100,1) transparent;
+}
+
+
 </style>
