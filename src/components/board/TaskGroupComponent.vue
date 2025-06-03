@@ -69,7 +69,7 @@ export default {
       }
       if (this.isEditMode) {
         this.localTaskGroup.title = this.taskToCreate.title;
-        this.$emit('update-task-group', this.localTaskGroup);
+        this.updateReorderedTaskGroup();
         this.isEditMode = false;
         this.isDialogVisible = false;
         this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Task group updated', life: 3000 });
@@ -77,20 +77,22 @@ export default {
       }
       const boardId = this.$route.params.boardId;
       const taskGroupId = this.localTaskGroup.id;
+      this.taskToCreate.order = this.localTaskGroup.tasks.length + 1;
       const savedTask = await saveTask(boardId, taskGroupId, this.taskToCreate);
       this.localTaskGroup.tasks.push(savedTask);
-      this.$emit('update-task-group', this.localTaskGroup);
+      this.updateReorderedTaskGroup();
       this.isDialogVisible = false;
       this.taskToCreate = {
         title: '',
-        order: this.tasks.length + 1,
+        order: 0,
       }
       this.$toast.add({ severity: 'success', summary: 'Created successfully', detail: 'Task created successfully', life: 3000 });
     },
     async updateReorderedTaskGroup() {
-      await deleteAllTaskInGroup(this.board.id, this.localTaskGroup.id);
+      const boardId = this.$route.params.boardId;
+      await deleteAllTaskInGroup(boardId, this.localTaskGroup.id);
       for (const task of this.localTaskGroup.tasks) {
-        await saveTask(this.board.id, this.localTaskGroup.id, task);
+        await saveTask(boardId, this.localTaskGroup.id, task);
       }
       this.localTaskGroup.tasks = reorderTasksArray(this.localTaskGroup.tasks);
     },
@@ -99,7 +101,7 @@ export default {
       const taskGroupId = this.localTaskGroup.id;
       await deleteTask(boardId, taskGroupId, taskId);
       this.localTaskGroup.tasks = this.localTaskGroup.tasks.filter(task => task.id !== taskId);
-      this.updateReorderedTaskGroup();
+      await this.updateReorderedTaskGroup();
       this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Task deleted', life: 3000 });
     },
     deleteTaskGroup() {
