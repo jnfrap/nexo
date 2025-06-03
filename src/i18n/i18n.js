@@ -1,6 +1,8 @@
 import i18next from 'i18next'
 import I18NextVue from 'i18next-vue'
 import LanguageDetector from 'i18next-browser-languagedetector'
+import spanish from '@/i18n/translations/es/es.json'
+import english from '@/i18n/translations/en/en.json'
 
 i18next
   .use(LanguageDetector)
@@ -8,16 +10,8 @@ i18next
     debug: true,
     fallbackLng: 'en',
     resources: {
-      en: {
-        translation: {
-          welcome: 'Welcome to Your Vue.js App',
-        }
-      },
-      es: {
-        translation: {
-          welcome: 'Bienvenido a tu aplicación Vue.js',
-        }
-      },
+      en: { translation: english },
+      es: { translation: spanish },
     }
   });
 
