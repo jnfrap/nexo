@@ -89,17 +89,20 @@ export default {
 </script>
 
 <template>
-  <div class="background-board">
+  <div class="background-board flex flex-col relative overflow-hidden">
     <BoardNavBarComponent />
-    <draggable :list="taskGroups" class="flex flex-row space-x-4 mx-4" @change="updateReorderedTaskGroups">
-      <div v-for="tg in taskGroups" :key="tg.id">
-        <TaskGroupComponent :taskGroup="tg" @delete-task-group="localDeleteTaskGroup" />
-      </div>
-      <div class="flex-shrink-0">
-        <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true"
-          class="w-40 h-12" />
-      </div>
-    </draggable>
+    <div class="relative flex-1 overflow-hidden">
+      <draggable :list="taskGroups" class="flex flex-row space-x-4 px-4 overflow-x-scroll absolute inset-0"
+        @change="updateReorderedTaskGroups">
+        <div v-for="tg in taskGroups" :key="tg.id">
+          <TaskGroupComponent :taskGroup="tg" @delete-task-group="localDeleteTaskGroup" />
+        </div>
+        <div class="flex-shrink-0">
+          <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true"
+            class="w-40 h-12" />
+        </div>
+      </draggable>
+    </div>
 
     <Dialog v-model:visible="isDialogVisible" modal header="Creating new Task Group" :style="{ width: '25rem' }"
       :closable=false position="center" :draggable="false" @keydown.enter.prevent="addTaskGroup()"

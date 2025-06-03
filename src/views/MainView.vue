@@ -2,11 +2,13 @@
 import BoardPreviewComponent from '@/components/main/BoardPreviewComponent.vue';
 import { deleteBoard } from '@/shared/services/boardService';
 import { storage } from '../shared/storage.js'
+import { defaultBackgroundImage } from '@/shared/constants.js';
 
 export default {
   data() {
     return {
-      storage: storage
+      storage: storage,
+      defaultBackgroundImage: defaultBackgroundImage
     }
   },
   components: {
@@ -34,11 +36,23 @@ export default {
 </script>
 
 <template>
-  <div class="w-4/5 mx-auto flex flex-col items-center py-10">
-    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-items-center">
-      <div v-for="board in this.storage.filteredBoards" :key="board.id">
-        <BoardPreviewComponent :board="board" @delete-board="deleteBoard" />
+  <div class="container">
+    <div class="w-4/5 mx-auto flex flex-col items-center py-10">
+      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-items-center">
+        <div v-for="board in this.storage.filteredBoards" :key="board.id">
+          <BoardPreviewComponent :board="board" @delete-board="deleteBoard" />
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.container {
+  min-height: calc(100vh - 70px);
+  width: 100vw;
+  min-width: 100vw;
+  background-image: v-bind('defaultBackgroundImage');
+  background-size: cover;
+}
+</style>
