@@ -1,28 +1,62 @@
 <script>
-import { languages } from '@/shared/constants'
-import { Button } from 'primevue'
+import { Button, Menu } from 'primevue'
 
 export default {
   name: 'LanguageSelectorComponent',
   components: {
-    Button
+    Button,
+    Menu
   },
-  data() {
-    return {
-      languages: languages
+  computed: {
+    menuItems() {
+      return [
+        {
+          label: this.$t('navbar.chooseLanguage'),
+          items: [
+            {
+              label: 'English',
+              icon: 'fi fi-gb',
+              command: () => { this.changeLanguage('en'); }
+            },
+            {
+              label: 'Español',
+              icon: 'fi fi-es',
+              command: () => { this.changeLanguage('es'); }
+            }
+          ]
+        }
+      ]
     }
   },
   methods: {
+    toggleMenu(event) {
+      this.$refs.menu.toggle(event);
+    },
     changeLanguage(language) {
-      this.$i18n.locale = language
-      this.$toast.add({ severity: 'success', summary: 'Language Changed', detail: `Language changed to ${language}`, life: 3000 })
+      this.$i18next.changeLanguage(language);
+    },
+    getCurrentLanguage() {
+      return this.$i18next.language;
     }
   }
 }
 </script>
 
 <template>
-  <Button>
-    <i class="pi pi-language" />
+  <Button @click.stop="toggleMenu($event)">
+    <template v-if="!getCurrentLanguage()">
+      <i class="pi pi-language" />
+    </template>
+    <template v-else-if="getCurrentLanguage() === 'en'">
+      <i class="fi fi-gb" />
+    </template>
+    <template v-else-if="getCurrentLanguage() === 'es'">
+      <i class="fi fi-es" />
+    </template>
+    <template v-else>
+      <i class="pi pi-language" />
+    </template>
   </Button>
+
+  <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
 </template>
