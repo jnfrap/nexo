@@ -10,7 +10,6 @@ import { definePreset } from '@primeuix/themes';
 import { ToastService } from 'primevue'
 import ConfirmationService from 'primevue/confirmationservice';
 
-
 const app = createApp(App)
 
 app.use(router)
