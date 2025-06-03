@@ -50,5 +50,3 @@ app.use(ConfirmationService);
 app.component('AppButton', Button)
 app.component('OverlayPanel', OverlayPanel)
 app.mount('#app')
-
-

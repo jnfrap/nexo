@@ -1,34 +1,61 @@
-<template>
-    <div>
-        <AppButton icon="pi pi-bell" class="p-button-text p-button-rounded mr-2" aria-label="Notificaciones"
-            @click="op.toggle($event)" ref="btn" />
-        <OverlayPanel ref="op" :dismissable="true" style="width: 300px">
-            <div class="p-3">
-                <h3 class="text-lg font-bold mb-2">Notificaciones</h3>
-                <ul class="space-y-2">
-                    <li v-for="(note, index) in notifications" :key="index"
-                        class="bg-fuchsia-100 text-fuchsia-900 rounded-lg p-3 shadow-sm">
-                        {{ note }}
-                    </li>
-                    <li v-if="notifications.length === 0" class="text-gray-500 italic">No hay notificaciones</li>
-                </ul>
-            </div>
-        </OverlayPanel>
-    </div>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-import AppButton from 'primevue/button'
-import OverlayPanel from 'primevue/overlaypanel'
-
-
-const op = ref(null)
-
-
-const notifications = [
-    '¡Bienvenido a Nexo!',
-    'Tienes 3 tareas pendientes',
-    'Nuevo comentario en tu post'
-]
+<script>
+export default {
+  name: 'NotificationButtonComponent',
+  data() {
+    return {
+      notifications: [
+        '¡Bienvenido/a a Nexo!',
+        'Tienes una tarea pendiente',
+        'La reunión ha sido reprogramada'
+      ]
+    }
+  },
+  methods: {
+    togglePanel(event) {
+      this.$refs.panelRef.toggle(event)
+    },
+    removeNotification(index) {
+      this.notifications.splice(index, 1)
+    }
+  }
+}
 </script>
+
+<template>
+  <div class="relative inline-block">
+    <AppButton
+      class="p-button-text p-button-rounded mr-2"
+      aria-label="Notificaciones"
+      @click="togglePanel"
+    >
+      <span class="relative">
+        <i class="pi pi-bell text-xl"></i>
+        <span
+          v-if="notifications.length > 0"
+          class="absolute top-0 right-0 w-2.5 h-2.5 bg-pink-400 rounded-full border-2 border-white"
+          style="transform: translate(25%, -25%);"
+        ></span>
+      </span>
+    </AppButton>
+
+    <OverlayPanel ref="panelRef" :dismissable="true" :showCloseIcon="true" style="width: 300px">
+      <p v-if="notifications.length === 0" class="text-gray-500 italic">No hay notificaciones</p>
+      <ul v-else class="space-y-3">
+        <li
+          v-for="(n, index) in notifications"
+          :key="index"
+          class="bg-fuchsia-100 text-fuchsia-900 p-3 rounded shadow flex items-center justify-between"
+        >
+          <span>{{ n }}</span>
+          <button
+            @click="removeNotification(index)"
+            class="text-pink-500 hover:text-pink-800 transition-colors cursor-pointer"
+            aria-label="Eliminar notificación"
+          >
+            <i class="pi pi-times-circle"></i>
+          </button>
+        </li>
+      </ul>
+    </OverlayPanel>
+  </div>
+</template>
