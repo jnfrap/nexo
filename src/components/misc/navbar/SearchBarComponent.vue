@@ -58,7 +58,12 @@ export default {
   <IconField>
     <InputIcon class="pi pi-search" />
     <AutoComplete v-model="selectecBoard" optionLabel="title" :suggestions="storage?.filteredBoards" @complete="search($event)"
-      @input="search({ query: $event.target.value })" placeholder="Search..."
-      @option-select="onOptionSelected($event)" />
+      @input="search({ query: $event.target.value })" :placeholder="this.$t('navbar.searchBar.placeholder')">
+      <template #empty>
+        <div class="p-autocomplete-empty-message">
+          {{ this.$t('navbar.searchBar.noResults') }}
+        </div>
+      </template>
+    </AutoComplete>
   </IconField>
 </template>

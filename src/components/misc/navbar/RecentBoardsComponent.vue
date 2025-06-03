@@ -47,12 +47,12 @@ export default {
     <button type="button" @click="toggle"
       class="min-w-48 cursor-pointer rounded-lg bg-fuchsia-500 text-white hover:bg-fuchsia-600">
       <i class="pi pi-chevron-down mr-2"></i>
-      {{ selectedBoard ? selectedBoard.title : 'Tableros recientes' }}
+      {{ selectedBoard ? selectedBoard.title : this.$t('navbar.recentBoards') }}
     </button>
     <Popover ref="op">
       <div class="flex flex-col gap-4">
         <div>
-          <span class="font-medium block mb-2">Tableros recientes</span>
+          <span class="font-medium block mb-2">{{this.$t('navbar.recentBoards')}}</span>
           <ul class="list-none p-0 m-0 flex flex-col">
             <li v-for="board in recentBoards" :key="board.id"
               class="flex items-center gap-2 px-2 py-3 hover:bg-fuchsia-100 cursor-pointer rounded"

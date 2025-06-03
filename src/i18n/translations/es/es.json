@@ -1,6 +1,25 @@
 {
-  "welcome": "Bienvenido a tu aplicación Vue.js",
   "navbar": {
-    "chooseLanguage": "Elegir idioma"
+    "createBoardButton": {
+      "label": "Crear tablero",
+      "dialog": {
+        "title": "Crear tablero",
+        "titleLabel": "Titulo",
+        "descriptionLabel": "Descripción",
+        "createButton": "Crear",
+        "cancelButton": "Cancelar"
+      }
+    },
+    "recentBoards": "Tableros recientes",
+    "chooseLanguage": "Elegir idioma",
+    "searchBar": {
+      "placeholder": "Buscar tableros...",
+      "noResults": "No se encontraron tableros"
+    },
+    "userButton": {
+      "welcomeLabel": "Bienvenido",
+      "settingsButton": "Configuración",
+      "logoutButton": "Cerrar sesión"
+    }
   }
 }

@@ -1,6 +1,25 @@
 {
-  "welcome": "Welcome to your Vue.js application",
   "navbar": {
-    "chooseLanguage": "Choose Language"
+    "createBoardButton": {
+      "label": "Create board",
+      "dialog": {
+        "title": "Create board",
+        "titleLabel": "Title",
+        "descriptionLabel": "Description",
+        "createButton": "Create",
+        "cancelButton": "Cancel"
+      }
+    },
+    "recentBoards": "Recent boards",
+    "chooseLanguage": "Choose language",
+    "searchBar": {
+      "placeholder": "Search boards...",
+      "noResults": "No boards found"
+    },
+    "userButton": {
+      "welcomeLabel": "Welcome",
+      "settingsButton": "Settings",
+      "logoutButton": "Log out"
+    }
   }
 }
