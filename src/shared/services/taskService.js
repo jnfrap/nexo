@@ -1,5 +1,5 @@
 import { db } from "@/firebase/config";
-import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { ErrorCodes } from "../enums";
 
 /**
@@ -17,6 +17,7 @@ export async function getTasksByGroupId(taskGroupId, boardId) {
   querySnapshot.forEach((doc) => {
     tasks.push({ id: doc.id, ...doc.data() });
   });
+  console.log("Tasks retrieved:", tasks);
   return tasks;
 }
 
@@ -33,8 +34,9 @@ export async function saveTask(boardID, taskGroupId, task) {
     error.code = ErrorCodes.BAD_REQUEST;
     throw error;
   }
+  delete task.id;
   const docRef = await addDoc(collection(db, "boards", boardID, "taskGroups", taskGroupId, "tasks"), task);
-  return { id: docRef.id, ...task};
+  return { id: docRef.id, ...task };
 }
 
 /**
@@ -54,4 +56,16 @@ export async function deleteTask(boardID, taskGroupId, taskId) {
     throw error;
   }
   return await deleteDoc(doc(db, "boards", boardID, "taskGroups", taskGroupId, "tasks", taskId));
+}
+
+
+export async function editTask(boardID, taskGroupId, taskId, task) {
+  if (!task || !task.id) {
+    const error = Error("Task and task id are required to update");
+    error.code = ErrorCodes.BAD_REQUEST;
+    throw error;
+  }
+  delete task.id;
+  const taskRef = doc(db, "boards", boardID, "taskGroups", taskGroupId, "tasks", taskId);
+  return await updateDoc(taskRef, task);
 }
