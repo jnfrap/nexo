@@ -1,13 +1,17 @@
 <!-- eslint-disable vue/no-reserved-component-names -->
 <script>
 import { Button, ContextMenu, Menu } from 'primevue';
+import Tag from 'primevue/tag';
+import { getSeverityIcon, getSeverityLabel, getSeverityStyle } from '@/shared/utils';
+
 
 export default {
   name: 'TaskComponent',
   components: {
     Button,
     Menu,
-    ContextMenu
+    ContextMenu,
+    Tag
   },
   emits: ['delete-task'],
   props: {
@@ -59,6 +63,16 @@ export default {
         }
       });
     },
+    getSeverityIcon(severity) {
+      return getSeverityIcon(severity);
+
+    },
+    getSeverityLabel(severity) {
+      return getSeverityLabel(severity);
+    },
+    getSeverityStyle(severity) {
+      return getSeverityStyle(severity);
+    }
   }
 }
 </script>
@@ -66,12 +80,16 @@ export default {
 <template>
   <div class="w-full rounded-xl p-4 bg-[#f1f2f4] shadow-lg" @contextmenu="toggleMenu($event)">
     <div class="flex flex-row justify-between items-center">
-      <h2 class="text-lg">{{ task.title }}</h2>
 
-      <Button type="button" @click.stop="toggleMenu($event)" aria-haspopup="true" aria-controls="overlay_menu" unstyled
-        class="cursor-pointer">
-        <i class="pi pi-ellipsis-h" style="font-size: 1rem"></i>
-      </Button>
+      <h2 class="text-lg">{{ task.title }}</h2>
+      <div class="flex items-center gap-2">
+        <Tag v-if="task.severity" :value="getSeverityLabel(task.severity)" :severity="getSeverityStyle(task.severity)"
+          :icon="getSeverityIcon(task.severity)" class="text-xs font-semibold" />
+        <Button type="button" @click.stop="toggleMenu($event)" aria-haspopup="true" aria-controls="overlay_menu"
+          unstyled class="cursor-pointer">
+          <i class="pi pi-ellipsis-h" style="font-size: 1rem"></i>
+        </Button>
+      </div>
       <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
     </div>
   </div>

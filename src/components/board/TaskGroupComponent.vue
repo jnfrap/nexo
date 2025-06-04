@@ -8,6 +8,8 @@ import { VueDraggableNext } from 'vue-draggable-next';
 import { deleteTask, getTasksByGroupId, saveTask } from '@/shared/services/taskService';
 import { deleteAllTaskInGroup } from '@/shared/services/taskGroupService';
 import { reorderTasksArray } from '@/shared/utils';
+import { getSeverityIcon, getSeverityLabel, getSeverityStyle } from '@/shared/utils';
+import { Severity } from '@/shared/enums';
 
 export default {
   name: 'TaskGroupComponent',
@@ -25,6 +27,7 @@ export default {
     return {
       localTaskGroup: {},
       isEditMode: false,
+      Severity,
       menuItems: [
         {
           label: 'Edit',
@@ -43,9 +46,16 @@ export default {
           }
         }
       ],
+      severityOptions: [
+        { severity: Severity.LOW },
+        { severity: Severity.MEDIUM },
+        { severity: Severity.HIGH }
+      ],
       isDialogVisible: false,
       taskToCreate: {
         title: '',
+        severity: '',
+        order: 0
       }
     }
   },
@@ -85,6 +95,7 @@ export default {
       this.taskToCreate = {
         title: '',
         order: 0,
+        severity: ''
       }
       this.$toast.add({ severity: 'success', summary: 'Created successfully', detail: 'Task created successfully', life: 3000 });
     },
@@ -130,6 +141,16 @@ export default {
         }
       });
     },
+    getSeverityIcon(severity) {
+      return getSeverityIcon(severity);
+      
+    },
+    getSeverityLabel(severity) {
+      return getSeverityLabel(severity);
+    },
+    getSeverityStyle(severity) {
+      return getSeverityStyle(severity);
+    }
   },
   async created() {
     try {
@@ -158,7 +179,8 @@ export default {
       <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
     </div>
 
-    <draggable :list="localTaskGroup.tasks" class="flex flex-col gap-2" @change="updateReorderedTaskGroup" group="tasks">
+    <draggable :list="localTaskGroup.tasks" class="flex flex-col gap-2" @change="updateReorderedTaskGroup"
+      group="tasks">
       <div v-for="t in localTaskGroup.tasks" :key="t.id">
         <TaskComponent :task="t" @delete-task="deleteTask" />
       </div>
@@ -176,6 +198,13 @@ export default {
           :maxlength=20 />
         <label for="in_label">Title</label>
       </FloatLabel>
+
+      <div class="card flex justify-center flex-wrap gap-4">
+        <Button v-for="option in severityOptions" :key="option.severity" :severity="getSeverityStyle(option.severity)"
+          :icon="getSeverityIcon(option.severity)" :label="getSeverityLabel(option.severity)" class="cursor-pointer !w-24"
+          :class="{ 'ring-2 ring-fuchsia-300': taskToCreate.severity === option.severity }"
+          @click="taskToCreate.severity = option.severity" />
+      </div>
 
       <div class="flex justify-end gap-2 mt-4">
         <Button label="Cancel" class="p-button-text" @click="isDialogVisible = false" />

@@ -5,3 +5,10 @@ export const ErrorCodes = Object.freeze({
   CONFLICT: 'E409',
   BAD_REQUEST: 'E400',
 });
+
+export const Severity = Object.freeze({
+  LOW: 'low',
+  MEDIUM: 'medium',
+  HIGH: 'high',
+});
+
