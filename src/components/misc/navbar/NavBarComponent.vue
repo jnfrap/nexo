@@ -54,7 +54,7 @@ export default {
       <div class="flex items-center gap-[10px] w-fit">
         <LanguageSelectorComponent />
         <SearchBarComponent v-if="currentPath === '/'" />
-        <NotificationButtonComponent v-if="currentPath === '/'" />
+        <NotificationButtonComponent v-if="currentPath !== '/auth'" />
         <UserProfileComponent v-if="currentPath !== '/auth'" />
       </div>
     </div>
