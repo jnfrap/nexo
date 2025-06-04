@@ -66,15 +66,15 @@ export default {
     items() {
       return [
         {
-          label: `Bienvenido, ${this.user ? this.user.displayName : 'Usuario'}`,
+          label: `${this.$t('navbar.userButton.welcomeLabel')}, ${this.user ? this.user.displayName : 'Usuario'}`,
           items: [
             {
-              label: 'Ajustes',
+              label: this.$t('navbar.userButton.settingsButton'),
               icon: 'pi pi-cog',
               command: () => { this.openSettings(); }
             },
             {
-              label: 'Cerrar sesión',
+              label: this.$t('navbar.userButton.logoutButton'),
               icon: 'pi pi-sign-out',
               command: async () => {
                 await this.handleLogout();

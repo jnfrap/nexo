@@ -78,27 +78,27 @@ export default {
 </script>
 
 <template>
-  <Button label="Create Board" icon="pi pi-plus" class="p-button-raised p-button-primary"
+  <Button :label="this.$t('navbar.createBoardButton.label')" icon="pi pi-plus" class="p-button-raised p-button-primary"
     @click="isDialogVisible = true" />
 
-  <Dialog v-model:visible="isDialogVisible" modal header="Creating new board" :style="{ width: '25rem' }"
+  <Dialog v-model:visible="isDialogVisible" modal :header="this.$t('navbar.createBoardButton.dialog.title')" :style="{ width: '25rem' }"
     :closable=false position="center" :draggable="false" @keydown.enter.prevent="createBoard()"
     @keydown.esc.prevent="isDialogVisible = false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
         <InputText id="in_label" v-model="boardToCreate.title" autocomplete="off" class="resize-none w-full"
           :maxlength=20 />
-        <label for="in_label">Title</label>
+        <label for="in_label">{{ this.$t('navbar.createBoardButton.dialog.titleLabel') }}</label>
       </FloatLabel>
 
       <FloatLabel variant="on">
         <Textarea id="desc" v-model="boardToCreate.description" autocomplete="off" :maxlength=5000 :minlength=10
           class="h-28 resize-none overflow-y-auto w-full overflow-hidden" />
-        <label for="desc">Description</label>
+        <label for="desc">{{ this.$t('navbar.createBoardButton.dialog.descriptionLabel') }}</label>
       </FloatLabel>
       <div class="flex justify-end gap-2 mt-4">
-        <Button label="Cancel" class="p-button-text" @click="isDialogVisible = false" />
-        <Button label="Create" icon="pi pi-check" class="p-button-primary" @click="createBoard()" />
+        <Button :label="this.$t('navbar.createBoardButton.dialog.cancelButton')" class="p-button-text" @click="isDialogVisible = false" />
+        <Button :label="this.$t('navbar.createBoardButton.dialog.createButton')" icon="pi pi-check" class="p-button-primary" @click="createBoard()" />
       </div>
     </div>
   </Dialog>

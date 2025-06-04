@@ -1,0 +1,44 @@
+{
+  "navbar": {
+    "createBoardButton": {
+      "label": "Crear tablero",
+      "dialog": {
+        "title": "Crear tablero",
+        "titleLabel": "Titulo",
+        "descriptionLabel": "Descripción",
+        "createButton": "Crear",
+        "cancelButton": "Cancelar"
+      }
+    },
+    "recentBoards": "Tableros recientes",
+    "chooseLanguage": "Elegir idioma",
+    "searchBar": {
+      "placeholder": "Buscar tableros...",
+      "noResults": "No se encontraron tableros"
+    },
+    "userButton": {
+      "welcomeLabel": "Bienvenido",
+      "settingsButton": "Configuración",
+      "logoutButton": "Cerrar sesión"
+    }
+  },
+  "mainView": {
+    "boardPreviewMenu": {
+      "editButton": "Editar",
+      "deleteButton": "Eliminar",
+      "editDialog": {
+        "title": "Editar tablero",
+        "titleLabel": "Título",
+        "descriptionLabel": "Descripción",
+        "saveButton": "Guardar",
+        "cancelButton": "Cancelar"
+      },
+      "deleteDialog": {
+        "title": "Confirmación",
+        "message": "¿Estás seguro de que quieres eliminar el tablero",
+        "confirmButton": "Eliminar",
+        "cancelButton": "Cancelar"
+      }
+    }
+  }
+}
