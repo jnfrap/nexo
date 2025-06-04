@@ -1,0 +1,44 @@
+{
+  "navbar": {
+    "createBoardButton": {
+      "label": "Create board",
+      "dialog": {
+        "title": "Create board",
+        "titleLabel": "Title",
+        "descriptionLabel": "Description",
+        "createButton": "Create",
+        "cancelButton": "Cancel"
+      }
+    },
+    "recentBoards": "Recent boards",
+    "chooseLanguage": "Choose language",
+    "searchBar": {
+      "placeholder": "Search boards...",
+      "noResults": "No boards found"
+    },
+    "userButton": {
+      "welcomeLabel": "Welcome",
+      "settingsButton": "Settings",
+      "logoutButton": "Log out"
+    }
+  },
+  "mainView": {
+    "boardPreviewMenu": {
+      "editButton": "Edit",
+      "deleteButton": "Delete",
+      "editDialog": {
+        "title": "Edit board",
+        "titleLabel": "Title",
+        "descriptionLabel": "Description",
+        "saveButton": "Save",
+        "cancelButton": "Cancel"
+      },
+      "deleteDialog": {
+        "title": "Confirmation",
+        "message": "Are you sure you want to delete the board",
+        "confirmButton": "Delete",
+        "cancelButton": "Cancel"
+      }
+    }
+  }
+}
