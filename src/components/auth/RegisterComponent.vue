@@ -23,7 +23,24 @@ export default {
         this.$toast.add({ severity: 'success', summary: 'Registration successful', detail: 'You have successfully registered', life: 3000 });
         this.$router.push('/');
       } catch (error) {
-        this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error ocurred while registrating new user', life: 3000 });
+        console.error('Error registering:', error);
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            this.$toast.add({ severity: 'error', summary: 'Email already in use', detail: 'The email is already registered', life: 3000 });
+            break;
+          case 'auth/invalid-email':
+            this.$toast.add({ severity: 'error', summary: 'Invalid email', detail: 'The email is invalid', life: 3000 });
+            break;
+          case 'auth/missing-password':
+            this.$toast.add({ severity: 'error', summary: 'Missing password', detail: 'The password is required', life: 3000 });
+            break;
+          case 'auth/weak-password':
+            this.$toast.add({ severity: 'error', summary: 'Weak password', detail: 'The password should be at least 6 characters', life: 3000 });
+            break;
+          default:
+            this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while register in', life: 3000 });
+            break;
+        }
         console.error('Error registering:', error);
       }
     }
