@@ -42,9 +42,11 @@ export default {
       </div>
       <LoginComponent v-if="isLogin" />
       <RegisterComponent v-if="!isLogin" />
-      <p class="text-sm text-slate-500 text-center w-full text-white mt-3">{{ isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?" }}&nbsp;
-        <button @click="toggleForm" to="/register" class="text-fuchsia-200 hover:text-fuchsia-900 cursor-pointer transition-all">{{ isLogin ? "Regístrate"
-          : "Inicia sesión" }} </button>
+      <p class="text-sm  text-center w-full text-white mt-3">{{ isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"
+        }}&nbsp;
+        <button @click="toggleForm" to="/register"
+          class="text-fuchsia-200 hover:text-fuchsia-900 cursor-pointer transition-all">{{ isLogin ? "Regístrate"
+            : "Inicia sesión" }} </button>
       </p>
     </div>
   </div>
