@@ -36,6 +36,7 @@ export async function saveTask(boardID, taskGroupId, task) {
   }
   delete task.id;
   const docRef = await addDoc(collection(db, "boards", boardID, "taskGroups", taskGroupId, "tasks"), task);
+  task.id = docRef.id;
   return { id: docRef.id, ...task };
 }
 
