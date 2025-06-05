@@ -8,19 +8,23 @@ export default {
   data() {
     return {
       board: {},
-      menuItems: [
+    };
+  },
+  computed: {
+    menuItems() {
+      return [
         {
-          label: `Opciones del tablero`,
+          label: this.$t('boardView.navbar.menu.label'),
           items: [
             {
-              label: 'Edit title',
+              label: this.$t('boardView.navbar.menu.editTitle'),
               icon: 'pi pi-fw pi-pencil',
               command: () => {
                 // Add logic to edit the task
               }
             },
             {
-              label: 'Change background',
+              label: this.$t('boardView.navbar.menu.changeBackground'),
               icon: 'pi pi-fw pi-image',
               command: () => {
                 // Add logic to delete the board
@@ -49,8 +53,8 @@ export default {
             }
           ]
         }
-      ]
-    };
+      ];
+    }
   },
   components: {
     Button,

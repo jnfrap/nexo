@@ -40,5 +40,17 @@
         "cancelButton": "Cancelar"
       }
     }
+  },
+  "boardView": {
+    "navbar": {
+      "menu": {
+        "label": "Opciones del tablero",
+        "editTitle": "Editar título",
+        "changeBackground": "Cambiar fondo",
+        "shareBoard": "Compartir tablero",
+        "archiveBoard": "Archivar tablero",
+        "deleteBoard": "Eliminar tablero"
+      }
+    }
   }
 }
