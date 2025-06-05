@@ -24,7 +24,20 @@ export default {
         this.$toast.add({ severity: 'success', summary: 'Login successful', detail: 'You have successfully logged in', life: 3000 });
         this.$router.push('/');
       } catch (error) {
-        this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while loging in', life: 3000 });
+        switch (error) {
+          case 'auth/user-not-found':
+            this.$toast.add({ severity: 'error', summary: 'User not found', detail: 'The user with the provided email does not exist', life: 3000 });
+            break;
+          case 'auth/invalid-email':
+            this.$toast.add({ severity: 'error', summary: 'Invalid email', detail: 'The email is invalid', life: 3000 });
+            break;
+          case "auth/invalid-credential":
+            this.$toast.add({ severity: 'error', summary: 'Invalid credential', detail: 'The credential is invalid', life: 3000 });
+            break;
+          default:
+            this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while loging in', life: 3000 });
+            break;
+        }
         console.error('Error logging in:', error);
       }
     }
