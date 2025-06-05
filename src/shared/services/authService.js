@@ -20,9 +20,10 @@ export async function login(email, password) {
       return userCredential.user;
     })
     .catch((error) => {
-      const custumError = new Error("Login failed: " + error.message);
-      custumError.code = ErrorCodes.AUTHENTICATION_FAILED;
-      throw custumError;
+      // const custumError = new Error("Login failed: " + error.message);
+      // custumError.code = ErrorCodes.AUTHENTICATION_FAILED;
+      // throw custumError;
+      throw error.code;
     });
 }
 

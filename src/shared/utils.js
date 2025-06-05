@@ -1,4 +1,5 @@
 import { backgroundImages } from './constants.js';
+import { Severity } from './enums.js';
 
 
 /**
@@ -57,4 +58,31 @@ export function reorderTasksArray(tasks) {
  */
 export function reorderTaskGroupsArray(taskGroups) {
   return taskGroups.slice().sort((a, b) => a.order - b.order);
+}
+
+export function getSeverityIcon(severity) {
+  switch (severity) {
+    case Severity.LOW: return 'pi pi-info-circle';
+    case Severity.MEDIUM: return 'pi pi-exclamation-triangle';
+    case Severity.HIGH: return 'pi pi-times';
+    default: return '';
+  }
+}
+
+export function getSeverityStyle(severity) {
+  switch (severity) {
+    case Severity.LOW: return 'info';
+    case Severity.MEDIUM: return 'warn';
+    case Severity.HIGH: return 'danger';
+    default: return '';
+  }
+}
+
+export function getSeverityLabel(severity) {
+  switch (severity) {
+    case Severity.LOW: return 'Low';
+    case Severity.MEDIUM: return 'Medium';
+    case Severity.HIGH: return 'High';
+    default: return '';
+  }
 }
