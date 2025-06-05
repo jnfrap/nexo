@@ -175,7 +175,7 @@ export default {
       }
     }
   },
-  async created() {
+  async mounted() {
     try {
       this.localTaskGroup = this.taskGroup;
       const boardId = this.$route.params.boardId;
