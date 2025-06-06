@@ -64,7 +64,7 @@ export function getSeverityIcon(severity) {
   switch (severity) {
     case Severity.LOW: return 'pi pi-info-circle';
     case Severity.MEDIUM: return 'pi pi-exclamation-triangle';
-    case Severity.HIGH: return 'pi pi-times';
+    case Severity.URGENT: return 'pi pi-times';
     default: return '';
   }
 }
@@ -73,16 +73,22 @@ export function getSeverityStyle(severity) {
   switch (severity) {
     case Severity.LOW: return 'info';
     case Severity.MEDIUM: return 'warn';
-    case Severity.HIGH: return 'danger';
+    case Severity.URGENT: return 'danger';
     default: return '';
   }
 }
 
-export function getSeverityLabel(severity) {
+export function getSeverityLabel(severity, $t) {
   switch (severity) {
-    case Severity.LOW: return 'Low';
-    case Severity.MEDIUM: return 'Medium';
-    case Severity.HIGH: return 'High';
+    case Severity.LOW:
+      const lowLabel = $t('boardView.severities.low');
+      return lowLabel;
+    case Severity.MEDIUM:
+      const mediumLabel = $t('boardView.severities.medium');
+      return mediumLabel;
+    case Severity.URGENT:
+      const urgentLabel = $t('boardView.severities.urgent');
+      return urgentLabel;
     default: return '';
   }
 }

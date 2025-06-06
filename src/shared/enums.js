@@ -9,6 +9,6 @@ export const ErrorCodes = Object.freeze({
 export const Severity = Object.freeze({
   LOW: 'low',
   MEDIUM: 'medium',
-  HIGH: 'high',
+  URGENT: 'urgent',
 });
 

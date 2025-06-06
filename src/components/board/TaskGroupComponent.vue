@@ -53,7 +53,7 @@ export default {
       severityOptions: [
         { severity: Severity.LOW },
         { severity: Severity.MEDIUM },
-        { severity: Severity.HIGH }
+        { severity: Severity.URGENT }
       ],
       taskToCreate: {
         title: '',
@@ -153,7 +153,7 @@ export default {
       return getSeverityIcon(severity);
     },
     getSeverityLabel(severity) {
-      return getSeverityLabel(severity);
+      return getSeverityLabel(severity, this.$t);
     },
     getSeverityStyle(severity) {
       return getSeverityStyle(severity);
@@ -230,8 +230,8 @@ export default {
       </div>
 
       <div class="flex justify-end gap-2 mt-4">
-        <Button :label="this.$t('boardView.addTaskButton.dialog.addButton')" class="p-button-text" @click="isDialogVisible = false" />
-        <Button :label="this.$t('boardView.addTaskButton.dialog.cancelButton')" icon="pi pi-check" class="p-button-primary" @click="addTask()" />
+        <Button :label="this.$t('boardView.addTaskButton.dialog.cancelButton')" class="p-button-text" @click="isDialogVisible = false" />
+        <Button :label="this.$t('boardView.addTaskButton.dialog.addButton')" icon="pi pi-check" class="p-button-primary" @click="addTask()" />
       </div>
     </div>
   </Dialog>

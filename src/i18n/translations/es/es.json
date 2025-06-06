@@ -69,6 +69,11 @@
         "addButton": "Añadir",
         "cancelButton": "Cancelar"
       }
+    },
+    "severities": {
+      "low": "Baja",
+      "medium": "Media",
+      "urgent": "Urgente"
     }
   }
 }

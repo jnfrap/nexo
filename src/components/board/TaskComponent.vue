@@ -36,7 +36,7 @@ export default {
       serverityOptions: [
         { severity: Severity.LOW },
         { severity: Severity.MEDIUM },
-        { severity: Severity.HIGH }
+        { severity: Severity.URGENT }
       ],
       menuItems: [
         {
@@ -85,7 +85,7 @@ export default {
 
     },
     getSeverityLabel(severity) {
-      return getSeverityLabel(severity);
+      return getSeverityLabel(severity, this.$t);
     },
     getSeverityStyle(severity) {
       return getSeverityStyle(severity);
