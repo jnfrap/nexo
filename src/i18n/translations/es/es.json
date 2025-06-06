@@ -51,6 +51,24 @@
         "archiveBoard": "Archivar tablero",
         "deleteBoard": "Eliminar tablero"
       }
+    },
+    "addTaskGroupButton": {
+      "label": "Añadir grupo de tareas",
+      "dialog": {
+        "title": "Añadiendo grupo de tareas",
+        "titleLabel": "Titulo",
+        "addButton": "Añadir",
+        "cancelButton": "Cancelar"
+      }
+    },
+    "addTaskButton": {
+      "label": "Añadir tarea",
+      "dialog": {
+        "title": "Añadiendo tarea",
+        "titleLabel": "Titulo",
+        "addButton": "Añadir",
+        "cancelButton": "Cancelar"
+      }
     }
   }
 }

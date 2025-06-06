@@ -207,19 +207,19 @@ export default {
       <div v-for="t in localTaskGroup.tasks" :key="t.id">
         <TaskComponent :task="t" @delete-task="deleteTask" @edit-task="editTaskData" />
       </div>
-      <Button type="button" icon="pi pi-plus" label="Add Task" class="w-full" size="small"
+      <Button type="button" icon="pi pi-plus" :label="this.$t('boardView.addTaskButton.label')" class="w-full" size="small"
         @click="isDialogVisible = true" />
     </draggable>
   </div>
 
-  <Dialog v-model:visible="isDialogVisible" modal header="Creating new Task" :style="{ width: '25rem' }" :closable=false
+  <Dialog v-model:visible="isDialogVisible" modal :header="this.$t('boardView.addTaskButton.dialog.title')" :style="{ width: '25rem' }" :closable=false
     position="center" :draggable="false" @keydown.enter.prevent="addTask()"
     @keydown.esc.prevent="isDialogVisible = false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
         <InputText id="in_label" v-model="taskToCreate.title" autocomplete="off" class="resize-none w-full"
           :maxlength=20 />
-        <label for="in_label">Title</label>
+        <label for="in_label">{{ this.$t('boardView.addTaskButton.dialog.titleLabel') }}</label>
       </FloatLabel>
 
       <div class="card flex justify-center flex-wrap gap-4">
@@ -230,8 +230,8 @@ export default {
       </div>
 
       <div class="flex justify-end gap-2 mt-4">
-        <Button label="Cancel" class="p-button-text" @click="isDialogVisible = false" />
-        <Button label="Create" icon="pi pi-check" class="p-button-primary" @click="addTask()" />
+        <Button :label="this.$t('boardView.addTaskButton.dialog.addButton')" class="p-button-text" @click="isDialogVisible = false" />
+        <Button :label="this.$t('boardView.addTaskButton.dialog.cancelButton')" icon="pi pi-check" class="p-button-primary" @click="addTask()" />
       </div>
     </div>
   </Dialog>

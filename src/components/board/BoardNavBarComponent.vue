@@ -31,21 +31,21 @@ export default {
               }
             },
             {
-              label: 'Share board',
+              label: this.$t('boardView.navbar.menu.shareBoard'),
               icon: 'pi pi-fw pi-share-alt',
               command: () => {
                 // Add logic to share the board
               }
             },
             {
-              label: 'Archive board',
+              label: this.$t('boardView.navbar.menu.archiveBoard'),
               icon: 'pi pi-fw pi-box',
               command: () => {
                 // Add logic to archive the board
               }
             },
             {
-              label: 'Delete board',
+              label: this.$t('boardView.navbar.menu.deleteBoard'),
               icon: 'pi pi-fw pi-trash',
               command: () => {
                 // Add logic to delete the board
