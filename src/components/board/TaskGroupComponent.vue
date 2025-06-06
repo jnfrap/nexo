@@ -33,23 +33,6 @@ export default {
         title: '',
         order: 0
       },
-      menuItems: [
-        {
-          label: 'Edit',
-          icon: 'pi pi-fw pi-pencil',
-          command: () => {
-            this.groupToEdit.title = this.localTaskGroup.title;
-            this.isEditGroupDialogVisible = true;
-          }
-        },
-        {
-          label: 'Delete',
-          icon: 'pi pi-fw pi-trash',
-          command: () => {
-            this.confirmDeletion();
-          }
-        }
-      ],
       severityOptions: [
         { severity: Severity.LOW },
         { severity: Severity.MEDIUM },
@@ -60,6 +43,27 @@ export default {
         severity: '',
         order: 0
       }
+    }
+  },
+  computed: {
+    menuItems() {
+      return [
+        {
+          label: this.$t('boardView.taskGroup.contextMenu.editButton'),
+          icon: 'pi pi-pencil',
+          command: () => {
+            this.groupToEdit.title = this.localTaskGroup.title;
+            this.isEditGroupDialogVisible = true;
+          }
+        },
+        {
+          label: this.$t('boardView.taskGroup.contextMenu.deleteButton'),
+          icon: 'pi pi-trash',
+          command: () => {
+            this.confirmDeletion();
+          }
+        }
+      ];
     }
   },
   emits: [
@@ -132,16 +136,16 @@ export default {
     },
     confirmDeletion() {
       this.$confirm.require({
-        message: `Are you sure you want to delete the task group ${this.taskGroup.title}?`,
-        header: 'Confirmation',
+        message: `${this.$t('boardView.taskGroup.deleteDialog.message')} ${this.taskGroup.title}?`,
+        header: this.$t('boardView.taskGroup.deleteDialog.title'),
         icon: 'pi pi-exclamation-triangle',
         rejectProps: {
-          label: 'Cancel',
+          label: this.$t('boardView.taskGroup.deleteDialog.cancelButton'),
           severity: 'secondary',
           outlined: true
         },
         acceptProps: {
-          label: 'Delete',
+          label: this.$t('boardView.taskGroup.deleteDialog.confirmButton'),
           severity: 'danger',
         },
         accept: () => {
@@ -236,17 +240,17 @@ export default {
     </div>
   </Dialog>
 
-  <Dialog v-model:visible="isEditGroupDialogVisible" modal header="Editing title group" :style="{ width: '25rem' }"
+  <Dialog v-model:visible="isEditGroupDialogVisible" modal :header="this.$t('boardView.taskGroup.editDialog.title')" :style="{ width: '25rem' }"
     :closable="false" position="center" :draggable="false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
         <InputText id="edit_group_title" v-model="groupToEdit.title" autocomplete="off" class="resize-none w-full"
           :maxlength="30" />
-        <label for="edit_group_title">Title</label>
+        <label for="edit_group_title">{{ this.$t('boardView.taskGroup.editDialog.titleLabel') }}</label>
       </FloatLabel>
       <div class="flex justify-end gap-2 mt-4">
-        <Button label="Cancel" class="p-button-text" @click="isEditGroupDialogVisible = false" />
-        <Button label="Save" icon="pi pi-check" class="p-button-primary" @click="saveEditTaskGroup" />
+        <Button :label="this.$t('boardView.taskGroup.editDialog.cancelButton')" class="p-button-text" @click="isEditGroupDialogVisible = false" />
+        <Button :label="this.$t('boardView.taskGroup.editDialog.saveButton')" icon="pi pi-check" class="p-button-primary" @click="saveEditTaskGroup" />
       </div>
     </div>
   </Dialog>

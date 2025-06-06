@@ -74,6 +74,24 @@
       "low": "Baja",
       "medium": "Media",
       "urgent": "Urgente"
+    },
+    "taskGroup": {
+      "contextMenu": {
+        "editButton": "Editar grupo de tareas",
+        "deleteButton": "Eliminar grupo de tareas"
+      },
+      "editDialog": {
+        "title": "Editando grupo de tareas",
+        "titleLabel": "Título",
+        "saveButton": "Guardar",
+        "cancelButton": "Cancelar"
+      },
+      "deleteDialog": {
+        "title": "Confirmación",
+        "message": "¿Estás seguro de que quieres eliminar el grupo de tareas",
+        "confirmButton": "Eliminar",
+        "cancelButton": "Cancelar"
+      }
     }
   }
 }
