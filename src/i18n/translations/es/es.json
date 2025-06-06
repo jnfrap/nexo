@@ -20,6 +20,12 @@
       "welcomeLabel": "Bienvenido",
       "settingsButton": "Configuración",
       "logoutButton": "Cerrar sesión"
+    },
+    "notificationButton": {
+      "noNotifications": "No tienes notificaciones",
+      "notification1": "¡Bienvenido/a a Nexo!",
+      "notification2": "Tienes una tarea pendiente",
+      "notification3": "La reunión ha sido reprogramada"
     }
   },
   "mainView": {
