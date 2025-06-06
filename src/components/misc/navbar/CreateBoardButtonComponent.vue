@@ -27,7 +27,6 @@ export default {
       storage: storage,
     }
   },
-
   components: {
     Button,
     Dialog,
