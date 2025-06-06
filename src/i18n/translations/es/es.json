@@ -92,6 +92,24 @@
         "confirmButton": "Eliminar",
         "cancelButton": "Cancelar"
       }
+    },
+    "task": {
+      "contextMenu": {
+        "editButton": "Editar tarea",
+        "deleteButton": "Eliminar tarea"
+      },
+      "editDialog": {
+        "title": "Editando tarea",
+        "titleLabel": "Título",
+        "saveButton": "Guardar",
+        "cancelButton": "Cancelar"
+      },
+      "deleteDialog": {
+        "title": "Confirmación",
+        "message": "¿Estás seguro de que quieres eliminar la tarea",
+        "confirmButton": "Eliminar",
+        "cancelButton": "Cancelar"
+      }
     }
   }
 }
