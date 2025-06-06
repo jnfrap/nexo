@@ -1,0 +1,230 @@
+{
+  "navbar": {
+    "createBoardButton": {
+      "label": "Hoist the Jolly Roger",
+      "dialog": {
+        "title": "Hoistin' the Jolly Roger",
+        "titleLabel": "The name o' the board",
+        "descriptionLabel": "The tale o' the board",
+        "createButton": "Set Sail",
+        "cancelButton": "Belay That!"
+      }
+    },
+    "recentBoards": "Recent Charts",
+    "chooseLanguage": "Pick a tongue",
+    "searchBar": {
+      "placeholder": "Search yer charts, matey...",
+      "noResults": "Blast and bother! No charts found, arrr!"
+    },
+    "userButton": {
+      "welcomeLabel": "Ahoy there, matey!",
+      "settingsButton": "The Captain's Quarters",
+      "logoutButton": "Walk the Plank"
+    },
+    "notificationButton": {
+      "noNotifications": "Shiver me timbers! Ye got no dispatches",
+      "notification1": "Welcome aboard, Nexo, ye scurvy dog!",
+      "notification2": "Ye got a chore pendin', arrr",
+      "notification3": "The pow-wow has been moved, savvy?"
+    }
+  },
+  "mainView": {
+    "boardPreviewMenu": {
+      "editButton": "Trim the sails",
+      "deleteButton": "Scuttle it!",
+      "editDialog": {
+        "title": "Trimming the Sails o' yer Chart",
+        "titleLabel": "The name o' the board",
+        "descriptionLabel": "The tale o' the board",
+        "saveButton": "Stow it away",
+        "cancelButton": "Belay That!"
+      },
+      "deleteDialog": {
+        "title": "A Word o' Warning, matey",
+        "message": "Are ye sure ye wish to scuttle this here chart, arrr?",
+        "confirmButton": "Scuttle it!",
+        "cancelButton": "Belay That!"
+      }
+    }
+  },
+  "boardView": {
+    "navbar": {
+      "menu": {
+        "label": "The Chart's Secrets, savvy?",
+        "editTitle": "Trim the chart's name",
+        "changeBackground": "Change the ocean view",
+        "shareBoard": "Share the bounty",
+        "archiveBoard": "Stow the chart",
+        "deleteBoard": "Scuttle the chart!"
+      }
+    },
+    "addTaskGroupButton": {
+      "label": "Add a crew o' tasks",
+      "dialog": {
+        "title": "Addin' a Crew o' Tasks, arrr",
+        "titleLabel": "The name o' the crew",
+        "addButton": "Add it!",
+        "cancelButton": "Belay That!"
+      }
+    },
+    "addTaskButton": {
+      "label": "Add a chore",
+      "dialog": {
+        "title": "Addin' a Chore, savvy?",
+        "titleLabel": "The name o' the chore",
+        "addButton": "Add it!",
+        "cancelButton": "Belay That!"
+      }
+    },
+    "severities": {
+      "low": "Barely a ripple",
+      "medium": "A good squall",
+      "urgent": "A mighty tempest!"
+    },
+    "taskGroup": {
+      "contextMenu": {
+        "editButton": "Trim the crew o' tasks",
+        "deleteButton": "Scuttle the crew o' tasks!"
+      },
+      "editDialog": {
+        "title": "Trimming the Crew o' Tasks, matey",
+        "titleLabel": "The name o' the crew",
+        "saveButton": "Stow it away",
+        "cancelButton": "Belay That!"
+      },
+      "deleteDialog": {
+        "title": "A Word o' Warning, savvy?",
+        "message": "Are ye sure ye wish to scuttle this here crew o' tasks, arrr?",
+        "confirmButton": "Scuttle it!",
+        "cancelButton": "Belay That!"
+      }
+    },
+    "task": {
+      "contextMenu": {
+        "editButton": "Trim the chore",
+        "deleteButton": "Scuttle the chore!"
+      },
+      "editDialog": {
+        "title": "Trimming the Chore, matey",
+        "titleLabel": "The name o' the chore",
+        "saveButton": "Stow it away",
+        "cancelButton": "Belay That!"
+      },
+      "deleteDialog": {
+        "title": "A Word o' Warning, savvy?",
+        "message": "Are ye sure ye wish to scuttle this here chore, arrr?",
+        "confirmButton": "Scuttle it!",
+        "cancelButton": "Belay That!"
+      }
+    }
+  },
+  "authView": {
+    "loginForm": {
+      "title": "Come Aboard",
+      "emailLabel": "Yer electronic mail",
+      "passwordLabel": "Yer secret word",
+      "loginButton": "Come Aboard",
+      "dontHaveAccountLabel": "No berth for ye yet, matey?",
+      "goToRegisterButton": "Sign On!"
+    },
+    "registerForm": {
+      "title": "Sign On",
+      "emailLabel": "Yer electronic mail",
+      "usernameLabel": "Yer pirate name",
+      "passwordLabel": "Yer secret word",
+      "registerButton": "Sign On!",
+      "alreadyHaveAccountLabel": "Already got a berth, savvy?",
+      "goToLoginButton": "Come Aboard!"
+    }
+  },
+  "toasts": {
+    "errorLoadingBoards": {
+      "summary": "Blast and bother! Trouble loadin' the charts",
+      "detail": "Couldnae load the charts, arrr. Try again later, ye landlubber."
+    },
+    "logout": {
+      "summary": "Walkin' the Plank",
+      "detail": "Ye've successfully walked the plank, savvy."
+    },
+    "logoutError": {
+      "summary": "Trouble walkin' the plank",
+      "detail": "Couldnae walk the plank, arrr. Try again."
+    },
+    "login": {
+      "summary": "Come aboard successful, ahoy!",
+      "detail": "Ye've successfully come aboard, matey."
+    },
+    "loginUserNotFound": {
+      "summary": "Sailor not found",
+      "detail": "No sailor found with that electronic mail, blast and bother."
+    },
+    "loginInvalidEmail": {
+      "summary": "Electronic mail's a dud",
+      "detail": "The electronic mail ye gave be no good, arrr."
+    },
+    "loginInvalidCredentials": {
+      "summary": "Credentials be fishy",
+      "detail": "The electronic mail or secret word be wrong, savvy."
+    },
+    "loginError": {
+      "summary": "Trouble comin' aboard",
+      "detail": "Couldnae come aboard, arrr. Try again."
+    },
+    "register": {
+      "summary": "Sign On successful, ahoy!",
+      "detail": "Ye've successfully signed on, matey."
+    },
+    "registerError": {
+      "summary": "Trouble signin' on",
+      "detail": "Couldnae complete the signin', arrr. Try again."
+    },
+    "errorTitleCanotBeEmpty": {
+      "summary": "Blast and bother! Error",
+      "detail": "The title cannae be empty, ye scurvy dog."
+    },
+    "taskCreated": {
+      "summary": "Chore created, ahoy!",
+      "detail": "The chore has been successfully created, matey."
+    },
+    "groupUpdated": {
+      "summary": "Crew o' tasks updated, savvy!",
+      "detail": "The crew o' tasks has been successfully updated, arrr."
+    },
+    "taskDeleted": {
+      "summary": "Chore scuttled, ahoy!",
+      "detail": "The chore has been successfully scuttled, matey."
+    },
+    "taskUpdated": {
+      "summary": "Chore trimmed, savvy!",
+      "detail": "The chore has been successfully trimmed, arrr."
+    },
+    "boardCreated": {
+      "summary": "Chart hoisted, ahoy!",
+      "detail": "The chart has been successfully hoisted, matey."
+    },
+    "errorCreatingBoard": {
+      "summary": "Trouble hoistin' the chart",
+      "detail": "Couldnae hoist the chart, arrr. Try again."
+    },
+    "errorLoginout": {
+      "summary": "Trouble walkin' the plank",
+      "detail": "Couldnae walk the plank, arrr. Try again."
+    },
+    "taskGroupCreated": {
+      "summary": "Crew o' tasks created, ahoy!",
+      "detail": "The crew o' tasks has been successfully created, matey."
+    },
+    "taskGroupDeleted": {
+      "summary": "Crew o' tasks scuttled, savvy!",
+      "detail": "The crew o' tasks has been successfully scuttled, arrr."
+    },
+    "errorBoardNotFound": {
+      "summary": "Chart not found, blast and bother!",
+      "detail": "Couldnae find the chart ye be searchin' for, matey."
+    },
+    "errorDeletingBoard": {
+      "summary": "Trouble scuttlin' the chart",
+      "detail": "Couldnae scuttle the chart, arrr. Try again."
+    }
+  }
+}

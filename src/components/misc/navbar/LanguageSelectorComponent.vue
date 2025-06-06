@@ -22,6 +22,10 @@ export default {
               label: 'Español',
               icon: 'fi fi-es',
               command: () => { this.changeLanguage('es'); }
+            },
+            {
+              label: '🏴‍☠️ Arrr!',
+              command: () => { this.changeLanguage('en_pi'); }
             }
           ]
         }
@@ -52,6 +56,9 @@ export default {
     </template>
     <template v-else-if="getCurrentLanguage() === 'es'">
       <i class="fi fi-es" />
+    </template>
+    <template v-else-if="getCurrentLanguage() === 'en_pi'">
+      <span class="text-xl">🏴‍☠️</span>
     </template>
     <template v-else>
       <i class="pi pi-language" />
