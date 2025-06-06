@@ -81,7 +81,7 @@ export default {
     },
     async addTask() {
       if (this.taskToCreate.title.trim() === '') {
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task title cannot be empty', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorTitleCanotBeEmpty.summary'), detail: this.$t('toasts.errorTitleCanotBeEmpty.detail'), life: 3000 });
         return;
       }
       const boardId = this.$route.params.boardId;
@@ -96,16 +96,16 @@ export default {
         order: 0,
         severity: ''
       }
-      this.$toast.add({ severity: 'success', summary: 'Created successfully', detail: 'Task created successfully', life: 3000 });
+      this.$toast.add({ severity: 'success', summary: this.$t('toasts.taskCreated.summary'), detail: this.$t('toasts.taskCreated.detail'), life: 3000 });
     },
     async saveEditTaskGroup() {
       if (!this.groupToEdit.title.trim()) {
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Group title cannot be empty', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorTitleCanotBeEmpty.summary'), detail: this.$t('toasts.errorTitleCanotBeEmpty.detail'), life: 3000 });
         return;
       }
       this.localTaskGroup.title = this.groupToEdit.title;
       this.isEditGroupDialogVisible = false;
-      this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Group updated', life: 3000 });
+      this.$toast.add({ severity: 'success', summary: this.$t('toasts.groupUpdated.summary'), detail: this.$t('toasts.groupUpdated.detail'), life: 3000 });
       const boardId = this.$route.params.boardId;
       const taskGroupId = this.localTaskGroup.id;
       await updateTaskGroup(boardId, taskGroupId, this.localTaskGroup);
@@ -129,7 +129,7 @@ export default {
       await deleteTask(boardId, taskGroupId, taskId);
       this.localTaskGroup.tasks = this.localTaskGroup.tasks.filter(task => task.id !== taskId);
       await this.updateReorderedTaskGroup();
-      this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Task deleted', life: 3000 });
+      this.$toast.add({ severity: 'info', summary: this.$t('toasts.taskDeleted.summary'), detail: this.$t('toasts.taskDeleted.detail'), life: 3000 });
     },
     deleteTaskGroup() {
       this.$emit('delete-task-group', this.taskGroup.id);
@@ -174,7 +174,7 @@ export default {
         console.log('Task ID:', editedTask.id);
         console.log('Edited Task:', editedTask);
         await editTask(boardId, taskGroupId, editedTask.id, editedTask);
-        this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Task updated', life: 3000 });
+        this.$toast.add({ severity: 'success', summary: this.$t('toasts.taskUpdated.summary'), detail: this.$t('toasts.taskUpdated.detail'), life: 3000 });
 
       }
     }

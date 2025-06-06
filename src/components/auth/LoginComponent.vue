@@ -21,21 +21,21 @@ export default {
       try {
         const user = await login(this.email, this.password);
         console.log('User loged: ', user);
-        this.$toast.add({ severity: 'success', summary: 'Login successful', detail: 'You have successfully logged in', life: 3000 });
+        this.$toast.add({ severity: 'success', summary: this.$t('toasts.login.summary'), detail: this.$t('toasts.login.detail'), life: 3000 });
         this.$router.push('/');
       } catch (error) {
         switch (error) {
           case 'auth/user-not-found':
-            this.$toast.add({ severity: 'error', summary: 'User not found', detail: 'The user with the provided email does not exist', life: 3000 });
+            this.$toast.add({ severity: 'error', summary: this.$t('toasts.loginUserNotFound.summary'), detail: this.$t('toasts.loginUserNotFound.detail'), life: 3000 });
             break;
           case 'auth/invalid-email':
-            this.$toast.add({ severity: 'error', summary: 'Invalid email', detail: 'The email is invalid', life: 3000 });
+            this.$toast.add({ severity: 'error', summary: this.$t('toasts.loginInvalidEmail.summary'), detail: this.$t('toasts.loginInvalidEmail.detail'), life: 3000 });
             break;
           case "auth/invalid-credential":
-            this.$toast.add({ severity: 'error', summary: 'Invalid credential', detail: 'The credential is invalid', life: 3000 });
+            this.$toast.add({ severity: 'error', summary: this.$t('toasts.loginInvalidCredentials.summary'), detail: this.$t('toasts.loginInvalidCredentials.detail'), life: 3000 });
             break;
           default:
-            this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while loging in', life: 3000 });
+            this.$toast.add({ severity: 'error', summary: this.$t('toasts.loginError.summary'), detail: this.$t('toasts.loginError.detail'), life: 3000 });
             break;
         }
         console.error('Error logging in:', error);

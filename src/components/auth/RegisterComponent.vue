@@ -20,10 +20,10 @@ export default {
       try {
         const user = await register(this.email, this.password, this.displayName);
         console.log('User registered: ', user);
-        this.$toast.add({ severity: 'success', summary: 'Registration successful', detail: 'You have successfully registered', life: 3000 });
+        this.$toast.add({ severity: 'success', summary: this.$t('toasts.register.summary'), detail: this.$t('toasts.register.detail'), life: 3000 });
         this.$router.push('/');
       } catch (error) {
-        this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error ocurred while registrating new user', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.registerError.summary'), detail: this.$t('toasts.registerError.detail'), life: 3000 });
         console.error('Error registering:', error);
       }
     }

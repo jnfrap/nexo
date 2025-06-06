@@ -23,9 +23,9 @@ export default {
     logout() {
       try {
         logout();
-        this.$toast.add({ severity: 'success', summary: 'Logout successful', detail: 'You have successfully logged out', life: 3000 });
+        this.$toast.add({ severity: 'success', summary: this.$t('toasts.logout.summary'), detail: this.$t('toasts.logout.detail'), life: 3000 });
       } catch (error) {
-        this.$toast.add({ severity: 'error', summary: 'Error ocurred', detail: 'An error was ocurred while logging out', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.logoutError.summary'), detail: this.$t('toasts.logoutError.detail'), life: 3000 });
         console.error('Error logging out:', error);
       }
     }

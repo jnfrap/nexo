@@ -38,7 +38,7 @@ export default {
   methods: {
     async addTaskGroup() {
       if (this.taskGroupToCreate.title.trim() === '') {
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task group title cannot be empty', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorTitleCanotBeEmpty.summary'), detail: this.$t('toasts.errorTitleCanotBeEmpty.detail'), life: 3000 });
         return;
       }
 
@@ -50,7 +50,7 @@ export default {
         order: 0,
       }
       this.taskGroups = reorderTaskGroupsArray(this.taskGroups);
-      this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
+      this.$toast.add({ severity: 'success', summary: this.$t('toasts.taskGroupCreated.summary'), detail: this.$t('toasts.taskGroupCreated.detail'), life: 3000 });
     },
     async updateReorderedTaskGroups() {
       this.taskGroups = this.taskGroups.map((tg, index) => {
@@ -65,7 +65,7 @@ export default {
       this.taskGroups = this.taskGroups.filter(tg => tg.id !== taskGroupId);
       const boardId = this.$route.params.boardId;
       await deleteTaskGroup(boardId, taskGroupId)
-      this.$toast.add({ severity: 'success', summary: 'Deleted succesfully', detail: 'Task group deleted succesfully', life: 3000 });
+      this.$toast.add({ severity: 'success', summary: this.$t('toasts.taskGroupDeleted.summary'), detail: this.$t('toasts.taskGroupDeleted.detail'), life: 3000 });
     }
   },
   async mounted() {

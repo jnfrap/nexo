@@ -94,7 +94,7 @@ export default {
     },
     saveEditTask() {
       if (!this.editTaskData.title.trim()) {
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Title cannot be empty', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorTitleCanotBeEmpty.summary'), detail: this.$t('toasts.errorTitleCanotBeEmpty.detail'), life: 3000 });
         return;
       }
       this.$emit('edit-task', { ...this.editTaskData, id: this.task.id });
