@@ -40,21 +40,21 @@ export default {
     <FloatLabel variant="in" class="w-full">
       <InputText id="email" v-model="email" class="w-full border border-slate-300 rounded-lg p-4 text-md" type="email"
         autocomplete="off" />
-      <label for="email">Email</label>
+      <label for="email">{{ this.$t('authView.registerForm.emailLabel') }}</label>
     </FloatLabel>
     <FloatLabel variant="in" class="w-full">
       <InputText id="displayName" v-model="displayName" class="w-full border border-slate-300 rounded-lg p-4 text-md"
         autocomplete="off" :maxlength=15 />
-      <label for="displayName">Nombre de usuario</label>
+      <label for="displayName">{{ this.$t('authView.registerForm.usernameLabel') }}</label>
     </FloatLabel>
     <FloatLabel variant="in" class="w-full">
       <InputText id="password" v-model="password" class="w-full border border-slate-300 rounded-lg p-4 text-md"
         type="password" autocomplete="off" />
-      <label for="password">Contraseña</label>
+      <label for="password">{{ this.$t('authView.registerForm.passwordLabel') }}</label>
     </FloatLabel>
     <div class="flex justify-center w-full">
       <button @click="register"
-        class="bg-fuchsia-600 cursor-pointer text-white px-4 py-2 rounded-lg text-lg hover:bg-fuchsia-900 transition-all">Guardar</button>
+        class="bg-fuchsia-600 cursor-pointer text-white px-4 py-2 rounded-lg text-lg hover:bg-fuchsia-900 transition-all">{{ this.$t('authView.registerForm.registerButton') }}</button>
     </div>
   </div>
 

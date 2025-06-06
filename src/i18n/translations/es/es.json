@@ -111,5 +111,24 @@
         "cancelButton": "Cancelar"
       }
     }
+  },
+  "authView": {
+    "loginForm": {
+      "title": "Iniciar sesión",
+      "emailLabel": "Correo electrónico",
+      "passwordLabel": "Contraseña",
+      "loginButton": "Iniciar sesión",
+      "dontHaveAccountLabel": "¿No tienes una cuenta?",
+      "goToRegisterButton": "Registrate"
+    },
+    "registerForm": {
+      "title": "Registrarse",
+      "emailLabel": "Correo electrónico",
+      "usernameLabel": "Nombre de usuario",
+      "passwordLabel": "Contraseña",
+      "registerButton": "Registrarse",
+      "alreadyHaveAccountLabel": "¿Ya tienes una cuenta?",
+      "goToLoginButton": "Inicia sesión"
+    }
   }
 }
