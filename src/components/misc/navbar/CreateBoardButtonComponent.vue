@@ -78,8 +78,13 @@ export default {
 </script>
 
 <template>
-  <Button :label="this.$t('navbar.createBoardButton.label')" icon="pi pi-plus" class="p-button-raised p-button-primary"
-    @click="isDialogVisible = true" />
+  <Button
+    :label="this.$t('navbar.createBoardButton.label')"
+    icon="pi pi-plus mr-2"
+    class="bg-[#d208f3] rounded-[50px] text-[17px] h-1/2 min-w-[150px] w-fit px-3 border-none hover:bg-[#b800d6] cursor-pointer font-bold text-white"
+    @click="isDialogVisible = true"
+    unstyled
+  />
 
   <Dialog v-model:visible="isDialogVisible" modal :header="this.$t('navbar.createBoardButton.dialog.title')" :style="{ width: '25rem' }"
     :closable=false position="center" :draggable="false" @keydown.enter.prevent="createBoard()"

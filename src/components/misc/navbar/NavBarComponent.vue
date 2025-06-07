@@ -46,9 +46,11 @@ export default {
           </div>
         </RouterLink>
         <div class="w-6"></div>
-        <CreateBoardButtonComponent v-if="currentPath === '/'"/>
-        <div class="w-3"></div>
-        <RecentBoardsComponent v-if="currentPath === '/'" />
+        <div class="flex items-center gap-[10px]">
+          <CreateBoardButtonComponent v-if="currentPath === '/'" />
+          <div class="w-3"></div>
+          <RecentBoardsComponent v-if="currentPath === '/'" />
+        </div>
       </div>
 
       <div class="flex items-center gap-[10px] w-fit">
