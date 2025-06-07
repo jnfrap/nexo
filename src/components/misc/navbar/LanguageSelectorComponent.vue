@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-reserved-component-names -->
 <script>
 import { Button, Menu } from 'primevue'
 
@@ -47,7 +48,7 @@ export default {
 </script>
 
 <template>
-  <Button @click.stop="toggleMenu($event)">
+  <Button @click.stop="toggleMenu($event)" class="cursor-pointer text-white" unstyled>
     <template v-if="!getCurrentLanguage()">
       <i class="pi pi-language" />
     </template>
