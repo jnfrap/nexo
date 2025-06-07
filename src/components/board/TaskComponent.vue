@@ -36,25 +36,27 @@ export default {
       serverityOptions: [
         { severity: Severity.LOW },
         { severity: Severity.MEDIUM },
-        { severity: Severity.HIGH }
-      ],
-      menuItems: [
+        { severity: Severity.URGENT }
+      ]
+    }
+  },
+  computed: {
+    menuItems() {
+      return [
         {
-          label: 'Edit',
-          icon: 'pi pi-fw pi-pencil',
+          label: this.$t('boardView.task.contextMenu.editButton'),
+          icon: 'pi pi-pencil',
           command: () => {
             this.editTaskData = { ...this.task };
             this.isEditDialogVisible = true;
           }
         },
         {
-          label: 'Delete',
-          icon: 'pi pi-fw pi-trash',
-          command: () => {
-            this.confirmDeletion();
-          }
+          label: this.$t('boardView.task.contextMenu.deleteButton'),
+          icon: 'pi pi-trash',
+          command: this.confirmDeletion
         }
-      ]
+      ];
     }
   },
   methods: {
@@ -63,16 +65,16 @@ export default {
     },
     confirmDeletion() {
       this.$confirm.require({
-        message: `Are you sure you want to delete the task ${this.task.title}?`,
-        header: 'Confirmation',
+        message: `${this.$t('boardView.task.deleteDialog.message')} ${this.task.title}?`,
+        header: this.$t('boardView.task.deleteDialog.title'),
         icon: 'pi pi-exclamation-triangle',
         rejectProps: {
-          label: 'Cancel',
+          label: this.$t('boardView.task.deleteDialog.cancelButton'),
           severity: 'secondary',
           outlined: true
         },
         acceptProps: {
-          label: 'Delete',
+          label: this.$t('boardView.task.deleteDialog.confirmButton'),
           severity: 'danger',
         },
         accept: () => {
@@ -85,14 +87,14 @@ export default {
 
     },
     getSeverityLabel(severity) {
-      return getSeverityLabel(severity);
+      return getSeverityLabel(severity, this.$t);
     },
     getSeverityStyle(severity) {
       return getSeverityStyle(severity);
     },
     saveEditTask() {
       if (!this.editTaskData.title.trim()) {
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Title cannot be empty', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorTitleCanotBeEmpty.summary'), detail: this.$t('toasts.errorTitleCanotBeEmpty.detail'), life: 3000 });
         return;
       }
       this.$emit('edit-task', { ...this.editTaskData, id: this.task.id });
@@ -120,13 +122,13 @@ export default {
 
   <ContextMenu ref="menu" :model="menuItems" />
 
-  <Dialog v-model:visible="isEditDialogVisible" modal header="Editing Task" :style="{ width: '25rem' }" :closable="false"
+  <Dialog v-model:visible="isEditDialogVisible" modal :header="this.$t('boardView.task.editDialog.title')" :style="{ width: '25rem' }" :closable="false"
     position="center" :draggable="false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
         <InputText id="edit_title" v-model="editTaskData.title" autocomplete="off" class="resize-none w-full"
           :maxlength="20" />
-        <label for="edit_title">Title</label>
+        <label for="edit_title">{{ this.$t('boardView.task.editDialog.titleLabel') }}</label>
       </FloatLabel>
       <div class="card flex justify-center flex-wrap gap-4">
         <Button v-for="option in serverityOptions" :key="option.severity" :severity="getSeverityStyle(option.severity)"
@@ -135,8 +137,8 @@ export default {
           @click="editTaskData.severity = option.severity" />
       </div>
       <div class="flex justify-end gap-2 mt-4">
-        <Button label="Cancel" class="p-button-text" @click="isEditDialogVisible = false" />
-        <Button label="Save" icon="pi pi-check" class="p-button-primary" @click="saveEditTask" />
+        <Button :label="this.$t('boardView.task.editDialog.cancelButton')" class="p-button-text" @click="isEditDialogVisible = false" />
+        <Button :label="this.$t('boardView.task.editDialog.saveButton')" icon="pi pi-check" class="p-button-primary" @click="saveEditTask" />
       </div>
     </div>
   </Dialog>

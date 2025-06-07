@@ -20,6 +20,12 @@
       "welcomeLabel": "Bienvenido",
       "settingsButton": "Configuración",
       "logoutButton": "Cerrar sesión"
+    },
+    "notificationButton": {
+      "noNotifications": "No tienes notificaciones",
+      "notification1": "¡Bienvenido/a a Nexo!",
+      "notification2": "Tienes una tarea pendiente",
+      "notification3": "La reunión ha sido reprogramada"
     }
   },
   "mainView": {
@@ -39,6 +45,186 @@
         "confirmButton": "Eliminar",
         "cancelButton": "Cancelar"
       }
+    }
+  },
+  "boardView": {
+    "navbar": {
+      "menu": {
+        "label": "Opciones del tablero",
+        "editTitle": "Editar título",
+        "changeBackground": "Cambiar fondo",
+        "shareBoard": "Compartir tablero",
+        "archiveBoard": "Archivar tablero",
+        "deleteBoard": "Eliminar tablero"
+      }
+    },
+    "addTaskGroupButton": {
+      "label": "Añadir grupo de tareas",
+      "dialog": {
+        "title": "Añadiendo grupo de tareas",
+        "titleLabel": "Titulo",
+        "addButton": "Añadir",
+        "cancelButton": "Cancelar"
+      }
+    },
+    "addTaskButton": {
+      "label": "Añadir tarea",
+      "dialog": {
+        "title": "Añadiendo tarea",
+        "titleLabel": "Titulo",
+        "addButton": "Añadir",
+        "cancelButton": "Cancelar"
+      }
+    },
+    "severities": {
+      "low": "Baja",
+      "medium": "Media",
+      "urgent": "Urgente"
+    },
+    "taskGroup": {
+      "contextMenu": {
+        "editButton": "Editar grupo de tareas",
+        "deleteButton": "Eliminar grupo de tareas"
+      },
+      "editDialog": {
+        "title": "Editando grupo de tareas",
+        "titleLabel": "Título",
+        "saveButton": "Guardar",
+        "cancelButton": "Cancelar"
+      },
+      "deleteDialog": {
+        "title": "Confirmación",
+        "message": "¿Estás seguro de que quieres eliminar el grupo de tareas",
+        "confirmButton": "Eliminar",
+        "cancelButton": "Cancelar"
+      }
+    },
+    "task": {
+      "contextMenu": {
+        "editButton": "Editar tarea",
+        "deleteButton": "Eliminar tarea"
+      },
+      "editDialog": {
+        "title": "Editando tarea",
+        "titleLabel": "Título",
+        "saveButton": "Guardar",
+        "cancelButton": "Cancelar"
+      },
+      "deleteDialog": {
+        "title": "Confirmación",
+        "message": "¿Estás seguro de que quieres eliminar la tarea",
+        "confirmButton": "Eliminar",
+        "cancelButton": "Cancelar"
+      }
+    }
+  },
+  "authView": {
+    "loginForm": {
+      "title": "Iniciar sesión",
+      "emailLabel": "Correo electrónico",
+      "passwordLabel": "Contraseña",
+      "loginButton": "Iniciar sesión",
+      "dontHaveAccountLabel": "¿No tienes una cuenta?",
+      "goToRegisterButton": "Registrate"
+    },
+    "registerForm": {
+      "title": "Registrarse",
+      "emailLabel": "Correo electrónico",
+      "usernameLabel": "Nombre de usuario",
+      "passwordLabel": "Contraseña",
+      "registerButton": "Registrarse",
+      "alreadyHaveAccountLabel": "¿Ya tienes una cuenta?",
+      "goToLoginButton": "Inicia sesión"
+    }
+  },
+  "toasts": {
+    "errorLoadingBoards": {
+      "summary": "Error al cargar los tableros",
+      "detail": "No se pudieron cargar los tableros. Por favor, inténtalo de nuevo más tarde."
+    },
+    "logout": {
+      "summary": "Sesión cerrada",
+      "detail": "Has cerrado sesión correctamente."
+    },
+    "logoutError": {
+      "summary": "Error al cerrar sesión",
+      "detail": "No se pudo cerrar la sesión. Por favor, inténtalo de nuevo."
+    },
+    "login": {
+      "summary": "Inicio de sesión exitoso",
+      "detail": "Has iniciado sesión correctamente."
+    },
+    "loginUserNotFound": {
+      "summary": "Usuario no encontrado",
+      "detail": "No se encontró un usuario con ese correo electrónico."
+    },
+    "loginInvalidEmail": {
+      "summary": "Correo electrónico inválido",
+      "detail": "El correo electrónico proporcionado no es válido."
+    },
+    "loginInvalidCredentials": {
+      "summary": "Credenciales inválidas",
+      "detail": "El correo electrónico o la contraseña son incorrectos."
+    },
+    "loginError": {
+      "summary": "Error al iniciar sesión",
+      "detail": "No se pudo iniciar sesión. Por favor, inténtalo de nuevo."
+    },
+    "register": {
+      "summary": "Registro exitoso",
+      "detail": "Te has registrado correctamente."
+    },
+    "registerError": {
+      "summary": "Error al registrarse",
+      "detail": "No se pudo completar el registro. Por favor, inténtalo de nuevo."
+    },
+    "errorTitleCanotBeEmpty": {
+      "summary": "Error",
+      "detail": "El título no puede estar vacío."
+    },
+    "taskCreated": {
+      "summary": "Tarea creada",
+      "detail": "La tarea se ha creado correctamente."
+    },
+    "groupUpdated": {
+      "summary": "Grupo de tareas actualizado",
+      "detail": "El grupo de tareas se ha actualizado correctamente."
+    },
+    "taskDeleted": {
+      "summary": "Tarea eliminada",
+      "detail": "La tarea se ha eliminado correctamente."
+    },
+    "taskUpdated": {
+      "summary": "Tarea actualizada",
+      "detail": "La tarea se ha actualizado correctamente."
+    },
+    "boardCreated": {
+      "summary": "Tablero creado",
+      "detail": "El tablero se ha creado correctamente."
+    },
+    "errorCreatingBoard": {
+      "summary": "Error al crear el tablero",
+      "detail": "No se pudo crear el tablero. Por favor, inténtalo de nuevo."
+    },
+    "errorLoginout": {
+      "summary": "Error al cerrar sesión",
+      "detail": "No se pudo cerrar la sesión. Por favor, inténtalo de nuevo."
+    },
+    "taskGroupCreated": {
+      "summary": "Grupo de tareas creado",
+      "detail": "El grupo de tareas se ha creado correctamente."
+    },
+    "taskGroupDeleted": {
+      "summary": "Grupo de tareas eliminado",
+      "detail": "El grupo de tareas se ha eliminado correctamente."
+    },
+    "errorBoardNotFound": {
+      "summary": "Tablero no encontrado",
+      "detail": "No se pudo encontrar el tablero solicitado."
+    },
+    "errorDeletingBoard": {
+      "summary": "Error al eliminar el tablero",
+      "detail": "No se pudo eliminar el tablero. Por favor, inténtalo de nuevo."
     }
   }
 }

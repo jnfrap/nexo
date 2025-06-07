@@ -47,7 +47,7 @@ export default {
         await logout();
         this.$router.push('/auth');
       } catch (error) {
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cerrar sesión', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorLoginout.summary'), detail: this.$t('toasts.detail.summary'), life: 3000 });
         console.error(error);
       }
     }

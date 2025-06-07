@@ -38,7 +38,7 @@ export default {
   methods: {
     async addTaskGroup() {
       if (this.taskGroupToCreate.title.trim() === '') {
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task group title cannot be empty', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorTitleCanotBeEmpty.summary'), detail: this.$t('toasts.errorTitleCanotBeEmpty.detail'), life: 3000 });
         return;
       }
 
@@ -50,7 +50,7 @@ export default {
         order: 0,
       }
       this.taskGroups = reorderTaskGroupsArray(this.taskGroups);
-      this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Task group created succesfully', life: 3000 });
+      this.$toast.add({ severity: 'success', summary: this.$t('toasts.taskGroupCreated.summary'), detail: this.$t('toasts.taskGroupCreated.detail'), life: 3000 });
     },
     async updateReorderedTaskGroups() {
       this.taskGroups = this.taskGroups.map((tg, index) => {
@@ -65,7 +65,7 @@ export default {
       this.taskGroups = this.taskGroups.filter(tg => tg.id !== taskGroupId);
       const boardId = this.$route.params.boardId;
       await deleteTaskGroup(boardId, taskGroupId)
-      this.$toast.add({ severity: 'success', summary: 'Deleted succesfully', detail: 'Task group deleted succesfully', life: 3000 });
+      this.$toast.add({ severity: 'success', summary: this.$t('toasts.taskGroupDeleted.summary'), detail: this.$t('toasts.taskGroupDeleted.detail'), life: 3000 });
     }
   },
   async mounted() {
@@ -107,25 +107,25 @@ export default {
           <TaskGroupComponent :taskGroup="tg" @delete-task-group="localDeleteTaskGroup" />
         </div>
         <div class="flex-shrink-0">
-          <Button type="button" label="Add task group" icon="pi pi-plus" @click="isDialogVisible = true"
+          <Button type="button" :label="this.$t('boardView.addTaskGroupButton.label')" icon="pi pi-plus" @click="isDialogVisible = true"
             class="w-40 h-12" />
         </div>
       </draggable>
     </div>
 
-    <Dialog v-model:visible="isDialogVisible" modal header="Creating new Task Group" :style="{ width: '25rem' }"
+    <Dialog v-model:visible="isDialogVisible" modal :header="this.$t('boardView.addTaskGroupButton.dialog.title')" :style="{ width: '25rem' }"
       :closable=false position="center" :draggable="false" @keydown.enter.prevent="addTaskGroup()"
       @keydown.esc.prevent="isDialogVisible = false">
       <div class="flex flex-col gap-2 my-2">
         <FloatLabel variant="on">
           <InputText id="in_label" v-model="taskGroupToCreate.title" autocomplete="off" class="resize-none w-full"
             :maxlength=20 />
-          <label for="in_label">Title</label>
+          <label for="in_label">{{ this.$t('boardView.addTaskGroupButton.dialog.titleLabel') }}</label>
         </FloatLabel>
 
         <div class="flex justify-end gap-2">
-          <Button label="Cancel" class="p-button-text" @click="isDialogVisible = false" />
-          <Button label="Create" icon="pi pi-check" class="p-button-primary" @click="addTaskGroup()" />
+          <Button :label="this.$t('boardView.addTaskGroupButton.dialog.cancelButton')" class="p-button-text" @click="isDialogVisible = false" />
+          <Button :label="this.$t('boardView.addTaskGroupButton.dialog.addButton')" icon="pi pi-check" class="p-button-primary" @click="addTaskGroup()" />
         </div>
       </div>
     </Dialog>

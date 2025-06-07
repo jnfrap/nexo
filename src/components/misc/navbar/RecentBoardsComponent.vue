@@ -1,15 +1,17 @@
+<!-- eslint-disable vue/no-reserved-component-names -->
 <script>
 import Popover from 'primevue/popover';
 import { storage } from '@/shared/storage';
 import { maxBoardsInRecentBoards } from '@/shared/constants';
+import Button from 'primevue/button';
 
 export default {
   components: {
-    Popover
+    Popover,
+    Button
   },
   data() {
     return {
-      selectedBoard: null,
       storage: storage,
     }
   },
@@ -18,8 +20,7 @@ export default {
       this.$refs.op.toggle(event);
     },
     selectBoard(board) {
-      this.selectedBoard = board;
-      this.selectedBoard.lastAccessedAt = new Date().toISOString();
+      board.lastAccessedAt = new Date().toISOString();
       this.storage.boards = this.storage.boards.map(b => {
         if (b.id === board.id) {
           return { ...b, lastAccessedAt: board.lastAccessedAt };
@@ -44,15 +45,13 @@ export default {
 
 <template>
   <div class="card flex justify-center">
-    <button type="button" @click="toggle"
-      class="min-w-48 cursor-pointer rounded-lg bg-fuchsia-500 text-white hover:bg-fuchsia-600">
-      <i class="pi pi-chevron-down mr-2"></i>
-      {{ selectedBoard ? selectedBoard.title : this.$t('navbar.recentBoards') }}
-    </button>
+    <Button type="button" @click="toggle"
+      class="bg-[#d208f3] rounded-[50px] text-[17px] min-w-[150px] w-fit px-3 border-none hover:bg-[#b800d6] cursor-pointer font-bold text-white h-[30px]"
+      :label="this.$t('navbar.recentBoards')" icon="pi pi-chevron-down mr-2" unstyled />
     <Popover ref="op">
       <div class="flex flex-col gap-4">
         <div>
-          <span class="font-medium block mb-2">{{this.$t('navbar.recentBoards')}}</span>
+          <span class="font-medium block mb-2">{{ this.$t('navbar.recentBoards') }}</span>
           <ul class="list-none p-0 m-0 flex flex-col">
             <li v-for="board in recentBoards" :key="board.id"
               class="flex items-center gap-2 px-2 py-3 hover:bg-fuchsia-100 cursor-pointer rounded"

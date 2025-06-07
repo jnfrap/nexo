@@ -8,12 +8,12 @@ export default {
     AppButton: Button,
     Popover
   },
-  data() {
-    return {
-      notifications: [
-        '¡Bienvenido/a a Nexo!',
-        'Tienes una tarea pendiente',
-        'La reunión ha sido reprogramada'
+  computed: {
+    notifications() {
+      return [
+        this.$t('navbar.notificationButton.notification1'),
+        this.$t('navbar.notificationButton.notification2'),
+        this.$t('navbar.notificationButton.notification3')
       ]
     }
   },
@@ -40,7 +40,7 @@ export default {
     </AppButton>
 
     <Popover ref="panelRef" :dismissable="true" :showCloseIcon="true" style="width: 300px">
-      <p v-if="notifications.length === 0" class="text-gray-500 italic">No hay notificaciones</p>
+      <p v-if="notifications.length === 0" class="text-gray-500 italic">{{ this.$t('navbar.notificationButton.noNotifications') }}</p>
       <ul v-else class="space-y-3">
         <li v-for="(n, index) in notifications" :key="index"
           class="bg-fuchsia-100 text-fuchsia-900 p-3 rounded shadow flex items-center justify-between">
