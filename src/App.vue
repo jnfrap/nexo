@@ -44,7 +44,7 @@ export default {
           storage.filteredBoards = reorderBoarsdArray(boardsList);
         }, (error) => {
           console.error('Error ocurred while getting boards', error);
-          this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Ocurrió un error al obtener los tableros.', life: 3000 });
+          this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorLoadingBoards.summary'), detail: this.$t('toasts.errorLoadingBoards.detail'), life: 3000 });
         });
       } else {
         storage.boards = [];

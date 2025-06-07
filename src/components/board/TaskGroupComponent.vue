@@ -33,33 +33,37 @@ export default {
         title: '',
         order: 0
       },
-      menuItems: [
-        {
-          label: 'Edit',
-          icon: 'pi pi-fw pi-pencil',
-          command: () => {
-            this.groupToEdit.title = this.localTaskGroup.title;
-            this.isEditGroupDialogVisible = true;
-          }
-        },
-        {
-          label: 'Delete',
-          icon: 'pi pi-fw pi-trash',
-          command: () => {
-            this.confirmDeletion();
-          }
-        }
-      ],
       severityOptions: [
         { severity: Severity.LOW },
         { severity: Severity.MEDIUM },
-        { severity: Severity.HIGH }
+        { severity: Severity.URGENT }
       ],
       taskToCreate: {
         title: '',
         severity: '',
         order: 0
       }
+    }
+  },
+  computed: {
+    menuItems() {
+      return [
+        {
+          label: this.$t('boardView.taskGroup.contextMenu.editButton'),
+          icon: 'pi pi-pencil',
+          command: () => {
+            this.groupToEdit.title = this.localTaskGroup.title;
+            this.isEditGroupDialogVisible = true;
+          }
+        },
+        {
+          label: this.$t('boardView.taskGroup.contextMenu.deleteButton'),
+          icon: 'pi pi-trash',
+          command: () => {
+            this.confirmDeletion();
+          }
+        }
+      ];
     }
   },
   emits: [
@@ -77,7 +81,7 @@ export default {
     },
     async addTask() {
       if (this.taskToCreate.title.trim() === '') {
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Task title cannot be empty', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorTitleCanotBeEmpty.summary'), detail: this.$t('toasts.errorTitleCanotBeEmpty.detail'), life: 3000 });
         return;
       }
       const boardId = this.$route.params.boardId;
@@ -92,16 +96,16 @@ export default {
         order: 0,
         severity: ''
       }
-      this.$toast.add({ severity: 'success', summary: 'Created successfully', detail: 'Task created successfully', life: 3000 });
+      this.$toast.add({ severity: 'success', summary: this.$t('toasts.taskCreated.summary'), detail: this.$t('toasts.taskCreated.detail'), life: 3000 });
     },
     async saveEditTaskGroup() {
       if (!this.groupToEdit.title.trim()) {
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Group title cannot be empty', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorTitleCanotBeEmpty.summary'), detail: this.$t('toasts.errorTitleCanotBeEmpty.detail'), life: 3000 });
         return;
       }
       this.localTaskGroup.title = this.groupToEdit.title;
       this.isEditGroupDialogVisible = false;
-      this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Group updated', life: 3000 });
+      this.$toast.add({ severity: 'success', summary: this.$t('toasts.groupUpdated.summary'), detail: this.$t('toasts.groupUpdated.detail'), life: 3000 });
       const boardId = this.$route.params.boardId;
       const taskGroupId = this.localTaskGroup.id;
       await updateTaskGroup(boardId, taskGroupId, this.localTaskGroup);
@@ -125,23 +129,23 @@ export default {
       await deleteTask(boardId, taskGroupId, taskId);
       this.localTaskGroup.tasks = this.localTaskGroup.tasks.filter(task => task.id !== taskId);
       await this.updateReorderedTaskGroup();
-      this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Task deleted', life: 3000 });
+      this.$toast.add({ severity: 'info', summary: this.$t('toasts.taskDeleted.summary'), detail: this.$t('toasts.taskDeleted.detail'), life: 3000 });
     },
     deleteTaskGroup() {
       this.$emit('delete-task-group', this.taskGroup.id);
     },
     confirmDeletion() {
       this.$confirm.require({
-        message: `Are you sure you want to delete the task group ${this.taskGroup.title}?`,
-        header: 'Confirmation',
+        message: `${this.$t('boardView.taskGroup.deleteDialog.message')} ${this.taskGroup.title}?`,
+        header: this.$t('boardView.taskGroup.deleteDialog.title'),
         icon: 'pi pi-exclamation-triangle',
         rejectProps: {
-          label: 'Cancel',
+          label: this.$t('boardView.taskGroup.deleteDialog.cancelButton'),
           severity: 'secondary',
           outlined: true
         },
         acceptProps: {
-          label: 'Delete',
+          label: this.$t('boardView.taskGroup.deleteDialog.confirmButton'),
           severity: 'danger',
         },
         accept: () => {
@@ -153,7 +157,7 @@ export default {
       return getSeverityIcon(severity);
     },
     getSeverityLabel(severity) {
-      return getSeverityLabel(severity);
+      return getSeverityLabel(severity, this.$t);
     },
     getSeverityStyle(severity) {
       return getSeverityStyle(severity);
@@ -170,7 +174,7 @@ export default {
         console.log('Task ID:', editedTask.id);
         console.log('Edited Task:', editedTask);
         await editTask(boardId, taskGroupId, editedTask.id, editedTask);
-        this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Task updated', life: 3000 });
+        this.$toast.add({ severity: 'success', summary: this.$t('toasts.taskUpdated.summary'), detail: this.$t('toasts.taskUpdated.detail'), life: 3000 });
 
       }
     }
@@ -207,19 +211,19 @@ export default {
       <div v-for="t in localTaskGroup.tasks" :key="t.id">
         <TaskComponent :task="t" @delete-task="deleteTask" @edit-task="editTaskData" />
       </div>
-      <Button type="button" icon="pi pi-plus" label="Add Task" class="w-full" size="small"
+      <Button type="button" icon="pi pi-plus" :label="this.$t('boardView.addTaskButton.label')" class="w-full" size="small"
         @click="isDialogVisible = true" />
     </draggable>
   </div>
 
-  <Dialog v-model:visible="isDialogVisible" modal header="Creating new Task" :style="{ width: '25rem' }" :closable=false
+  <Dialog v-model:visible="isDialogVisible" modal :header="this.$t('boardView.addTaskButton.dialog.title')" :style="{ width: '25rem' }" :closable=false
     position="center" :draggable="false" @keydown.enter.prevent="addTask()"
     @keydown.esc.prevent="isDialogVisible = false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
         <InputText id="in_label" v-model="taskToCreate.title" autocomplete="off" class="resize-none w-full"
           :maxlength=20 />
-        <label for="in_label">Title</label>
+        <label for="in_label">{{ this.$t('boardView.addTaskButton.dialog.titleLabel') }}</label>
       </FloatLabel>
 
       <div class="card flex justify-center flex-wrap gap-4">
@@ -230,23 +234,23 @@ export default {
       </div>
 
       <div class="flex justify-end gap-2 mt-4">
-        <Button label="Cancel" class="p-button-text" @click="isDialogVisible = false" />
-        <Button label="Create" icon="pi pi-check" class="p-button-primary" @click="addTask()" />
+        <Button :label="this.$t('boardView.addTaskButton.dialog.cancelButton')" class="p-button-text" @click="isDialogVisible = false" />
+        <Button :label="this.$t('boardView.addTaskButton.dialog.addButton')" icon="pi pi-check" class="p-button-primary" @click="addTask()" />
       </div>
     </div>
   </Dialog>
 
-  <Dialog v-model:visible="isEditGroupDialogVisible" modal header="Editing title group" :style="{ width: '25rem' }"
+  <Dialog v-model:visible="isEditGroupDialogVisible" modal :header="this.$t('boardView.taskGroup.editDialog.title')" :style="{ width: '25rem' }"
     :closable="false" position="center" :draggable="false">
     <div class="flex flex-col gap-4 my-2">
       <FloatLabel variant="on">
         <InputText id="edit_group_title" v-model="groupToEdit.title" autocomplete="off" class="resize-none w-full"
           :maxlength="30" />
-        <label for="edit_group_title">Title</label>
+        <label for="edit_group_title">{{ this.$t('boardView.taskGroup.editDialog.titleLabel') }}</label>
       </FloatLabel>
       <div class="flex justify-end gap-2 mt-4">
-        <Button label="Cancel" class="p-button-text" @click="isEditGroupDialogVisible = false" />
-        <Button label="Save" icon="pi pi-check" class="p-button-primary" @click="saveEditTaskGroup" />
+        <Button :label="this.$t('boardView.taskGroup.editDialog.cancelButton')" class="p-button-text" @click="isEditGroupDialogVisible = false" />
+        <Button :label="this.$t('boardView.taskGroup.editDialog.saveButton')" icon="pi pi-check" class="p-button-primary" @click="saveEditTaskGroup" />
       </div>
     </div>
   </Dialog>

@@ -19,7 +19,13 @@
     "userButton": {
       "welcomeLabel": "Welcome",
       "settingsButton": "Settings",
-      "logoutButton": "Log out"
+      "logoutButton": "Logout"
+    },
+    "notificationButton": {
+      "noNotifications": "You have no notifications",
+      "notification1": "Welcome to Nexo!",
+      "notification2": "You have a pending task",
+      "notification3": "The meeting has been rescheduled"
     }
   },
   "mainView": {
@@ -39,6 +45,186 @@
         "confirmButton": "Delete",
         "cancelButton": "Cancel"
       }
+    }
+  },
+  "boardView": {
+    "navbar": {
+      "menu": {
+        "label": "Board options",
+        "editTitle": "Edit title",
+        "changeBackground": "Change background",
+        "shareBoard": "Share board",
+        "archiveBoard": "Archive board",
+        "deleteBoard": "Delete board"
+      }
+    },
+    "addTaskGroupButton": {
+      "label": "Add task group",
+      "dialog": {
+        "title": "Adding task group",
+        "titleLabel": "Title",
+        "addButton": "Add",
+        "cancelButton": "Cancel"
+      }
+    },
+    "addTaskButton": {
+      "label": "Add task",
+      "dialog": {
+        "title": "Adding task",
+        "titleLabel": "Title",
+        "addButton": "Add",
+        "cancelButton": "Cancel"
+      }
+    },
+    "severities": {
+      "low": "Low",
+      "medium": "Medium",
+      "urgent": "Urgent"
+    },
+    "taskGroup": {
+      "contextMenu": {
+        "editButton": "Edit task group",
+        "deleteButton": "Delete task group"
+      },
+      "editDialog": {
+        "title": "Editing task group",
+        "titleLabel": "Title",
+        "saveButton": "Save",
+        "cancelButton": "Cancel"
+      },
+      "deleteDialog": {
+        "title": "Confirmation",
+        "message": "Are you sure you want to delete the task group",
+        "confirmButton": "Delete",
+        "cancelButton": "Cancel"
+      }
+    },
+    "task": {
+      "contextMenu": {
+        "editButton": "Edit task",
+        "deleteButton": "Delete task"
+      },
+      "editDialog": {
+        "title": "Editing task",
+        "titleLabel": "Title",
+        "saveButton": "Save",
+        "cancelButton": "Cancel"
+      },
+      "deleteDialog": {
+        "title": "Confirmation",
+        "message": "Are you sure you want to delete the task",
+        "confirmButton": "Delete",
+        "cancelButton": "Cancel"
+      }
+    }
+  },
+  "authView": {
+    "loginForm": {
+      "title": "Login",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "loginButton": "Login",
+      "dontHaveAccountLabel": "Don't have an account?",
+      "goToRegisterButton": "Register"
+    },
+    "registerForm": {
+      "title": "Register",
+      "emailLabel": "Email",
+      "usernameLabel": "Username",
+      "passwordLabel": "Password",
+      "registerButton": "Register",
+      "alreadyHaveAccountLabel": "Already have an account?",
+      "goToLoginButton": "Login"
+    }
+  },
+  "toasts": {
+    "errorLoadingBoards": {
+      "summary": "Error loading boards",
+      "detail": "Boards could not be loaded. Please try again later."
+    },
+    "logout": {
+      "summary": "Logged out",
+      "detail": "You have successfully logged out."
+    },
+    "logoutError": {
+      "summary": "Logout error",
+      "detail": "Could not log out. Please try again."
+    },
+    "login": {
+      "summary": "Login successful",
+      "detail": "You have successfully logged in."
+    },
+    "loginUserNotFound": {
+      "summary": "User not found",
+      "detail": "No user found with that email."
+    },
+    "loginInvalidEmail": {
+      "summary": "Invalid email",
+      "detail": "The provided email is invalid."
+    },
+    "loginInvalidCredentials": {
+      "summary": "Invalid credentials",
+      "detail": "Incorrect email or password."
+    },
+    "loginError": {
+      "summary": "Login error",
+      "detail": "Could not log in. Please try again."
+    },
+    "register": {
+      "summary": "Registration successful",
+      "detail": "You have successfully registered."
+    },
+    "registerError": {
+      "summary": "Registration error",
+      "detail": "Could not complete registration. Please try again."
+    },
+    "errorTitleCanotBeEmpty": {
+      "summary": "Error",
+      "detail": "Title cannot be empty."
+    },
+    "taskCreated": {
+      "summary": "Task created",
+      "detail": "The task has been successfully created."
+    },
+    "groupUpdated": {
+      "summary": "Task group updated",
+      "detail": "The task group has been successfully updated."
+    },
+    "taskDeleted": {
+      "summary": "Task deleted",
+      "detail": "The task has been successfully deleted."
+    },
+    "taskUpdated": {
+      "summary": "Task updated",
+      "detail": "The task has been successfully updated."
+    },
+    "boardCreated": {
+      "summary": "Board created",
+      "detail": "The board has been successfully created."
+    },
+    "errorCreatingBoard": {
+      "summary": "Error creating board",
+      "detail": "Could not create the board. Please try again."
+    },
+    "errorLoginout": {
+      "summary": "Logout error",
+      "detail": "Could not log out. Please try again."
+    },
+    "taskGroupCreated": {
+      "summary": "Task group created",
+      "detail": "The task group has been successfully created."
+    },
+    "taskGroupDeleted": {
+      "summary": "Task group deleted",
+      "detail": "The task group has been successfully deleted."
+    },
+    "errorBoardNotFound": {
+      "summary": "Board not found",
+      "detail": "The requested board could not be found."
+    },
+    "errorDeletingBoard": {
+      "summary": "Error deleting board",
+      "detail": "Could not delete the board. Please try again."
     }
   }
 }
