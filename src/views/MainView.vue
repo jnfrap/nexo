@@ -20,7 +20,7 @@ export default {
       try {
         const boardIndex = this.storage.boards.findIndex(board => board.id === boardId);
         if (boardIndex === -1) {
-          this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board not found', life: 3000 });
+          this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorBoardNotFound.summary'), detail: this.$t('toasts.errorBoardNotFound.detail'), life: 3000 });
           throw new Error('Board not found');
         }
 
@@ -28,7 +28,7 @@ export default {
         await deleteBoard(boardId);
       } catch (error) {
         console.error('Error deleting board:', error);
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while deleting the board', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorDeletingBoard.summary'), detail: this.$t('toasts.errorDeletingBoard.detail'), life: 3000 });
       }
     }
   }

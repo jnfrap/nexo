@@ -47,7 +47,7 @@ export default {
     } catch (error) {
       if (error.code !== ErrorCodes.NOT_FOUND) {
         console.error('Error fetching boards:', error);
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An unexpected error occurred while loading boards', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorLoadingBoards.summary'), detail: this.$t('toasts.errorLoadingBoards.detail'), life: 3000 });
       }
     }
   },

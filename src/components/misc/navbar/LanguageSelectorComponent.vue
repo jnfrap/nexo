@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-reserved-component-names -->
 <script>
 import { Button, Menu } from 'primevue'
 
@@ -22,6 +23,10 @@ export default {
               label: 'Español',
               icon: 'fi fi-es',
               command: () => { this.changeLanguage('es'); }
+            },
+            {
+              label: '🏴‍☠️ Arrr!',
+              command: () => { this.changeLanguage('en_pi'); }
             }
           ]
         }
@@ -43,7 +48,7 @@ export default {
 </script>
 
 <template>
-  <Button @click.stop="toggleMenu($event)">
+  <Button @click.stop="toggleMenu($event)" class="cursor-pointer text-white" unstyled>
     <template v-if="!getCurrentLanguage()">
       <i class="pi pi-language" />
     </template>
@@ -52,6 +57,9 @@ export default {
     </template>
     <template v-else-if="getCurrentLanguage() === 'es'">
       <i class="fi fi-es" />
+    </template>
+    <template v-else-if="getCurrentLanguage() === 'en_pi'">
+      <span class="text-xl">🏴‍☠️</span>
     </template>
     <template v-else>
       <i class="pi pi-language" />

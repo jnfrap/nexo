@@ -39,7 +39,7 @@ export default {
     async createBoard() {
       try {
         if (this.boardToCreate.title.trim() === '') {
-          this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Board title cannot be empty', life: 3000 });
+          this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorTitleCanotBeEmpty.summary'), detail: this.$t('toasts.errorTitleCanotBeEmpty.detail'), life: 3000 });
           return;
         }
         const auth = getAuth();
@@ -57,7 +57,7 @@ export default {
         await saveBoard(boardToSave);
 
         this.isDialogVisible = false;
-        this.$toast.add({ severity: 'success', summary: 'Created succesfully', detail: 'Board created succesfully', life: 3000 });
+        this.$toast.add({ severity: 'success', summary: this.$t('toasts.boardCreated.summary'), detail: this.$t('toasts.boardCreated.detail'), life: 3000 });
 
         this.boardToCreate = {
           title: '',
@@ -70,7 +70,7 @@ export default {
         };
       } catch (error) {
         console.error('Error creating board:', error);
-        this.$toast.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while creating the board', life: 3000 });
+        this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorCreatingBoard.summary'), detail: this.$t('toasts.errorCreatingBoard.detail'), life: 3000 });
       }
     }
   }
@@ -78,8 +78,13 @@ export default {
 </script>
 
 <template>
-  <Button :label="this.$t('navbar.createBoardButton.label')" icon="pi pi-plus" class="p-button-raised p-button-primary"
-    @click="isDialogVisible = true" />
+  <Button
+    :label="this.$t('navbar.createBoardButton.label')"
+    icon="pi pi-plus mr-2"
+    class="bg-[#d208f3] rounded-[50px] text-[17px] h-1/2 min-w-[150px] w-fit px-3 border-none hover:bg-[#b800d6] cursor-pointer font-bold text-white"
+    @click="isDialogVisible = true"
+    unstyled
+  />
 
   <Dialog v-model:visible="isDialogVisible" modal :header="this.$t('navbar.createBoardButton.dialog.title')" :style="{ width: '25rem' }"
     :closable=false position="center" :draggable="false" @keydown.enter.prevent="createBoard()"
