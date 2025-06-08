@@ -23,7 +23,24 @@ export default {
         this.$toast.add({ severity: 'success', summary: this.$t('toasts.register.summary'), detail: this.$t('toasts.register.detail'), life: 3000 });
         this.$router.push('/');
       } catch (error) {
-        this.$toast.add({ severity: 'error', summary: this.$t('toasts.registerError.summary'), detail: this.$t('toasts.registerError.detail'), life: 3000 });
+        console.error('Error registering:', error);
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            this.$toast.add({ severity: 'error', summary: this.$t('toasts.emailAlreadyInUse.summary') , detail: this.$t('toasts.emailAlreadyInUse.detail'), life: 3000 });
+            break;
+          case 'auth/invalid-email':
+            this.$toast.add({ severity: 'error', summary: this.$t('toasts.invalidEmail.summary'), detail: this.$t('toasts.invalidEmail.detail'), life: 3000 });
+            break;
+          case 'auth/missing-password':
+            this.$toast.add({ severity: 'error', summary: this.$t('toasts.missingPassword.summary'), detail: this.$t('toasts.missingPassword.detail'), life: 3000 });
+            break;
+          case 'auth/weak-password':
+            this.$toast.add({ severity: 'error', summary: this.$t('toasts.passwordTooShort.summary'), detail: this.$t('toasts.passwordTooShort.detail'), life: 3000 });
+            break;
+          default:
+            this.$toast.add({ severity: 'error', summary: this.$t('toasts.registerError.summary'), detail: this.$t('toasts.registerError.detail'), life: 3000 });
+            break;
+        }
         console.error('Error registering:', error);
       }
     }
