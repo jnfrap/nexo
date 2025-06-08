@@ -20,9 +20,6 @@ export async function login(email, password) {
       return userCredential.user;
     })
     .catch((error) => {
-      // const custumError = new Error("Login failed: " + error.message);
-      // custumError.code = ErrorCodes.AUTHENTICATION_FAILED;
-      // throw custumError;
       throw error.code;
     });
 }
@@ -61,9 +58,6 @@ export async function register(email, password, displayName) {
       return user;
     })
     .catch((error) => {
-      //const custumError = new Error("Registration failed: " + error.message);
-      //custumError.code = ErrorCodes.AUTHENTICATION_FAILED;
-      //throw custumError;
       throw error;
     });
 }

@@ -225,6 +225,22 @@
     "errorDeletingBoard": {
       "summary": "Error al eliminar el tablero",
       "detail": "No se pudo eliminar el tablero. Por favor, inténtalo de nuevo."
+    },
+    "emailAlreadyInUse": {
+      "summary": "Correo electrónico ya en uso",
+      "detail": "El correo electrónico proporcionado ya está asociado a una cuenta existente."
+    },
+    "invalidEmail": {
+      "summary": "Correo electrónico inválido",
+      "detail": "El correo electrónico proporcionado no es válido."
+    },
+    "passwordTooShort": {
+      "summary": "Contraseña demasiado corta",
+      "detail": "La contraseña debe tener al menos 6 caracteres."
+    },
+    "missingPassword": {
+      "summary": "Contraseña requerida",
+      "detail": "Por favor, proporciona una contraseña."
     }
   }
 }
