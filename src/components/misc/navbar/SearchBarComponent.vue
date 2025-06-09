@@ -50,15 +50,16 @@ export default {
         this.$toast.add({ severity: 'error', summary: this.$t('toasts.errorLoadingBoards.summary'), detail: this.$t('toasts.errorLoadingBoards.detail'), life: 3000 });
       }
     }
-  },
+  }
 }
 </script>
 
 <template>
   <IconField>
     <InputIcon class="pi pi-search" />
-    <AutoComplete v-model="selectecBoard" optionLabel="title" :suggestions="storage?.filteredBoards" @complete="search($event)"
-      @input="search({ query: $event.target.value })" :placeholder="this.$t('navbar.searchBar.placeholder')">
+    <AutoComplete v-model="selectecBoard" optionLabel="title" :suggestions="storage?.filteredBoards"
+      @complete="search($event)" @input="search({ query: $event.target.value })"
+      :placeholder="this.$t('navbar.searchBar.placeholder')" @option-select="onOptionSelected($event)">
       <template #empty>
         <div class="p-autocomplete-empty-message">
           {{ this.$t('navbar.searchBar.noResults') }}
