@@ -225,6 +225,22 @@
     "errorDeletingBoard": {
       "summary": "Error deleting board",
       "detail": "Could not delete the board. Please try again."
+    },
+    "emailAlreadyInUse": {
+      "summary": "Email already in use",
+      "detail": "The provided email is already associated with an existing account."
+    },
+    "invalidEmail": {
+      "summary": "Invalid email",
+      "detail": "The provided email is not valid."
+    },
+    "passwordTooShort": {
+      "summary": "Password too short",
+      "detail": "The password must be at least 6 characters long."
+    },
+    "missingPassword": {
+      "summary": "Password required",
+      "detail": "Please provide a password."
     }
   }
 }
