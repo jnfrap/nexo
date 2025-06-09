@@ -1,4 +1,4 @@
-import { db } from "@/firebase/config";
+import { db } from "../../firebase/config";
 import { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { ErrorCodes } from "../enums";
 
