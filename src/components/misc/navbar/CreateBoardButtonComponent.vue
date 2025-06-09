@@ -27,7 +27,6 @@ export default {
       storage: storage,
     }
   },
-
   components: {
     Button,
     Dialog,
@@ -103,7 +102,7 @@ export default {
       </FloatLabel>
       <div class="flex justify-end gap-2 mt-4">
         <Button :label="this.$t('navbar.createBoardButton.dialog.cancelButton')" class="p-button-text" @click="isDialogVisible = false" />
-        <Button :label="this.$t('navbar.createBoardButton.dialog.createButton')" icon="pi pi-check" class="p-button-primary" @click="createBoard()" />
+        <Button :label="this.$t('navbar.createBoardButton.dialog.createButton')" icon="pi pi-check" class="p-button-primary" @click="createBoard()" id="dialogCreateButton" />
       </div>
     </div>
   </Dialog>
