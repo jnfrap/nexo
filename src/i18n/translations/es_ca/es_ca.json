@@ -1,0 +1,246 @@
+{
+    "navbar": {
+        "createBoardButton": {
+            "label": "TSSSSSS-WIIIISSSHHH",
+            "dialog": {
+                "title": "WIIIISSSHH-FIIIIUUU",
+                "titleLabel": "CHIIII-CHIIII",
+                "descriptionLabel": "FIIIUUU-FIIIIUUU-PIIIHH",
+                "createButton": "SHUUU-SHUUU",
+                "cancelButton": "FIIU-FIIU"
+            }
+        },
+        "recentBoards": "WIIIISHH-WIIIISHH-FIIUUU",
+        "chooseLanguage": "TSSS-WIII-CHIIII",
+        "searchBar": {
+            "placeholder": "FIIUUUUU-CHIIIII...",
+            "noResults": "SHHHHH-NOOOO-WIIIU"
+        },
+        "userButton": {
+            "welcomeLabel": "CHIIII-WIIIU",
+            "settingsButton": "TSSS-FIIIIUUU",
+            "logoutButton": "SHHHHH-AWWWOOOO"
+        },
+        "notificationButton": {
+            "noNotifications": "CHIIII-WIIIU-NOOOO",
+            "notification1": "¡WIIISSSHHH-BOOOOM-FIIIIUUU!",
+            "notification2": "PIIIHH-TSSSS-FIIUUU",
+            "notification3": "CHIIII-CHIIII-REEE-FIIIIUUU"
+        }
+    },
+    "mainView": {
+        "boardPreviewMenu": {
+            "editButton": "TSSSS-WIIIU",
+            "deleteButton": "SHHHH-BOOOOM",
+            "editDialog": {
+                "title": "WIIIISSSHHH-TSSSS",
+                "titleLabel": "CHIIII-CHIIII",
+                "descriptionLabel": "FIIIUUU-FIIIIUUU-PIIIHH",
+                "saveButton": "SHUUU-SHUUU",
+                "cancelButton": "FIIU-FIIU"
+            },
+            "deleteDialog": {
+                "title": "CHIIII-WIIIU-PUM",
+                "message": "FIIUUU-TSSSS-WIIIU-BOOOM?",
+                "confirmButton": "SHHHH-BOOOOM",
+                "cancelButton": "FIIU-FIIU"
+            }
+        }
+    },
+    "boardView": {
+        "navbar": {
+            "menu": {
+                "label": "WIIIISSSHHH-CHIIII-PUM",
+                "editTitle": "TSSSS-WIIIU-CHIIII",
+                "changeBackground": "FIIIIUUU-SHUUU-WIII",
+                "shareBoard": "CHIIII-SHUUU-FIIUUU",
+                "archiveBoard": "WIIIU-WIIIU-SHHHH",
+                "deleteBoard": "SHHHH-BOOOOM-WIIIU"
+            }
+        },
+        "addTaskGroupButton": {
+            "label": "PIIIHH-TSSSS-FIIUUU-GRUPO",
+            "dialog": {
+                "title": "WIIIISSSHHH-PIIIHH-GRUPO",
+                "titleLabel": "CHIIII-CHIIII",
+                "addButton": "SHUUU-SHUUU",
+                "cancelButton": "FIIU-FIIU"
+            }
+        },
+        "addTaskButton": {
+            "label": "PIIIHH-TSSSS-FIIUUU-TAREA",
+            "dialog": {
+                "title": "WIIIISSSHHH-PIIIHH-TAREA",
+                "titleLabel": "CHIIII-CHIIII",
+                "addButton": "SHUUU-SHUUU",
+                "cancelButton": "FIIU-FIIU"
+            }
+        },
+        "severities": {
+            "low": "FIIU-CHIIII",
+            "medium": "TSSSS-WIIIU",
+            "urgent": "BOOOOM-SHHHH"
+        },
+        "taskGroup": {
+            "contextMenu": {
+                "editButton": "TSSSS-WIIIU-GRUPO",
+                "deleteButton": "SHHHH-BOOOOM-GRUPO"
+            },
+            "editDialog": {
+                "title": "WIIIISSSHHH-TSSSS-GRUPO",
+                "titleLabel": "CHIIII-CHIIII",
+                "saveButton": "SHUUU-SHUUU",
+                "cancelButton": "FIIU-FIIU"
+            },
+            "deleteDialog": {
+                "title": "CHIIII-WIIIU-PUM",
+                "message": "FIIUUU-TSSSS-WIIIU-BOOOM-GRUPO?",
+                "confirmButton": "SHHHH-BOOOOM",
+                "cancelButton": "FIIU-FIIU"
+            }
+        },
+        "task": {
+            "contextMenu": {
+                "editButton": "TSSSS-WIIIU-TAREA",
+                "deleteButton": "SHHHH-BOOOOM-TAREA"
+            },
+            "editDialog": {
+                "title": "WIIIISSSHHH-TSSSS-TAREA",
+                "titleLabel": "CHIIII-CHIIII",
+                "saveButton": "SHUUU-SHUUU",
+                "cancelButton": "FIIU-FIIU"
+            },
+            "deleteDialog": {
+                "title": "CHIIII-WIIIU-PUM",
+                "message": "FIIUUU-TSSSS-WIIIU-BOOOM-TAREA?",
+                "confirmButton": "SHHHH-BOOOOM",
+                "cancelButton": "FIIU-FIIU"
+            }
+        }
+    },
+    "authView": {
+        "loginForm": {
+            "title": "FIIUUU-WIIIU-CHIIII",
+            "emailLabel": "TSSSS-WIIIU-FIIUUU",
+            "passwordLabel": "SHHHH-BOOOOM-FIIU",
+            "loginButton": "FIIUUU-WIIIU",
+            "dontHaveAccountLabel": "NOOOO-CHIIII-WIIIU?",
+            "goToRegisterButton": "REGIS-TSSS-RAAA"
+        },
+        "registerForm": {
+            "title": "REGIS-TSSS-RAAA",
+            "emailLabel": "TSSSS-WIIIU-FIIUUU",
+            "usernameLabel": "CHIIII-WIIIU-NAME",
+            "passwordLabel": "SHHHH-BOOOOM-FIIU",
+            "registerButton": "REGIS-TSSS-RAAA",
+            "alreadyHaveAccountLabel": "YAAAA-CHIIII-WIIIU?",
+            "goToLoginButton": "FIIUUU-WIIIU-CHIIII"
+        }
+    },
+    "toasts": {
+        "errorLoadingBoards": {
+            "summary": "SHHHH-ERROR-WIIIU",
+            "detail": "NOOOO-SE-PUEDO-FIIUUU-WIIIU-CHIIII."
+        },
+        "logout": {
+            "summary": "AWWWOOOO-CHIIII",
+            "detail": "SHHHH-AWWWOOOO-PIIIHH."
+        },
+        "logoutError": {
+            "summary": "SHHHH-ERROR-AWWWOOOO",
+            "detail": "NOOOO-AWWWOOOO-TSSSS."
+        },
+        "login": {
+            "summary": "FIIUUU-WIIIU-BOOOOM",
+            "detail": "FIIUUU-WIIIU-CHIIII-PIIIHH."
+        },
+        "loginUserNotFound": {
+            "summary": "CHIIII-NOOOO-FIIUUU",
+            "detail": "NOOOO-SE-ENCONTRO-CHIIII-CON-ESE-MAIL."
+        },
+        "loginInvalidEmail": {
+            "summary": "MAIL-NOOOO-VALI-DOOO",
+            "detail": "EL-MAIL-NOOOO-SIRVE."
+        },
+        "loginInvalidCredentials": {
+            "summary": "CREDEN-NOOOO-SIRVEN",
+            "detail": "MAIL-O-CONTRA-MAL."
+        },
+        "loginError": {
+            "summary": "SHHHH-ERROR-FIIUUU-WIIIU",
+            "detail": "NOOOO-SE-PUDO-FIIUUU-WIIIU."
+        },
+        "register": {
+            "summary": "REGIS-TSSS-BOOOOM",
+            "detail": "TE-HAS-REGISTRADO-BIEN."
+        },
+        "registerError": {
+            "summary": "SHHHH-ERROR-REGIS-TSSS",
+            "detail": "NOOOO-SE-PUDO-REGISTRAR."
+        },
+        "errorTitleCanotBeEmpty": {
+            "summary": "SHHHH-ERROR",
+            "detail": "TITULO-NOOOO-VACIO."
+        },
+        "taskCreated": {
+            "summary": "TAREA-CREADA",
+            "detail": "LA-TAREA-ESTA-LISTA."
+        },
+        "groupUpdated": {
+            "summary": "GRUPO-ACTUALIZADO",
+            "detail": "EL-GRUPO-ESTA-LISTO."
+        },
+        "taskDeleted": {
+            "summary": "TAREA-BORRADA",
+            "detail": "LA-TAREA-SE-FUE."
+        },
+        "taskUpdated": {
+            "summary": "TAREA-NUEVA",
+            "detail": "LA-TAREA-CAMBIO."
+        },
+        "boardCreated": {
+            "summary": "TABLERO-HECHO",
+            "detail": "EL-TABLERO-ESTA-LISTO."
+        },
+        "errorCreatingBoard": {
+            "summary": "SHHHH-ERROR-TABLERO",
+            "detail": "NOOOO-SE-PUDO-HACER-TABLERO."
+        },
+        "errorLoginout": {
+            "summary": "SHHHH-ERROR-AWWWOOOO",
+            "detail": "NOOOO-SE-PUDO-AWWWOOOO."
+        },
+        "taskGroupCreated": {
+            "summary": "GRUPO-TAREAS-HECHO",
+            "detail": "EL-GRUPO-ESTA-LISTO."
+        },
+        "taskGroupDeleted": {
+            "summary": "GRUPO-TAREAS-BORRADO",
+            "detail": "EL-GRUPO-SE-FUE."
+        },
+        "errorBoardNotFound": {
+            "summary": "TABLERO-NOOOO-AQUI",
+            "detail": "NOOOO-SE-ENCONTRO-TABLERO."
+        },
+        "errorDeletingBoard": {
+            "summary": "SHHHH-ERROR-BORRANDO-TABLERO",
+            "detail": "NOOOO-SE-PUDO-BORRAR-TABLERO."
+        },
+        "emailAlreadyInUse": {
+            "summary": "MAIL-YA-ESTA",
+            "detail": "ESE-MAIL-YA-LO-USAN."
+        },
+        "invalidEmail": {
+            "summary": "MAIL-NOOOO-VALI-DOOO",
+            "detail": "EL-MAIL-NOOOO-SIRVE."
+        },
+        "passwordTooShort": {
+            "summary": "CONTRA-CORTA",
+            "detail": "LA-CONTRA-NECESITA-MAS-LETRAS."
+        },
+        "missingPassword": {
+            "summary": "FALTA-CONTRA",
+            "detail": "PON-UNA-CONTRA-POR-FA."
+        }
+    }
+}
