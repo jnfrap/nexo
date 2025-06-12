@@ -20,6 +20,8 @@
 
 Nexo is a simple solution for project and task management. Organize your ideas, collaborate with your team, and track your progress intuitively and effectively.
 
+Additionally, you can find the landing website in this repository: [https://github.com/J4v1Dev/nexo-landing](https://github.com/J4v1Dev/nexo-landing)
+
 ### 🧰 Built With
 
 - [![Vue][Vue.js]][Vue-url]
