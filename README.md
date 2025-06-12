@@ -3,7 +3,7 @@
 </p>
 <br />
 <div align="center">
-<h1 align="center">Nexo Landing</h1>
+<h1 align="center">Nexo</h1>
 
   <p align="center">
     A modern and intuitive web application built with Vue.js ✨
